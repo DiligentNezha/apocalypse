@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @mail jingkaihui@adpanshi.com
  */
 @Transactional(rollbackFor = Exception.class)
-@org.springframework.stereotype.Service
 @Service(version = "1.0.0",delay =-1,retries = 0,timeout = 1000*10)
 public class UserServiceImpl extends BaseServiceImpl<UserModel> implements UserService {
 

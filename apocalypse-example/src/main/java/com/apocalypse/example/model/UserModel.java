@@ -24,6 +24,11 @@ public class UserModel extends GeneratedKeysModel {
     private Byte age;
 
     /**
+     * 性别【1：男性；0：女性；2：保密】
+     */
+    private Byte sex;
+
+    /**
      * 获取用户名
      *
      * @return name - 用户名
@@ -76,4 +81,23 @@ public class UserModel extends GeneratedKeysModel {
     public void setAge(Byte age) {
         this.age = age;
     }
+
+    /**
+     * 获取性别【1：男性；0：女性；-1：保密】
+     *
+     * @return sex - 性别【1：男性；0：女性；-1：保密】
+     */
+    public Byte getSex() {
+        return sex;
+    }
+
+    /**
+     * 设置性别【1：男性；0：女性；-1：保密】
+     *
+     * @param sex 性别【1：男性；0：女性；-1：保密】
+     */
+    public void setSex(Byte sex) {
+        this.sex = sex;
+    }
+
 }

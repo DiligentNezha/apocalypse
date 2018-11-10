@@ -1,5 +1,7 @@
 package com.apocalypse.common.service;
 
+import com.apocalypse.common.exception.EmptyingDataException;
+
 import java.util.List;
 
 public interface BaseService <T>{
@@ -7,26 +9,29 @@ public interface BaseService <T>{
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @return 1为成功， 0为失败
      */
     int insert(T record);
 
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @return 1为成功， 0为失败
      */
     int insertSelective(T record);
 
     /**
-     * 根据实体属性作为条件进行删除，查询条件使用等号
+     * 根据实体属性作为条件进行删除，查询条件使用等号,当ignoreRisk为true，
+     * 此时如果record为null，或者record中所有属性都为null，会删除整张表，
+     * 负责抛出异常，不执行本次操作来避免删除整张表的后果。
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @param ignoreRisk 忽略删除整张表的风险，true为忽略，false不忽略
+     * @return 删除的记录条数
      */
-    int delete(T record);
+    int delete(T record, boolean... ignoreRisk) throws EmptyingDataException;
 
     /**
      * 根据主键字段进行删除，方法参数必须包含完整的主键属性
