@@ -9,7 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-front</artifactId>
+    <artifactId>apocalypse-gateway</artifactId>
 
 
 </project>

@@ -10,9 +10,9 @@
 
     <modules>
         <module>apocalypse-common</module>
-        <module>apocalypse-message</module>
+        <module>apocalypse-foundation</module>
         <module>apocalypse-user</module>
-        <module>apocalypse-front</module>
+        <module>apocalypse-gateway</module>
         <module>apocalypse-example</module>
     </modules>
 
