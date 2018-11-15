@@ -1,5 +1,8 @@
 package com.apocalypse.common.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author 景凯辉
  * @date 2018/11/10
@@ -21,6 +24,14 @@ public enum SexEnum {
      * 保密
      */
     S("S", (byte)2, "保密");
+
+    private static final Map<String, Byte> map = new HashMap<>();
+
+    static {
+        map.put(SexEnum.F.code, SexEnum.F.value);
+        map.put(SexEnum.M.code, SexEnum.M.value);
+        map.put(SexEnum.S.code, SexEnum.S.value);
+    }
 
     /**
      * code 码， M为男性，F为女性，S为保密
@@ -65,6 +76,15 @@ public enum SexEnum {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    /**
+     * 根据code获取对应的value
+     * @param code code串
+     * @return value
+     */
+    public static Byte getValue(String code) {
+        return map.get(code);
     }
 
 }
