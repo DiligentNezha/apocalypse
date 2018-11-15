@@ -18,6 +18,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     @Autowired
     private MyMapper<T> myMapper;
 
+    @SuppressWarnings("unchecked")
     public BaseServiceImpl() {
         //得到泛型化的超类
         ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
