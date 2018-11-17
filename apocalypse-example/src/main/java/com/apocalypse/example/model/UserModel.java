@@ -24,7 +24,7 @@ public class UserModel extends GeneratedKeysModel {
     private Byte age;
 
     /**
-     * 性别【1：男性；0：女性；2：保密】
+     * 性别【0：女性；1：男性；2：保密】
      */
     private Byte sex;
 
@@ -83,21 +83,20 @@ public class UserModel extends GeneratedKeysModel {
     }
 
     /**
-     * 获取性别【1：男性；0：女性；-1：保密】
+     * 获取性别【0：女性；1：男性；2：保密】
      *
-     * @return sex - 性别【1：男性；0：女性；-1：保密】
+     * @return sex - 性别【0：女性；1：男性；2：保密】
      */
     public Byte getSex() {
         return sex;
     }
 
     /**
-     * 设置性别【1：男性；0：女性；-1：保密】
+     * 设置性别【0：女性；1：男性；2：保密】
      *
-     * @param sex 性别【1：男性；0：女性；-1：保密】
+     * @param sex 性别【0：女性；1：男性；2：保密】
      */
     public void setSex(Byte sex) {
         this.sex = sex;
     }
-
 }

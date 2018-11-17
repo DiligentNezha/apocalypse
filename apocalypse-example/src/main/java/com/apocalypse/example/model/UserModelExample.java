@@ -423,66 +423,6 @@ public class UserModelExample {
             addCriterion("sex not between", value1, value2, "sex");
             return (Criteria) this;
         }
-
-        public Criteria andAdultIsNull() {
-            addCriterion("adult is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultIsNotNull() {
-            addCriterion("adult is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultEqualTo(Boolean value) {
-            addCriterion("adult =", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultNotEqualTo(Boolean value) {
-            addCriterion("adult <>", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultGreaterThan(Boolean value) {
-            addCriterion("adult >", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("adult >=", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultLessThan(Boolean value) {
-            addCriterion("adult <", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultLessThanOrEqualTo(Boolean value) {
-            addCriterion("adult <=", value, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultIn(List<Boolean> values) {
-            addCriterion("adult in", values, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultNotIn(List<Boolean> values) {
-            addCriterion("adult not in", values, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultBetween(Boolean value1, Boolean value2) {
-            addCriterion("adult between", value1, value2, "adult");
-            return (Criteria) this;
-        }
-
-        public Criteria andAdultNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("adult not between", value1, value2, "adult");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {

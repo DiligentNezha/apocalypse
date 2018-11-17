@@ -30,7 +30,9 @@
          <javaClientGenerator targetPackage="com.apocalypse.example.mapper.simple" targetProject="src/main/java"
                               type="XMLMAPPER"/>
 
-         <table tableName="t_example_user" domainObjectName="UserModel">
+         <table tableName="t_example_user" domainObjectName="UserModel" enableSelectByExample="false"
+                enableDeleteByExample="false" enableUpdateByExample="false" enableCountByExample="false"
+                >
              <!--mysql 配置-->
              <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
              <!--oracle 配置-->

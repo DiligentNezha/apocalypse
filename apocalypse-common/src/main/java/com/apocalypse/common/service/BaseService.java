@@ -4,7 +4,7 @@ import com.apocalypse.common.exception.EmptyingDataException;
 
 import java.util.List;
 
-public interface BaseService <T>{
+public interface BaseService<T> {
 
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
