@@ -42,17 +42,17 @@
         <mapper-spring-boot-starter.version>2.0.2</mapper-spring-boot-starter.version>
 
         <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
-        <druid.version>1.1.10</druid.version>
+        <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
 
 
         <!-- 工具部分 -->
         <fastjson.version>1.2.49</fastjson.version>
+        <javafaker.version>0.16</javafaker.version>
 
         <!-- 分布式服务部分 -->
         <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
         <zookeeper.version>3.4.6</zookeeper.version>
         <zkclient.version>0.10</zkclient.version>
-
 
         <!-- 测试部分 -->
 
@@ -101,8 +101,8 @@
 
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid-spring-boot-starter.version}</version>
         </dependency>
 
         <!-- Spring Boot Dubbo 依赖-->
@@ -119,6 +119,11 @@
             <version>${fastjson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${javafaker.version}</version>
+        </dependency>
 
         <!-- Spring Boot Test 依赖 -->
         <dependency>
