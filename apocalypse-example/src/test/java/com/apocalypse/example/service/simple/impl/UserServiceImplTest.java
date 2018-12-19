@@ -23,7 +23,7 @@ import java.util.Random;
 /**
  * @author 景凯辉
  * @date 2018/11/9
- * @mail jingkaihui@adpanshi.com
+ * @mail kaihuijing@gmail.com
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExampleApplication.class)
@@ -115,7 +115,6 @@ public class UserServiceImplTest {
     @Test
     public void selectCount() {
         UserModel userModel = new UserModel();
-        userModel.setSex(SexEnum.M.getValue());
         int i = userService.selectCount(userModel);
         logger.info("count : " + i);
     }

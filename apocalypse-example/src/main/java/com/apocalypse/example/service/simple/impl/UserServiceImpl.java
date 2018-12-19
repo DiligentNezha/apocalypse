@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author 景凯辉
  * @date 2018/11/9
- * @mail jingkaihui@adpanshi.com
+ * @mail kaihuijing@gmail.com
  */
 @Transactional(rollbackFor = Exception.class)
 @Service(version = "1.0.0",delay =-1,retries = 0,timeout = 1000*10)

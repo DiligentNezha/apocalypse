@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author 景凯辉
  * @date 2018/11/9
- * @mail jingkaihui@adpanshi.com
+ * @mail kaihuijing@gmail.com
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.apocalypse.example.mapper")

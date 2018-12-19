@@ -3,7 +3,7 @@ package com.apocalypse.common.exception;
 /**
  * @author 景凯辉
  * @date 2018/11/10
- * @mail jingkaihui@adpanshi.com
+ * @mail kaihuijing@gmail.com
  */
 public class EmptyingDataException extends Exception {
 

@@ -6,9 +6,9 @@
 <generatorConfiguration>
     <properties resource="application-dev.properties"/>
 
-    <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
-        <!-- 不生成ModelExample-->
-        <!--<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">-->
+    <!-- 不生成ModelExample-->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--<context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">-->
         <property name="javaFileEncoding" value="UTF-8" />
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
@@ -30,18 +30,16 @@
          <javaClientGenerator targetPackage="com.apocalypse.example.mapper.simple" targetProject="src/main/java"
                               type="XMLMAPPER"/>
 
-         <table tableName="t_example_user" domainObjectName="UserModel" enableSelectByExample="false"
+         <table tableName="t_example_demo" domainObjectName="DemoModel" enableSelectByExample="false"
                 enableDeleteByExample="false" enableUpdateByExample="false" enableCountByExample="false"
                 >
              <!--mysql 配置-->
              <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-             <!--oracle 配置-->
-             <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
-             <!--
-                如果数据库字段为bit类型长度大于1时默认生成的java类型为byte[]，不方便编码，因此指定为java.lang.Byte会比较好，
-                但是需注意byte值范围为-128~127之间，如果数据库字段bit长度大于8，请根据实际情况指定合适的javaType
-             -->
-             <columnOverride column="sex" javaType="java.lang.Byte" jdbcType="bit"/>
+             <columnOverride column="sex" javaType="java.lang.Integer" jdbcType="tinyint"/>
+             <columnOverride column="birthday" javaType="java.time.LocalDate" jdbcType="date"/>
+
+             <columnOverride column="fcd" javaType="java.time.LocalDateTime" jdbcType="timestamp"/>
+             <columnOverride column="lmd" javaType="java.time.LocalDateTime" jdbcType="timestamp"/>
         </table>
     </context>
 </generatorConfiguration>
