@@ -1,5 +1,9 @@
 package com.apocalypse.example.model;
 
+import com.alibaba.fastjson.JSONObject;
+import com.apocalypse.common.mybatis.type.JsonTypeHandler;
+import tk.mybatis.mapper.annotation.ColumnType;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
@@ -15,6 +19,9 @@ public class DemoModel {
     private Integer sex;
 
     private LocalDate birthday;
+
+    @ColumnType(typeHandler = JsonTypeHandler.class)
+    private JSONObject extend;
 
     private String fcu;
 
@@ -78,6 +85,20 @@ public class DemoModel {
      */
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    /**
+     * @return extend
+     */
+    public JSONObject getExtend() {
+        return extend;
+    }
+
+    /**
+     * @param extend
+     */
+    public void setExtend(JSONObject extend) {
+        this.extend = extend;
     }
 
     /**

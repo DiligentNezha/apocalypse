@@ -48,7 +48,7 @@
         <!-- 工具部分 -->
         <fastjson.version>1.2.49</fastjson.version>
         <javafaker.version>0.16</javafaker.version>
-
+        <hutool-all.version>4.3.1</hutool-all.version>
         <!-- 分布式服务部分 -->
         <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
         <zookeeper.version>3.4.6</zookeeper.version>
@@ -119,6 +119,14 @@
             <version>${fastjson.version}</version>
         </dependency>
 
+        <!-- huttool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+
+        <!-- javafaker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>

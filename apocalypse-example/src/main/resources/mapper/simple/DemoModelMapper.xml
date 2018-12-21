@@ -9,6 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="sex" jdbcType="tinyint" property="sex" />
     <result column="birthday" jdbcType="date" property="birthday" />
+    <result column="extend" jdbcType="json" property="extend" />
     <result column="fcu" jdbcType="VARCHAR" property="fcu" />
     <result column="fcd" jdbcType="timestamp" property="fcd" />
     <result column="lmu" jdbcType="VARCHAR" property="lmu" />

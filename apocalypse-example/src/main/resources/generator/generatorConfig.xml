@@ -37,6 +37,7 @@
              <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
              <columnOverride column="sex" javaType="java.lang.Integer" jdbcType="tinyint"/>
              <columnOverride column="birthday" javaType="java.time.LocalDate" jdbcType="date"/>
+             <columnOverride column="extend" javaType="com.alibaba.fastjson.JSONObject" jdbcType="json"/>
 
              <columnOverride column="fcd" javaType="java.time.LocalDateTime" jdbcType="timestamp"/>
              <columnOverride column="lmd" javaType="java.time.LocalDateTime" jdbcType="timestamp"/>

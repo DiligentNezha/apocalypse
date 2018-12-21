@@ -1,12 +1,10 @@
-package com.apocalypse.example.service.simple.impl;
+package com.apocalypse.example.service.simple;
 
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.enums.SexEnum;
 import com.apocalypse.common.exception.EmptyingDataException;
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.example.model.UserModelExample;
-import com.apocalypse.example.service.simple.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -21,15 +19,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author 景凯辉
- * @date 2018/11/9
- * @mail kaihuijing@gmail.com
+ * @author jingkaihui
+ * @since 2018/12/21
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExampleApplication.class)
-public class UserServiceImplTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImplTest.class);
+public class UserServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
     @Autowired
     private UserService userService;
