@@ -1,7 +1,5 @@
 package com.apocalypse.common.service;
 
-import com.apocalypse.common.exception.EmptyingDataException;
-
 import java.util.List;
 
 public interface BaseService<T> {
@@ -23,15 +21,12 @@ public interface BaseService<T> {
     int insertSelective(T record);
 
     /**
-     * 根据实体属性作为条件进行删除，查询条件使用等号,当ignoreRisk为true，
-     * 此时如果record为null，或者record中所有属性都为null，会删除整张表，
-     * 负责抛出异常，不执行本次操作来避免删除整张表的后果。
+     * 根据实体属性作为条件进行删除，查询条件使用等号
      *
-     * @param record 实体
-     * @param ignoreRisk 忽略删除整张表的风险，true为忽略，false不忽略
-     * @return 删除的记录条数
+     * @param record
+     * @return
      */
-    int delete(T record, boolean... ignoreRisk) throws EmptyingDataException;
+    int delete(T record) ;
 
     /**
      * 根据主键字段进行删除，方法参数必须包含完整的主键属性
@@ -103,6 +98,22 @@ public interface BaseService<T> {
      * @return
      */
     boolean existsWithPrimaryKey(Object key);
+
+    /**
+     * 根据主键字符串进行查询，类中只有存在一个带有@Id注解的字段
+     *
+     * @param ids 如 "1,2,3,4"
+     * @return
+     */
+    List<T> selectByIds(String ids);
+
+    /**
+     * 根据主键字符串进行删除，类中只有存在一个带有@Id注解的字段
+     *
+     * @param ids 如 "1,2,3,4"
+     * @return
+     */
+    int deleteByIds(String ids);
 
     /**
      * 根据Example条件进行查询

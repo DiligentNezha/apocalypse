@@ -1,11 +1,11 @@
 package com.apocalypse.example.service.simple.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.apocalypse.common.service.impl.BaseServiceImpl;
 import com.apocalypse.example.mapper.simple.UserModelMapper;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.example.service.simple.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/11/9
  * @mail kaihuijing@gmail.com
  */
+@Component
 @Transactional(rollbackFor = Exception.class)
-@Service(version = "1.0.0",delay =-1,retries = 0,timeout = 1000*10)
 public class UserServiceImpl extends BaseServiceImpl<UserModel> implements UserService {
 
     @Autowired

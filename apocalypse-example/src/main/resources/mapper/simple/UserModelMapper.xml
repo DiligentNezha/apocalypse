@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.apocalypse.example.mapper.simple.UserModelMapper">
-  <resultMap id="BaseResultMap" type="com.apocalypse.example.model.UserModel">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="real_name" jdbcType="VARCHAR" property="realName" />
-    <result column="age" jdbcType="TINYINT" property="age" />
-    <result column="sex" jdbcType="bit" property="sex" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    id, name, real_name, age, sex
-  </sql>
 </mapper>

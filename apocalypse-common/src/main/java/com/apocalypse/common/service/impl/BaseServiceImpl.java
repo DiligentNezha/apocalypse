@@ -36,20 +36,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public int delete(T record, boolean... ignoreRisk) throws EmptyingDataException {
-        //record不为null，不存在删除整张表的风险
-        if (!isNullModel(record)) {
-            return myMapper.delete(record);
-        } else {
-            //record为null，如果ignoreRisk为true,调用方明确忽略删除整张表的风险
-            if (ignoreRisk != null && ignoreRisk.length > 0 && ignoreRisk[0]) {
-                return myMapper.delete(record);
-            } else {
-                //调用方的操作可能因为record为null，或者ignoreRisk不合法（ignoreRisk不为null但是长度为0或者ignoreRisk长度大于1，但是
-                //第一个元素为false，即调用明确不忽略删除整张表的风险，但是record为null会导致删除整张表），不执行操作并抛出异常告知调用方原因
-                throw new EmptyingDataException();
-            }
-        }
+    public int delete(T record) {
+        return myMapper.delete(record);
     }
 
     @Override
@@ -98,6 +86,16 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List<T> selectByIds(String ids) {
+        return myMapper.selectByIds(ids);
+    }
+
+    @Override
+    public int deleteByIds(String ids) {
+        return myMapper.deleteByIds(ids);
+    }
+
+    @Override
     public List<T> selectByExample(Object example) {
         return myMapper.selectByExample(example);
     }
@@ -123,6 +121,31 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List<T> selectByCondition(Object condition) {
+        return myMapper.selectByCondition(condition);
+    }
+
+    @Override
+    public int selectCountByCondition(Object condition) {
+        return myMapper.selectCountByCondition(condition);
+    }
+
+    @Override
+    public int deleteByCondition(Object condition) {
+        return myMapper.deleteByCondition(condition);
+    }
+
+    @Override
+    public int updateByCondition(T record, Object condition) {
+        return myMapper.updateByCondition(record, condition);
+    }
+
+    @Override
+    public int updateByConditionSelective(T record, Object condition) {
+        return myMapper.updateByConditionSelective(record, condition);
+    }
+
+    @Override
     public int insertList(List<T> recordList) {
         return myMapper.insertList(recordList);
     }
@@ -132,32 +155,4 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return myMapper.insertUseGeneratedKeys(record);
     }
 
-    /**
-     * 根据record判断record是否为null以及record中所有成员属性是否为null
-     * @param record T类型的对象实例
-     * @return 当record为null或者record中所有成员属性为null返回true，否则返回false
-     */
-    private boolean isNullModel(T record) {
-        boolean nullModel = true;
-        if (record != null) {
-            //获取全部列
-            Field[] declaredFields = clazz.getDeclaredFields();
-            for (Field field: declaredFields) {
-                try {
-                    String name = field.getName();
-                    Method declaredMethod =
-                            clazz.getDeclaredMethod("get" + Character.toUpperCase(name.charAt(0)) + name.substring(1));
-                    Object invoke = declaredMethod.invoke(record);
-                    //判断是否有值不为null的成员属性
-                    if (invoke != null) {
-                        nullModel = false;
-                        break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return nullModel;
-    }
 }

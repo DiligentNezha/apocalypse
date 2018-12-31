@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * @author jingkaihui
@@ -51,7 +53,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void delete() throws EmptyingDataException {
+    public void delete() {
         UserModel userModel = new UserModel();
         userModel.setAge((byte) 23);
         int delete = userService.delete(userModel);
@@ -213,4 +215,17 @@ public class UserServiceTest {
         int key = userService.insertUseGeneratedKeys(userModel);
         logger.info("insert success : " + key);
     }
+    @Test
+    public void selectByIds() {
+        List<UserModel> list = userService.selectByIds("10,11,12");
+        for (UserModel userModel : list) {
+            System.out.println(JSONObject.toJSONString(userModel, true));
+        }
+    }
+
+    @Test
+    public void deleteByIds() {
+        userService.deleteByIds("10,11");
+    }
+
 }
