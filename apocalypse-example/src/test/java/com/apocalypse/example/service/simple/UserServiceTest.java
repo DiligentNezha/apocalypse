@@ -88,6 +88,7 @@ public class UserServiceTest {
     public void selectOne() {
         UserModel userModel = new UserModel();
         userModel.setId(2);
+        userModel.setAge((byte) 25);
         UserModel um = userService.selectOne(userModel);
         logger.info(JSONObject.toJSONString(um, true));
     }

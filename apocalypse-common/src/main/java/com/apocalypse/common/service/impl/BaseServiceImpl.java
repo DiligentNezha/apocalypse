@@ -120,30 +120,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return myMapper.updateByExampleSelective(record, example);
     }
 
-    @Override
-    public List<T> selectByCondition(Object condition) {
-        return myMapper.selectByCondition(condition);
-    }
-
-    @Override
-    public int selectCountByCondition(Object condition) {
-        return myMapper.selectCountByCondition(condition);
-    }
-
-    @Override
-    public int deleteByCondition(Object condition) {
-        return myMapper.deleteByCondition(condition);
-    }
-
-    @Override
-    public int updateByCondition(T record, Object condition) {
-        return myMapper.updateByCondition(record, condition);
-    }
-
-    @Override
-    public int updateByConditionSelective(T record, Object condition) {
-        return myMapper.updateByConditionSelective(record, condition);
-    }
 
     @Override
     public int insertList(List<T> recordList) {
