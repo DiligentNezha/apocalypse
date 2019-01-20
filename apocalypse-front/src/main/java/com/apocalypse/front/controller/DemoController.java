@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,9 +17,10 @@ public class DemoController {
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Map<String, String> save(@Validated ValidateModel validateModel) {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> save(@Validated ValidateModel validateModel) {
+        Map<String, Object> map = new HashMap<>();
         map.put("hello", "world");
+        map.put("model", validateModel);
         return map;
     }
 

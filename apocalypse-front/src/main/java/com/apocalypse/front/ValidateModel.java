@@ -1,5 +1,6 @@
 package com.apocalypse.front;
 
+
 import lombok.Data;
 
 import javax.validation.constraints.Email;
