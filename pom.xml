@@ -33,6 +33,10 @@
         <!-- Spring Boot -->
         <springboot.version>2.0.6.RELEASE</springboot.version>
 
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+
+        <swagger-bootstrap-ui.version>1.8.8</swagger-bootstrap-ui.version>
+
         <!-- 编译属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -113,21 +117,41 @@
             <version>${dubbo-spring-boot.version}</version>
         </dependency>
 
-        <!-- fastjson -->
+        <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
 
-        <!-- huttool -->
+        <!-- 工具 lombok https://projectlombok.org/features/all -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+
+        <!-- swagger-ui-layer 默认UI替换 https://github.com/xiaoymin/Swagger-Bootstrap-UI/ -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>${swagger-bootstrap-ui.version}</version>
+        </dependency>
+
+        <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
         </dependency>
 
-        <!-- javafaker -->
+        <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
