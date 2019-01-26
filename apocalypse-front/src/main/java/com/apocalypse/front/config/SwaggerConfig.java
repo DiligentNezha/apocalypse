@@ -1,4 +1,4 @@
-package com.apocalypse.example.config;
+package com.apocalypse.front.config;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("apocalypsea接口文档")
                 .description("学习小天地")
-                .contact(new Contact("景凯辉", "no nrl", "kaihuijing@gmail.com"))
+                .contact(new Contact("机智的小哪吒", "no nrl", "kaihuijing@gmail.com"))
                 .version("1.0.0")
                 .build();
     }
