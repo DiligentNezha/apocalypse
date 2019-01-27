@@ -1,23 +1,20 @@
 package com.apocalypse.front.exception;
 
 import cn.hutool.core.util.StrUtil;
+import com.apocalypse.common.exception.FrontException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.fauxpas.FauxPas;
 import org.zalando.problem.Problem;
 import org.zalando.problem.StatusType;
-import org.zalando.problem.ThrowableProblem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @ControllerAdvice
@@ -27,6 +24,7 @@ public class ExceptionHandling implements ProblemHandling {
     public ResponseEntity<Problem> create(final Throwable throwable, final Problem problem, final NativeWebRequest request, final HttpHeaders headers) {
         HttpStatus status = HttpStatus.valueOf(((StatusType) Optional.ofNullable(problem.getStatus()).orElse(org.zalando.problem.Status.INTERNAL_SERVER_ERROR)).getStatusCode());
         this.log(throwable, problem, request, status);
+
         if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
             request.setAttribute("javax.servlet.error.exception", throwable, 0);
         }
@@ -36,7 +34,8 @@ public class ExceptionHandling implements ProblemHandling {
         }
 
         Problem response1 =
-                Problem.builder().with("code", "F").with("msg", msg).with("problem", problem).build();
+                Problem.builder().with("code", ((FrontException) throwable).getCode()).with("msg", msg).with("problem",
+                        problem).build();
         return this.process((ResponseEntity)this.negotiate(request).map((contentType) -> {
             return ((ResponseEntity.BodyBuilder)ResponseEntity.status(status).headers(headers)).contentType(contentType).body(response1);
         }).orElseGet(FauxPas.throwingSupplier(() -> {

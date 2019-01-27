@@ -32,6 +32,9 @@
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <springboot.version>2.0.6.RELEASE</springboot.version>
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+
+        <swagger-bootstrap-ui.version>1.8.8</swagger-bootstrap-ui.version>
 
         <!-- 编译属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,6 +53,7 @@
         <fastjson.version>1.2.49</fastjson.version>
         <javafaker.version>0.16</javafaker.version>
         <hutool-all.version>4.3.1</hutool-all.version>
+
         <!-- 分布式服务部分 -->
         <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
         <zookeeper.version>3.4.6</zookeeper.version>
@@ -85,6 +89,25 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper-spring-boot-starter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+
+        <!-- swagger-ui-layer 默认UI替换 https://github.com/xiaoymin/Swagger-Bootstrap-UI/ -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>${swagger-bootstrap-ui.version}</version>
         </dependency>
 
         <!--mapper-->

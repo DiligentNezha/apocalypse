@@ -1,15 +1,16 @@
 package com.apocalypse.front.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.apocalypse.common.constant.VersionConsant;
+import com.apocalypse.common.exception.FrontException;
 import com.apocalypse.example.dubbo.simple.DubboUserService;
+import com.apocalypse.example.model.UserModel;
 import com.apocalypse.front.ValidateModel;
-import com.apocalypse.front.exception.FrontException;
+import com.apocalypse.front.biz.UserBusiness;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +19,12 @@ import java.util.Map;
 @RequestMapping("/demo")
 public class DemoController {
 
-    @Reference(version = "1.0.0")
-    private DubboUserService dubboUserService;
+    @Autowired
+    private UserBusiness userBusiness;
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Map<String, Object> save(@Validated ValidateModel validateModel) throws FrontException{
+    public Map<String, Object> save(@Validated ValidateModel validateModel) throws FrontException {
         Map<String, Object> map = new HashMap<>();
         map.put("hello", "world");
         map.put("model", validateModel);
@@ -36,9 +37,8 @@ public class DemoController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/hello")
-    public String hello(String name) {
-        return dubboUserService.sayHello(name);
+    @GetMapping(value = "/user/{userId}")
+    public UserModel user(@PathVariable("userId") String userId) throws FrontException{
+        return userBusiness.getUser(userId);
     }
-
 }
