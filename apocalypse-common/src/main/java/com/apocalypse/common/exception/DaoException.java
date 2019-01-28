@@ -4,31 +4,13 @@ package com.apocalypse.common.exception;
 import lombok.Data;
 
 @Data
-public class DaoException extends Exception{
+public class DaoException extends RuntimeException{
 
     private String code;
 
-    private String msg;
-
-    public DaoException(String code, String msg, Throwable cause) {
-        super(msg, cause);
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public DaoException() {
-        super();
-    }
-
-    public DaoException(String message) {
-        super(message);
-    }
-
-    public DaoException(String message, Throwable cause) {
+    public DaoException(String code, String message, Throwable cause) {
         super(message, cause);
+        this.code = code;
     }
 
-    public DaoException(Throwable cause) {
-        super(cause);
-    }
 }

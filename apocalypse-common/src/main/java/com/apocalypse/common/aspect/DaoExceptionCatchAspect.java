@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DaoExceptionCatchAspect {
 
-    @Pointcut("execution(* com.apocalypse.*.mapper.*.*(..)) || @annotation(com.apocalypse.common.aspect.ThrowAbleAnnotation)")
+    @Pointcut("execution(* com.apocalypse.*.mapper.*.*.*(..)) || @annotation(com.apocalypse.common.aspect" +
+            ".ThrowAbleAnnotation)")
     public void pointCut(){}
 
 

@@ -30,8 +30,8 @@ public class UserBusinessImpl implements UserBusiness {
         try {
             userModel = dubboUserService.getUser(userId);
         } catch (ServiceException e) {
-            logger.error(e.getMsg(), e);
-            throw new FrontException(e.getCode(), e.getMsg(), e);
+            logger.error(e.getMessage(), e);
+            throw new FrontException(e.getCode(), e.getMessage(), e);
         }
         return userModel;
     }

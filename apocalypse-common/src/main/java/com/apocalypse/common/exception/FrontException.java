@@ -4,22 +4,18 @@ package com.apocalypse.common.exception;
 import lombok.Data;
 
 @Data
-public class FrontException extends Exception{
+public class FrontException extends RuntimeException{
 
     private String code;
 
-    private String msg;
-
-    public FrontException(String code, String msg, Throwable cause) {
-        super(msg, cause);
+    public FrontException(String code, String message, Throwable cause) {
+        super(message, cause);
         this.code = code;
-        this.msg = msg;
     }
 
-    public FrontException(String code, String msg) {
-        super(msg);
+    public FrontException(String code, String message) {
+        super(message);
         this.code = code;
-        this.msg = msg;
     }
 
     public FrontException() {

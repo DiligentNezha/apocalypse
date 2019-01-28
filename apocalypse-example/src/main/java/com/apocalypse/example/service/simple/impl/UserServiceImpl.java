@@ -31,16 +31,16 @@ public class UserServiceImpl extends BaseServiceImpl<UserModel> implements UserS
         UserModel user = null;
         try {
             user = userModelMapper.getUser(userId);
+            //处理业务时，预知到的异常
             if (RandomUtil.randomInt() % 2 == 0) {
                 logger.warn("具体业务异常描述");
                 throw new ServiceException("200002", "具体业务异常描述");
             }
-        } catch (ServiceException e) {
-            logger.error(e.getMsg(), e);
-            throw new ServiceException(e.getCode(), e.getMsg(), e);
+            //处理业务时，抛出可能未预知到的异常
+            int i = 10 / RandomUtil.randomInt(3);
         } catch (Exception e) {
             logger.error("获取用户异常", e);
-            throw new ServiceException("100002", "获取用户异常", e);
+            throw new ServiceException(logger, "100002", "获取用户异常", e);
         }
         return user;
     }
