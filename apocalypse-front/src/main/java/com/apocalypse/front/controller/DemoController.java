@@ -1,6 +1,7 @@
 package com.apocalypse.front.controller;
 
 import cn.hutool.core.util.RandomUtil;
+import com.apocalypse.common.dto.JsonResult;
 import com.apocalypse.common.exception.ControllerException;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.front.ValidateModel;
@@ -26,11 +27,13 @@ public class DemoController {
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Map<String, Object> save(@Validated ValidateModel validateModel) throws ControllerException {
-        Map<String, Object> map = new HashMap<>();
-        map.put("hello", "world");
-        map.put("model", validateModel);
-        return map;
+    public JsonResult<ValidateModel> save(@RequestBody @Validated ValidateModel validateModel) throws ControllerException {
+        JsonResult<ValidateModel> objectJsonResult = new JsonResult<>();
+        objectJsonResult.setData(validateModel);
+        objectJsonResult.setCode("20002");
+        objectJsonResult.setMsg("save success");
+        objectJsonResult.setSuccess(true);
+        return objectJsonResult;
     }
 
     @ResponseBody
