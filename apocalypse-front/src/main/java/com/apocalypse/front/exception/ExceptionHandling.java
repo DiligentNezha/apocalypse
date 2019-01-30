@@ -1,6 +1,5 @@
 package com.apocalypse.front.exception;
 
-import cn.hutool.core.util.StrUtil;
 import com.apocalypse.common.exception.FrontException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,59 +7,83 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.zalando.fauxpas.FauxPas;
 import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 import org.zalando.problem.StatusType;
+import org.zalando.problem.ThrowableProblem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.Optional;
 
+import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
+import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
+import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
+import static org.zalando.fauxpas.FauxPas.throwingSupplier;
+
 @ControllerAdvice
-public class ExceptionHandling implements ProblemHandling {
+public class ExceptionHandling implements ProblemHandling, FrontAdviceTrait {
 
     @Override
-    public ResponseEntity<Problem> create(final Throwable throwable, final Problem problem, final NativeWebRequest request, final HttpHeaders headers) {
-        HttpStatus status = HttpStatus.valueOf(((StatusType) Optional.ofNullable(problem.getStatus()).orElse(org.zalando.problem.Status.INTERNAL_SERVER_ERROR)).getStatusCode());
-        this.log(throwable, problem, request, status);
+    public ResponseEntity<Problem> create(final Throwable throwable, final Problem problem,
+                                          final NativeWebRequest request, final HttpHeaders headers) {
 
-        if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
-            request.setAttribute("javax.servlet.error.exception", throwable, 0);
-        }
-        String msg = "访问出错，请查看problem了解详细错误信息";
+        final HttpStatus status = HttpStatus.valueOf(Optional.ofNullable(problem.getStatus())
+                .orElse(Status.INTERNAL_SERVER_ERROR)
+                .getStatusCode());
+
+        log(throwable, problem, request, status);
+
+        String code = "1001";
+
         if (throwable instanceof FrontException) {
-            msg = throwable.getLocalizedMessage();
+            code = ((FrontException) throwable).getCode();
         }
 
-        Problem response1 =
-                Problem.builder().with("code", ((FrontException) throwable).getCode()).with("msg", msg).with("problem",
-                        problem).build();
-        return this.process((ResponseEntity)this.negotiate(request).map((contentType) -> {
-            return ((ResponseEntity.BodyBuilder)ResponseEntity.status(status).headers(headers)).contentType(contentType).body(response1);
-        }).orElseGet(FauxPas.throwingSupplier(() -> {
-            ResponseEntity<Problem> fallback = this.fallback(throwable, problem, request, headers);
-            if (fallback.getBody() == null) {
-                ServerHttpResponse response = new ServletServerHttpResponse((HttpServletResponse)request.getNativeResponse(HttpServletResponse.class));
-                response.setStatusCode(fallback.getStatusCode());
-                response.getHeaders().putAll(fallback.getHeaders());
-                response.getBody();
-                response.flush();
-            }
+        Problem finalProblem;
 
-            return fallback;
-        })), request);
-    }
-
-    public String test(String name) throws FrontException{
-        try {
-            if (StrUtil.isEmpty(name)) {
-                throw new FrontException("具体业务code", "业务失败具体原因");
-            }
-            return name;
-        } catch (Exception e) {
-            //记录日志
-            throw new FrontException();
+        if (throwable instanceof ThrowableProblem) {
+            finalProblem = Problem.builder()
+                    .with("code", code)
+                    .withType(problem.getType())
+                    .withInstance(problem.getInstance())
+                    .withStatus(problem.getStatus())
+                    .withDetail(problem.getDetail())
+                    .withTitle(problem.getTitle())
+                    .withCause(((ThrowableProblem) throwable).getCause()).build();
+        } else {
+            finalProblem = Problem.builder()
+                    .with("code", code)
+                    .withType(problem.getType())
+                    .withInstance(problem.getInstance())
+                    .withStatus(problem.getStatus())
+                    .withDetail(problem.getDetail())
+                    .withTitle(problem.getTitle()).build();
         }
+
+        return process(negotiate(request).map(contentType ->
+                ResponseEntity
+                        .status(status)
+                        .headers(headers)
+                        .contentType(contentType)
+                        .body(finalProblem))
+                .orElseGet(throwingSupplier(() -> {
+                    final ResponseEntity<Problem> fallback = fallback(throwable, finalProblem, request, headers);
+
+                    if (fallback.getBody() == null) {
+                        final ServerHttpResponse response = new ServletServerHttpResponse(
+                                request.getNativeResponse(HttpServletResponse.class));
+
+                        response.setStatusCode(fallback.getStatusCode());
+                        response.getHeaders().putAll(fallback.getHeaders());
+                        response.getBody(); // just so we're actually flushing the body...
+                        response.flush();
+                    }
+
+                    return fallback;
+                })), request);
     }
 }

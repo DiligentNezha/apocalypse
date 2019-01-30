@@ -9,10 +9,10 @@ public class ServiceException extends RuntimeException{
 
     private String code;
 
-    public ServiceException(Logger logger, String code, String message, Throwable cause) {
+    public ServiceException(Logger logger, String code, String message, Throwable cause, String temp, Object... args) {
         super(message, cause);
         this.code = code;
-        wrap(logger, cause);
+        wrap(logger, cause, temp, args);
     }
 
     public ServiceException(String code, String message) {
@@ -20,13 +20,19 @@ public class ServiceException extends RuntimeException{
         this.code = code;
     }
 
-    private void wrap(Logger logger, Throwable e) throws ServiceException{
+    private void wrap(Logger logger, Throwable e, String temp, Object... args) throws ServiceException{
         if (e instanceof DaoException) {
             logger.error(e.getMessage(), e);
             throw new ServiceException(((DaoException) e).getCode(), e.getMessage());
-        }
-        if (e instanceof ServiceException) {
+        } else if (e instanceof ServiceException) {
             throw new ServiceException(((ServiceException) e).getCode(), e.getMessage());
+        } else {
+            if (args != null && args.length > 0) {
+                logger.error(temp, args);
+                logger.error("detail", e);
+            }else {
+                logger.error(temp, e);
+            }
         }
     }
 }
