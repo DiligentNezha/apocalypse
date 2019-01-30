@@ -1,17 +1,15 @@
 package com.apocalypse.front.exception;
 
-import com.apocalypse.common.exception.FrontException;
+import com.apocalypse.common.exception.ControllerException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
@@ -20,12 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
-import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_REQUEST;
 import static org.zalando.fauxpas.FauxPas.throwingSupplier;
 
 @ControllerAdvice
-public class ExceptionHandling implements ProblemHandling, FrontAdviceTrait {
+public class ExceptionHandling implements ProblemHandling, ControllerAdviceTrait {
 
     @Override
     public ResponseEntity<Problem> create(final Throwable throwable, final Problem problem,
@@ -38,9 +35,12 @@ public class ExceptionHandling implements ProblemHandling, FrontAdviceTrait {
         log(throwable, problem, request, status);
 
         String code = "1001";
+        if (throwable instanceof ControllerException) {
+            code = ((ControllerException) throwable).getCode();
+        }
 
-        if (throwable instanceof FrontException) {
-            code = ((FrontException) throwable).getCode();
+        if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
+            request.setAttribute(ERROR_EXCEPTION, throwable, SCOPE_REQUEST);
         }
 
         Problem finalProblem;
@@ -48,6 +48,7 @@ public class ExceptionHandling implements ProblemHandling, FrontAdviceTrait {
         if (throwable instanceof ThrowableProblem) {
             finalProblem = Problem.builder()
                     .with("code", code)
+                    .with("msg", throwable.getMessage())
                     .withType(problem.getType())
                     .withInstance(problem.getInstance())
                     .withStatus(problem.getStatus())
@@ -57,6 +58,7 @@ public class ExceptionHandling implements ProblemHandling, FrontAdviceTrait {
         } else {
             finalProblem = Problem.builder()
                     .with("code", code)
+                    .with("msg", throwable.getMessage())
                     .withType(problem.getType())
                     .withInstance(problem.getInstance())
                     .withStatus(problem.getStatus())

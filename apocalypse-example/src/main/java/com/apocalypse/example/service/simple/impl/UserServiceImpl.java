@@ -33,15 +33,14 @@ public class UserServiceImpl extends BaseServiceImpl<UserModel> implements UserS
             user = userModelMapper.getUser(userId);
             //处理业务时，预知到的异常
             if (RandomUtil.randomInt() % 2 == 0) {
-                logger.warn("具体业务异常描述信息（此处会记录在日志中）");
-                throw new ServiceException("200002", "具体业务异常描述（此处会返回给前端）");
+                logger.warn("Service 层具体业务异常描述信息（此处会记录在日志中）");
+                throw new ServiceException("220002", "Service 具体业务异常描述（此处会返回给前端）");
             }
             //处理业务时，抛出可能未预知到的异常
             int i = 10 / RandomUtil.randomInt(3);
         } catch (Exception e) {
-            String template = "获取用户异常（此处会记录在日志中）用户编号:{}，用户姓名:{}";
-//            logger.error("获取用户异常:{}", e);
-            throw new ServiceException(logger, "100002", "获取用户异常（此处会返回给前端）", e, template, "1021212", "小哪吒");
+            String template = "Service 获取用户异常（此处会记录在日志中）用户编号:{}，用户姓名:{}";
+            throw new ServiceException(logger, "120002", "Service 获取用户异常（此处会返回给前端）", e, template, "cash1021212", "小哪吒");
         }
         return user;
     }
