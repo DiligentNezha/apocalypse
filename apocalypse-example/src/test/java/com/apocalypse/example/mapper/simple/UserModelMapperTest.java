@@ -1,5 +1,6 @@
 package com.apocalypse.example.mapper.simple;
 
+import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.UserModel;
 import org.junit.Test;
@@ -28,4 +29,11 @@ public class UserModelMapperTest {
         userModel.setAge((byte) 24);
         userModelMapper.insert(userModel);
     }
+
+    @Test
+    public void selectOneByProperty() {
+        UserModel userModel = userModelMapper.selectOneByProperty("id", 12);
+        System.out.println(JSONObject.toJSONString(userModel, true));
+    }
+
 }

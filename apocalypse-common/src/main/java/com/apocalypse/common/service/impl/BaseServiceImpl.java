@@ -131,4 +131,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
         return myMapper.insertUseGeneratedKeys(record);
     }
 
+    @Override
+    public T selectOneByProperty(String property, Object value) {
+        return myMapper.selectOneByProperty(property, value);
+    }
 }
