@@ -36,4 +36,9 @@ public class UserModelMapperTest {
         System.out.println(JSONObject.toJSONString(userModel, true));
     }
 
+    @Test
+    public void selectCountByProperty() {
+        int id = userModelMapper.selectCountExistByProperty("name", "机智的小哪吒0");
+        System.out.println(id);
+    }
 }

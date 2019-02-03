@@ -44,4 +44,29 @@ public class CustomSelectProvider extends MapperTemplate {
         return sql.toString();
     }
 
+    /**
+     * 根据属性查询
+     *
+     * @param ms
+     * @return
+     */
+    public String selectCountExistByProperty(MappedStatement ms) {
+        Class<?> entityClass = getEntityClass(ms);
+        //修改返回值类型为实体类型
+//        setResultType(ms, entityClass);
+
+        StringBuilder sql = new StringBuilder();
+        sql.append(SqlHelper.selectCountExists(entityClass));
+        sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
+        sql.append("<where>");
+        //获取全部列
+        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
+        for (EntityColumn column : columnSet) {
+            sql.append("<if test=\"property == '" + column.getProperty() + "'\">\n");
+            sql.append(column.getColumn() + " = #{value,javaType=" + column.getJavaType().getSimpleName() + "}\n");
+            sql.append("</if>");
+        }
+        sql.append("</where>");
+        return sql.toString();
+    }
 }

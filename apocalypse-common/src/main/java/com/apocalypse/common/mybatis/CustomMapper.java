@@ -19,4 +19,14 @@ public interface CustomMapper<T> {
      */
     @SelectProvider(type = CustomSelectProvider.class, method = "dynamicSQL")
     T selectOneByProperty(@Param("property") String property, @Param("value") Object value);
+
+    /**
+     * 根据属性及对应值进行count查询，返回结果数
+     *
+     * @param property 查询属性
+     * @param value 属性值
+     * @return
+     */
+    @SelectProvider(type = CustomSelectProvider.class, method = "dynamicSQL")
+    int selectCountExistByProperty(@Param("property") String property, @Param("value") Object value);
 }
