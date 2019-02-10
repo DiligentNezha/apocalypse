@@ -53,6 +53,7 @@
         <fastjson.version>1.2.49</fastjson.version>
         <javafaker.version>0.16</javafaker.version>
         <hutool-all.version>4.3.1</hutool-all.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
 
         <!-- 分布式服务部分 -->
         <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
@@ -68,18 +69,6 @@
         <springloaded.version>1.2.5.RELEASE</springloaded.version>
 
     </properties>
-
-    <dependencyManagement>
-        <!--<dependencies>-->
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-dependencies</artifactId>-->
-                <!--<version>${springboot.version}</version>-->
-                <!--<type>pom</type>-->
-                <!--<scope>import</scope>-->
-            <!--</dependency>-->
-        <!--</dependencies>-->
-    </dependencyManagement>
 
     <dependencies>
 
@@ -147,6 +136,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- 工具 http://mapstruct.org/ -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
 
         <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
