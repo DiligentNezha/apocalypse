@@ -30,12 +30,11 @@
          <javaClientGenerator targetPackage="com.apocalypse.example.mapper.simple" targetProject="src/main/java"
                               type="XMLMAPPER"/>
 
-         <table tableName="t_example_demo" domainObjectName="DemoModel" enableSelectByExample="false"
+         <table tableName="t_example_user" domainObjectName="UserModel" enableSelectByExample="false"
                 enableDeleteByExample="false" enableUpdateByExample="false" enableCountByExample="false"
                 >
              <!--mysql 配置-->
              <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-             <columnOverride column="sex" javaType="java.lang.Integer" jdbcType="tinyint"/>
              <columnOverride column="birthday" javaType="java.time.LocalDate" jdbcType="date"/>
              <columnOverride column="extend" javaType="com.alibaba.fastjson.JSONObject" jdbcType="json"/>
 

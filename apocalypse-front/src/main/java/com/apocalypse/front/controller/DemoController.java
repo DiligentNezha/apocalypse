@@ -3,6 +3,7 @@ package com.apocalypse.front.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.apocalypse.common.dto.JsonResult;
 import com.apocalypse.common.exception.ControllerException;
+import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.front.ValidateModel;
 import com.apocalypse.front.biz.UserBusiness;
@@ -13,9 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 @RequestMapping("/demo")
 public class DemoController {
@@ -24,6 +22,15 @@ public class DemoController {
 
     @Autowired
     private UserBusiness userBusiness;
+
+    @ResponseBody
+    @PostMapping(value = "/login")
+    public JsonResult<LoginInfoDTO> login(@RequestBody @Validated LoginInfoDTO loginInfoDTO) {
+        JsonResult<LoginInfoDTO> jsonResult = new JsonResult<>();
+        LoginInfoDTO login = userBusiness.login(loginInfoDTO);
+        jsonResult.setData(login);
+        return jsonResult;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -56,4 +63,6 @@ public class DemoController {
         }
         return user;
     }
+
+
 }

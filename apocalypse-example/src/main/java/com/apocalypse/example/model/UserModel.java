@@ -1,11 +1,16 @@
 package com.apocalypse.example.model;
 
-import com.apocalypse.common.model.GeneratedKeysModel;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_example_user")
-public class UserModel extends GeneratedKeysModel {
+public class UserModel implements Serializable {
+    /**
+     * 主键ID
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /**
      * 用户名
@@ -18,6 +23,10 @@ public class UserModel extends GeneratedKeysModel {
     @Column(name = "real_name")
     private String realName;
 
+    private String mail;
+
+    private String password;
+
     /**
      * 用户年龄
      */
@@ -27,6 +36,24 @@ public class UserModel extends GeneratedKeysModel {
      * 性别【0：女性；1：男性；2：保密】
      */
     private Byte sex;
+
+    /**
+     * 获取主键ID
+     *
+     * @return id - 主键ID
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * 设置主键ID
+     *
+     * @param id 主键ID
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * 获取用户名
@@ -62,6 +89,34 @@ public class UserModel extends GeneratedKeysModel {
      */
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    /**
+     * @return mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    /**
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**

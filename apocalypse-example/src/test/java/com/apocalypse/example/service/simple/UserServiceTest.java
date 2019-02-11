@@ -3,6 +3,7 @@ package com.apocalypse.example.service.simple;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.exception.EmptyingDataException;
 import com.apocalypse.example.ExampleApplication;
+import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.example.model.UserModelExample;
 import org.junit.Test;
@@ -229,4 +230,12 @@ public class UserServiceTest {
         userService.deleteByIds("10,11");
     }
 
+    @Test
+    public void login() {
+        LoginInfoDTO loginInfoDTO = new LoginInfoDTO();
+        loginInfoDTO.setMail("499508968@qq.com");
+        loginInfoDTO.setPassword("1234567");
+        LoginInfoDTO login = userService.login(loginInfoDTO);
+        System.out.println(JSONObject.toJSONString(login, true));
+    }
 }

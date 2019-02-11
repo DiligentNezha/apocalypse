@@ -12,7 +12,7 @@
     <artifactId>apocalypse-front</artifactId>
 
     <properties>
-        <problem-spring-web.version>0.23.0</problem-spring-web.version>
+
     </properties>
 
     <dependencies>
@@ -26,15 +26,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>problem-spring-web</artifactId>
-            <version>${problem-spring-web.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>

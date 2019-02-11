@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.apocalypse.common.constant.VersionConsant;
 import com.apocalypse.common.exception.BusinessException;
+import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.dubbo.simple.DubboUserService;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.front.biz.UserBusiness;
@@ -41,5 +42,10 @@ public class UserBusinessImpl implements UserBusiness {
             throw new BusinessException(logger, "140002", "Business 获取用户异常（此处会返回给前端）", e, template, "1021212", "小哪吒");
         }
         return user;
+    }
+
+    @Override
+    public LoginInfoDTO login(LoginInfoDTO loginInfoDTO) {
+        return dubboUserService.login(loginInfoDTO);
     }
 }

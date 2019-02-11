@@ -12,6 +12,7 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.ThrowableProblem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
+import org.zalando.problem.spring.web.advice.validation.ConstraintViolationProblem;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,7 +50,6 @@ public class ExceptionHandling implements ProblemHandling, ControllerAdviceTrait
             finalProblem = Problem.builder()
                     .with("code", code)
                     .with("msg", throwable.getMessage())
-                    .with("problem", problem)
                     .withType(problem.getType())
                     .withInstance(problem.getInstance())
                     .withStatus(problem.getStatus())
@@ -60,22 +60,28 @@ public class ExceptionHandling implements ProblemHandling, ControllerAdviceTrait
             finalProblem = Problem.builder()
                     .with("code", code)
                     .with("msg", throwable.getMessage())
-                    .with("problem", problem)
                     .withType(problem.getType())
                     .withInstance(problem.getInstance())
                     .withStatus(problem.getStatus())
                     .withDetail(problem.getDetail())
                     .withTitle(problem.getTitle()).build();
         }
+        if (problem instanceof ConstraintViolationProblem) {
+            ConstraintViolationProblem finalProblem1 =
+                    new ConstraintViolationProblem(defaultConstraintViolationStatus(),
+                    ((ConstraintViolationProblem) problem).getViolations());
 
+            finalProblem = finalProblem1;
+        }
+        Problem finalProblem1 = finalProblem;
         return process(negotiate(request).map(contentType ->
                 ResponseEntity
                         .status(status)
                         .headers(headers)
                         .contentType(contentType)
-                        .body(finalProblem))
+                        .body(finalProblem1))
                 .orElseGet(throwingSupplier(() -> {
-                    final ResponseEntity<Problem> fallback = fallback(throwable, finalProblem, request, headers);
+                    final ResponseEntity<Problem> fallback = fallback(throwable, finalProblem1, request, headers);
 
                     if (fallback.getBody() == null) {
                         final ServerHttpResponse response = new ServletServerHttpResponse(

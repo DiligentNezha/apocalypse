@@ -3,6 +3,7 @@ package com.apocalypse.example.dubbo.simple.impl;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.apocalypse.common.exception.DubboException;
+import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.dubbo.simple.DubboUserService;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.example.service.simple.UserService;
@@ -40,5 +41,10 @@ public class DubboUserServiceImpl implements DubboUserService {
             throw new DubboException(logger, "130002", "Dubbo 获取用户异常（此处会返回给前端）", e, template, "1021212", "小哪吒");
         }
         return user;
+    }
+
+    @Override
+    public LoginInfoDTO login(LoginInfoDTO loginInfoDTO) {
+        return userService.login(loginInfoDTO);
     }
 }
