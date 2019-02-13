@@ -40,7 +40,7 @@ public class ExceptionHandling implements ProblemHandling, ControllerAdviceTrait
 
         if (problem instanceof ConstraintViolationProblem) {
             builder.with("violations", ((ConstraintViolationProblem) problem).getViolations())
-                    .with("code", ((ConstraintViolationProblem) problem).getCode());
+                    .with("code", "10002");
         } else if (problem instanceof DefaultProblem){
             builder.withCause(((DefaultProblem) problem).getCause())
                     .withDetail(problem.getDetail())

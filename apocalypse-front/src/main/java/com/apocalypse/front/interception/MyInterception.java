@@ -14,7 +14,6 @@ public class MyInterception implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(request);
         if (request instanceof CustomBodyRequestWrapper) {
 //            byte[] contentAsByteArray = ((CustomBodyRequestWrapper) request).getContentAsByteArray();
 //            String sb = new String(contentAsByteArray, "UTF-8");
