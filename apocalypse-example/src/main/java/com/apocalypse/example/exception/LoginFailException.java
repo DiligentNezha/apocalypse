@@ -1,5 +1,6 @@
 package com.apocalypse.example.exception;
 
+import com.apocalypse.common.exception.ProblemMarker;
 import lombok.Getter;
 import lombok.Setter;
 import org.zalando.problem.AbstractThrowableProblem;
@@ -15,7 +16,7 @@ import java.net.URI;
 @Getter
 @Setter
 @Immutable
-public final class LoginFailException  extends AbstractThrowableProblem {
+public final class LoginFailException  extends AbstractThrowableProblem implements ProblemMarker {
 
     static final URI TYPE = URI.create("https://example.org/login-fail");
 

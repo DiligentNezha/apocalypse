@@ -28,6 +28,9 @@ public class DemoController {
     public JsonResult<LoginInfoDTO> login(@RequestBody @Validated LoginInfoDTO loginInfoDTO) {
         JsonResult<LoginInfoDTO> jsonResult = new JsonResult<>();
         LoginInfoDTO login = userBusiness.login(loginInfoDTO);
+        jsonResult.setCode("0");
+        jsonResult.setMsg("success");
+        jsonResult.setSuccess(true);
         jsonResult.setData(login);
         return jsonResult;
     }
