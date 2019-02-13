@@ -41,7 +41,7 @@ public class MyFilter extends OncePerRequestFilter {
 //        outputStream.flush();
 //        outputStream.write(originalBody.getBytes("UTF-8"));
 //        contentCachingResponseWrapper.copyBodyToResponse();
-//        contentCachingResponseWrapper.content.reset();
+        contentCachingResponseWrapper.content.reset();
         contentCachingResponseWrapper.content.write(originalBody.getBytes("UTF-8"));
 
 //        writer.write(originalBody);
