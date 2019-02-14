@@ -1,9 +1,8 @@
 package com.apocalypse.front.http;
 
-import com.alibaba.fastjson.JSONObject;
+import lombok.Getter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.FastByteArrayOutputStream;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.ServletOutputStream;
@@ -11,30 +10,36 @@ import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
-import java.nio.charset.Charset;
 
 /**
  * @author jingkaihui
  * @date 2019/2/13
  */
+@Getter
 public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
 
-    private final FastByteArrayOutputStream content = new FastByteArrayOutputStream(1024);
+    public final FastByteArrayOutputStream content = new FastByteArrayOutputStream(1024);
 
     @Nullable
-    private ServletOutputStream outputStream;
+    public ServletOutputStream outputStream;
 
     @Nullable
-    private PrintWriter writer;
+    public PrintWriter writer;
 
-    private int statusCode = HttpServletResponse.SC_OK;
+    public int statusCode = HttpServletResponse.SC_OK;
 
     @Nullable
-    private Integer contentLength;
+    public Integer contentLength;
 
+
+    /**
+     * Create a new CustomBodyResponseWrapper for the given servlet response.
+     * @param response the original servlet response
+     */
     public CustomBodyResponseWrapper(HttpServletResponse response) {
         super(response);
     }
+
 
     @Override
     public void setStatus(int sc) {
@@ -113,7 +118,7 @@ public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
         this.contentLength = len;
     }
 
-    @Override
+    // Overrides Servlet 3.1 setContentLengthLong(long) at runtime
     public void setContentLengthLong(long len) {
         if (len > Integer.MAX_VALUE) {
             throw new IllegalArgumentException("Content-Length exceeds CustomBodyResponseWrapper's maximum (" +
@@ -204,9 +209,9 @@ public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
     }
 
 
-    private class ResponseServletOutputStream extends ServletOutputStream {
+    public class ResponseServletOutputStream extends ServletOutputStream {
 
-        private final ServletOutputStream os;
+        public final ServletOutputStream os;
 
         public ResponseServletOutputStream(ServletOutputStream os) {
             this.os = os;
@@ -219,7 +224,7 @@ public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
 
         @Override
         public void write(byte[] b, int off, int len) throws IOException {
-            customContent(b);
+            content.write(b, off, len);
         }
 
         @Override
@@ -234,9 +239,9 @@ public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
     }
 
 
-    private class ResponsePrintWriter extends PrintWriter {
+    public class ResponsePrintWriter extends PrintWriter {
 
-        public ResponsePrintWriter(String characterEncoding) throws IOException {
+        public ResponsePrintWriter(String characterEncoding) throws UnsupportedEncodingException {
             super(new OutputStreamWriter(content, characterEncoding));
         }
 
@@ -257,30 +262,6 @@ public class CustomBodyResponseWrapper extends HttpServletResponseWrapper {
             super.write(c);
             super.flush();
         }
-        
-    }
-
-    private void customContent(byte[] b) throws IOException {
-        //原始内容
-        String originalContent = new String(b, Charset.forName("UTF-8"));
-
-        JSONObject originalJsonObject = JSONObject.parseObject(originalContent);
-
-        //出异常时
-        if (!"0".equals(originalJsonObject.getString("code"))) {
-            JSONObject parameter = originalJsonObject.getJSONObject("parameter");
-            originalJsonObject.fluentRemove("parameters")
-                    .fluentPutAll(parameter.getInnerMap());
-
-        } else {
-            //没有进入到统一异常的部分
-            originalJsonObject.fluentPut("code", "10001")
-                    .fluentPut("msg", originalJsonObject.get("message"));
-        }
-
-        content.write(originalJsonObject.toJSONString().getBytes("UTF-8"));
-
-        copyBodyToResponse();
     }
 
 }
