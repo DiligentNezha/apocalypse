@@ -4,7 +4,6 @@ import com.apocalypse.common.exception.ServiceException;
 import com.apocalypse.common.service.BaseService;
 import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.model.UserModel;
-import org.apache.zookeeper.Login;
 
 /**
  * @author 景凯辉

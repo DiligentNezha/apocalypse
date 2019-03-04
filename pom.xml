@@ -14,6 +14,7 @@
         <module>apocalypse-user</module>
         <module>apocalypse-gateway</module>
         <module>apocalypse-example</module>
+        <module>apocalypse-register</module>
         <module>apocalypse-front</module>
     </modules>
 
@@ -27,11 +28,11 @@
         <version>2.0.6.RELEASE</version>
         <relativePath/>
     </parent>
-
     <properties>
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <springboot.version>2.0.6.RELEASE</springboot.version>
+        <spring-cloud-dependencies.version>Finchley.RELEASE</spring-cloud-dependencies.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 
         <swagger-bootstrap-ui.version>1.8.8</swagger-bootstrap-ui.version>
@@ -43,9 +44,9 @@
 
         <!-- 数据库部分 -->
         <mapper.version>3.4.2</mapper.version>
-        <mapper-spring-boot-starter.version>2.0.2</mapper-spring-boot-starter.version>
+        <mapper-spring-boot-starter.version>2.1.4</mapper-spring-boot-starter.version>
 
-        <pagehelper-spring-boot-starter.version>1.2.5</pagehelper-spring-boot-starter.version>
+        <pagehelper-spring-boot-starter.version>1.2.10</pagehelper-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
         <problem-spring-web.version>0.23.0</problem-spring-web.version>
 
@@ -56,9 +57,6 @@
         <mapstruct.version>1.2.0.Final</mapstruct.version>
 
         <!-- 分布式服务部分 -->
-        <dubbo-spring-boot.version>0.2.0</dubbo-spring-boot.version>
-        <zookeeper.version>3.4.6</zookeeper.version>
-        <zkclient.version>0.10</zkclient.version>
 
         <!-- 测试部分 -->
 
@@ -70,71 +68,44 @@
 
     </properties>
 
+    <dependencyManagement>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.zalando</groupId>
+                <artifactId>problem-spring-web</artifactId>
+                <version>${problem-spring-web.version}</version>
+            </dependency>
+
+            <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger2.version}</version>
+            </dependency>
+
+            <!--mapper-->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper-spring-boot-starter.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-
-        <!-- Spring Boot Mybatis 依赖 -->
-
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper-spring-boot-starter.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>problem-spring-web</artifactId>
-            <version>${problem-spring-web.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox-swagger2.version}</version>
-        </dependency>
-
-        <!-- swagger-ui-layer 默认UI替换 https://github.com/xiaoymin/Swagger-Bootstrap-UI/ -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>${swagger-bootstrap-ui.version}</version>
-        </dependency>
-
-        <!--mapper-->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>${mapper-spring-boot-starter.version}</version>
-        </dependency>
-
-        <!-- MySQL 连接驱动依赖 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid-spring-boot-starter.version}</version>
-        </dependency>
-
-        <!-- Spring Boot Dubbo 依赖-->
-        <dependency>
-            <groupId>com.alibaba.boot</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-            <version>${dubbo-spring-boot.version}</version>
-        </dependency>
 
         <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
         <dependency>
@@ -168,6 +139,7 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${javafaker.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Spring Boot Test 依赖 -->
@@ -180,6 +152,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

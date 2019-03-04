@@ -1,8 +1,6 @@
 package com.apocalypse.front.biz.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.apocalypse.common.constant.VersionConsant;
 import com.apocalypse.common.exception.BusinessException;
 import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.dubbo.simple.DubboUserService;
@@ -17,7 +15,6 @@ public class UserBusinessImpl implements UserBusiness {
 
     private static final Logger logger = LoggerFactory.getLogger(UserBusinessImpl.class);
 
-    @Reference(version = VersionConsant.VERSION)
     private DubboUserService dubboUserService;
 
     @Override

@@ -1,9 +1,7 @@
 package com.apocalypse.example.service.simple.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.apocalypse.common.service.impl.BaseServiceImpl;
 import com.apocalypse.example.mapper.simple.DemoModelMapper;
-import com.apocalypse.example.mapper.simple.UserModelMapper;
 import com.apocalypse.example.model.DemoModel;
 import com.apocalypse.example.service.simple.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;

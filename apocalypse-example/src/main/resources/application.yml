@@ -1,0 +1,42 @@
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    tk:
+      mybatis: TRACE
+mapper:
+  check-example-entity-class: true
+  identity: MYSQL
+  mappers: com.apocalypse.common.mybatis.MyMapper
+  not-empty: false
+  safe-delete: true
+  safe-update: true
+  seq-format: true
+  style: camelhumpAndLowercase
+  wrap-keyword: '`{0}`'
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.apocalypse.example.model
+server:
+  port: 9041
+spring:
+  profiles:
+    active: @profileActive@
+  datasource:
+    druid:
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      filters: stat,wall,slf4j
+      maxActive: 20
+      testOnReturn: false
+      validationQuery: SELECT 1 FROM dual
+  application:
+    name: apocalypse-example
+
+debug: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+

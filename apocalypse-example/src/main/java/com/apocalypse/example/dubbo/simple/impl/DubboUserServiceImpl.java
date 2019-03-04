@@ -1,7 +1,6 @@
 package com.apocalypse.example.dubbo.simple.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.dubbo.config.annotation.Service;
 import com.apocalypse.common.exception.DubboException;
 import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.dubbo.simple.DubboUserService;
@@ -11,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Service(version = "1.0.0")
 public class DubboUserServiceImpl implements DubboUserService {
 
     private static final Logger logger = LoggerFactory.getLogger(DubboUserServiceImpl.class);

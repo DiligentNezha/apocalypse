@@ -1,5 +1,7 @@
 package com.apocalypse.example.service.simple;
 
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.exception.EmptyingDataException;
 import com.apocalypse.example.ExampleApplication;
@@ -16,7 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;

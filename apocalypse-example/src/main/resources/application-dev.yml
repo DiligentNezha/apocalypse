@@ -1,0 +1,17 @@
+debug: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+logging:
+  path: E:/apocalypse/logs
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    name: druid
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/apocalypse_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
+    username: root
