@@ -1,4 +1,4 @@
-package com.apocalypse.example.mappings;
+package com.apocalypse.example.mapping;
 
 import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.model.UserModel;

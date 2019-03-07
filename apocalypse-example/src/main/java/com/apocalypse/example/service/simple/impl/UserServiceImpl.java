@@ -6,7 +6,7 @@ import com.apocalypse.common.service.impl.BaseServiceImpl;
 import com.apocalypse.example.dto.LoginInfoDTO;
 import com.apocalypse.example.exception.LoginFailException;
 import com.apocalypse.example.mapper.simple.UserModelMapper;
-import com.apocalypse.example.mappings.UserModelMapping;
+import com.apocalypse.example.mapping.UserModelMapping;
 import com.apocalypse.example.model.UserModel;
 import com.apocalypse.example.service.simple.UserService;
 import org.slf4j.Logger;

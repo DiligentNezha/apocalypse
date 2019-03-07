@@ -1,10 +1,4 @@
 debug: true
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    hostname: localhost
 logging:
   path: E:/apocalypse/logs
 spring:
@@ -15,3 +9,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/apocalypse_db?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false
     username: root
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
