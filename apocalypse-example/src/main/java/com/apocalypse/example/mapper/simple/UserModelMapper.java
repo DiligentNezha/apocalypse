@@ -5,7 +5,7 @@ import com.apocalypse.common.mybatis.MyMapper;
 import com.apocalypse.example.model.UserModel;
 import org.apache.ibatis.annotations.Select;
 
-public interface UserModelMapper extends MyMapper<UserModel> {
+public interface UserModelMapper extends MyMapper<UserModel, Integer> {
 
     @Select("select * from t_example_user where id = #{1}")
     UserModel getUser(String userId) throws DaoException;

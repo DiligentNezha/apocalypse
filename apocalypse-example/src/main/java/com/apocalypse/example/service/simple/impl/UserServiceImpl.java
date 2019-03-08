@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 /**
  * @author 景凯辉
  * @date 2018/11/9
@@ -22,11 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl extends BaseServiceImpl<UserModel> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<UserModel, Integer> implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
+    @Resource
     private UserModelMapper userModelMapper;
 
     @Override

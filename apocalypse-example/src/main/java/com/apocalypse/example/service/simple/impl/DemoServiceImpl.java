@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
 /**
  * @author 景凯辉
  * @date 2018/11/9
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional(rollbackFor = Exception.class)
-public class DemoServiceImpl extends BaseServiceImpl<DemoModel> implements DemoService {
+public class DemoServiceImpl extends BaseServiceImpl<DemoModel, Integer> implements DemoService {
 
     @Autowired
     private DemoModelMapper demoModelMapper;

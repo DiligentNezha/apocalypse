@@ -8,6 +8,6 @@ import com.apocalypse.example.model.DemoModel;
  * @date 2018/11/9
  * @mail kaihuijing@gmail.com
  */
-public interface DemoService extends BaseService<DemoModel> {
+public interface DemoService extends BaseService<DemoModel, Integer> {
 
 }

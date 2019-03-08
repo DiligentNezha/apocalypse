@@ -1,8 +1,10 @@
 package com.apocalypse.common.service;
 
+import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
+
 import java.util.List;
 
-public interface BaseService<T> {
+public interface BaseService<T, PK> {
 
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
@@ -181,4 +183,23 @@ public interface BaseService<T> {
      * @return
      */
     T selectOneByProperty(String property, Object value);
+
+
+    /**
+     * 根据example和aggregateCondition进行聚合查询
+     * 分组不支持having条件过滤， 如需要建议使用xml文件
+     *
+     * @param example
+     * @param aggregateCondition 可以设置聚合查询的属性和分组属性
+     * @return 返回聚合查询属性和分组属性的值
+     */
+    List<T> selectAggregationByExample(Object example, AggregateCondition aggregateCondition);
+
+    /**
+     * 根据主键字符串进行查询，类中只有存在一个带有@Id注解的字段
+     *
+     * @param idList
+     * @return
+     */
+    List<T> selectByIdList(List<PK> idList);
 }

@@ -10,7 +10,7 @@ import com.apocalypse.example.model.UserModel;
  * @date 2018/11/9
  * @mail kaihuijing@gmail.com
  */
-public interface UserService extends BaseService<UserModel> {
+public interface UserService extends BaseService<UserModel, Integer> {
 
     UserModel getUser(String userId) throws ServiceException;
 

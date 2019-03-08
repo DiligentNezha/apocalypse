@@ -1,22 +1,20 @@
 package com.apocalypse.common.service.impl;
 
 
-import com.apocalypse.common.exception.EmptyingDataException;
 import com.apocalypse.common.mybatis.MyMapper;
 import com.apocalypse.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public class BaseServiceImpl<T> implements BaseService<T> {
+public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
 
     private Class<T> clazz;
 
     @Autowired
-    private MyMapper<T> myMapper;
+    private MyMapper<T, PK> myMapper;
 
     @SuppressWarnings("unchecked")
     public BaseServiceImpl() {
@@ -135,4 +133,15 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     public T selectOneByProperty(String property, Object value) {
         return myMapper.selectOneByProperty(property, value);
     }
+
+    @Override
+    public List<T> selectAggregationByExample(Object example, AggregateCondition aggregateCondition) {
+        return myMapper.selectAggregationByExample(example, aggregateCondition);
+    }
+
+    @Override
+    public List<T> selectByIdList(List<PK> idList) {
+        return myMapper.selectByIdList(idList);
+    }
+
 }
