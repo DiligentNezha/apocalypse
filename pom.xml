@@ -15,7 +15,6 @@
         <module>apocalypse-gateway</module>
         <module>apocalypse-example</module>
         <module>apocalypse-register</module>
-        <module>apocalypse-front</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -44,6 +43,7 @@
 
         <!-- 数据库部分 -->
         <mapper.version>3.4.2</mapper.version>
+        <pagehelper.version>5.1.8</pagehelper.version>
         <mapper-spring-boot-starter.version>2.1.4</mapper-spring-boot-starter.version>
 
         <pagehelper-spring-boot-starter.version>1.2.10</pagehelper-spring-boot-starter.version>
@@ -55,6 +55,7 @@
         <javafaker.version>0.16</javafaker.version>
         <hutool-all.version>4.3.1</hutool-all.version>
         <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <java-jwt.version>3.8.0</java-jwt.version>
 
         <!-- 分布式服务部分 -->
 
@@ -79,14 +80,14 @@
 
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper-spring-boot-starter.version}</version>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.zalando</groupId>
-                <artifactId>problem-spring-web</artifactId>
-                <version>${problem-spring-web.version}</version>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
             </dependency>
 
             <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
@@ -96,11 +97,23 @@
                 <version>${springfox-swagger2.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>swagger-bootstrap-ui</artifactId>
+                <version>${swagger-bootstrap-ui.version}</version>
+            </dependency>
+
             <!--mapper-->
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>${mapper-spring-boot-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -182,11 +195,6 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

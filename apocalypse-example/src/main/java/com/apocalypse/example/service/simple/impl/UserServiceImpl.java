@@ -52,13 +52,6 @@ public class UserServiceImpl extends BaseServiceImpl<UserModel, Integer> impleme
 
     @Override
     public LoginInfoDTO login(LoginInfoDTO loginInfoDTO) {
-        if (userModelMapper.selectCountExistByProperty("mail", loginInfoDTO.getMail()) == 0) {
-            throw new LoginFailException(String.format("mail %s not exist", loginInfoDTO.getMail()));
-        }
-        UserModel userModel = userModelMapper.selectOne(UserModelMapping.INSTANCE.loginInfoDTO2UserModel(loginInfoDTO));
-        if (userModel == null) {
-            throw new LoginFailException("password incorrect");
-        }
-        return UserModelMapping.INSTANCE.userModel2LoginInfoDTO(userModel);
+        return null;
     }
 }

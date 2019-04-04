@@ -41,7 +41,7 @@ public class UserModelMapperTest {
 
     @Test
     public void selectCountByProperty() {
-        int id = userModelMapper.selectCountExistByProperty("name", "机智的小哪吒0");
+        int id = userModelMapper.selectCountByProperty("name", "机智的小哪吒0");
         System.out.println(id);
     }
 }
