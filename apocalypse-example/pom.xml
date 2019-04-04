@@ -33,19 +33,26 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- redis 在用请勿删除 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 集成aop -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <!-- MySQL 连接驱动依赖 -->
@@ -55,8 +62,23 @@
         </dependency>
 
         <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -73,19 +95,20 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <excludes>
-                    <exclude>application-dev.properties</exclude>
-                    <exclude>application-pre.properties</exclude>
-                    <exclude>application-prod.properties</exclude>
-                    <exclude>application-test.properties</exclude>
+                    <exclude>application-dev.yml</exclude>
+                    <exclude>application-pre.yml</exclude>
+                    <exclude>application-prod.yml</exclude>
+                    <exclude>application-test.yml</exclude>
                 </excludes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>application-${profileActive}.properties</include>
-                    <include>application-pre.properties</include>
-                    <include>application.properties</include>
+                    <include>application-${profileActive}.yml</include>
+                    <include>application-pre.yml</include>
+                    <include>application-test.yml</include>
+                    <include>application.yml</include>
                 </includes>
             </resource>
         </resources>
@@ -93,13 +116,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>${springloaded.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>

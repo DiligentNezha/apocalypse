@@ -1,4 +1,4 @@
-package com.apocalypse.front.config;
+package com.apocalypse.example.config;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.front.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.example.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

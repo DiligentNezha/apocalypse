@@ -3,7 +3,6 @@ package com.apocalypse.example.service.simple;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.UserModel;
-import com.apocalypse.example.model.UserModelExample;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -134,9 +133,6 @@ public class UserServiceTest {
 
     @Test
     public void selectByExample() {
-        UserModelExample userModelExample = new UserModelExample();
-        UserModelExample.Criteria criteria1 = userModelExample.createCriteria();
-
         Example example = new Example(UserModel.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("name", "机智的小哪吒28");
