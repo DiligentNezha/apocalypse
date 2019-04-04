@@ -93,6 +93,7 @@
     <logger name="java.sql.PreparedStatement" level="INFO"/>
     <logger name="org.apache.http" level="INFO"/>
     <logger name="org.apache.catalina" level="INFO"/>
+    <logger name="org.eclipse.jetty" level="INFO"/>
 
     <root level="${logging.level}">
         <appender-ref ref="STDOUT"/>
