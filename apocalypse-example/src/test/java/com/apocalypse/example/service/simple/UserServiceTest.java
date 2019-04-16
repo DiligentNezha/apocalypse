@@ -38,7 +38,7 @@ public class UserServiceTest {
         UserModel userModel = new UserModel();
         userModel.setName("机智的小哪吒");
         userModel.setRealName("景凯辉");
-        userModel.setAge((byte) 23);
+        userModel.setAge(23);
 
         int insert = userService.insert(userModel);
         logger.info("insert success : " + (1 == insert));
@@ -48,7 +48,7 @@ public class UserServiceTest {
     public void insertSelective() {
         UserModel userModel = new UserModel();
         userModel.setName("机智的小哪吒");
-        userModel.setAge((byte) 22);
+        userModel.setAge(22);
         int insert = userService.insertSelective(userModel);
         logger.info("insert success : " + (1 == insert));
     }
@@ -56,7 +56,7 @@ public class UserServiceTest {
     @Test
     public void delete() {
         UserModel userModel = new UserModel();
-        userModel.setAge((byte) 23);
+        userModel.setAge(23);
         int delete = userService.delete(userModel);
         logger.info("delete success : " + (delete > 0));
     }
@@ -71,7 +71,7 @@ public class UserServiceTest {
     public void updateByPrimaryKey() {
         UserModel userModel = new UserModel();
         userModel.setId(2);
-        userModel.setAge((byte) 23);
+        userModel.setAge(23);
         int i = userService.updateByPrimaryKey(userModel);
         logger.info("update success : " + i);
     }
@@ -80,7 +80,7 @@ public class UserServiceTest {
     public void updateByPrimaryKeySelective() {
         UserModel userModel = new UserModel();
         userModel.setId(2);
-        userModel.setAge((byte) 23);
+        userModel.setAge(23);
         int i = userService.updateByPrimaryKeySelective(userModel);
         logger.info("update success : " + i);
     }
@@ -89,7 +89,7 @@ public class UserServiceTest {
     public void selectOne() {
         UserModel userModel = new UserModel();
         userModel.setId(2);
-        userModel.setAge((byte) 25);
+        userModel.setAge(25);
         UserModel um = userService.selectOne(userModel);
         logger.info(JSONObject.toJSONString(um, true));
     }
@@ -195,7 +195,7 @@ public class UserServiceTest {
             UserModel userModel = new UserModel();
             userModel.setName("机智的小哪吒" + random.nextInt(1000));
             userModel.setRealName("景凯辉" + random.nextInt(1000));
-            userModel.setAge((byte) (20 + random.nextInt(5)));
+            userModel.setAge(20 + random.nextInt(5));
             userModel.setSex((byte) random.nextInt(3));
             list.add(userModel);
         }
@@ -209,7 +209,7 @@ public class UserServiceTest {
         Random random = new Random();
         userModel.setName("机智的小哪吒" + random.nextInt(1000));
         userModel.setRealName("景凯辉" + random.nextInt(1000));
-        userModel.setAge((byte) (20 + random.nextInt(5)));
+        userModel.setAge(20 + random.nextInt(5));
         userModel.setSex((byte) random.nextInt(3));
         int key = userService.insertUseGeneratedKeys(userModel);
         logger.info("insert success : " + key);

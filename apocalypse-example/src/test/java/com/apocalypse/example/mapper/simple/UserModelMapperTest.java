@@ -5,10 +5,8 @@ import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.UserModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import tk.mybatis.mapper.weekend.Weekend;
 
 import javax.annotation.Resource;
 
@@ -29,7 +27,7 @@ public class UserModelMapperTest {
         UserModel userModel = new UserModel();
         userModel.setName("机智的小哪吒");
         userModel.setRealName("景凯辉");
-        userModel.setAge((byte) 24);
+        userModel.setAge(24);
         userModelMapper.insert(userModel);
     }
 
