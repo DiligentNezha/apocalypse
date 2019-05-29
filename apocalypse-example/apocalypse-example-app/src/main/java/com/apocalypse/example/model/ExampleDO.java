@@ -2,11 +2,13 @@ package com.apocalypse.example.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import com.apocalypse.common.mybatis.type.JSONArrayTypeHandler;
 import com.apocalypse.common.mybatis.type.JSONObjectTypeHandler;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.ColumnType;
+import tk.mybatis.mapper.annotation.KeySql;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,8 +22,9 @@ public class ExampleDO implements Serializable {
     /**
      * 编号
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Id
+    @KeySql(genId = SnowflakeIdGenId.class)
+    private Long id;
 
     /**
      * 姓名
