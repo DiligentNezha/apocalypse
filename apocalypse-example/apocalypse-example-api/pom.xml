@@ -3,20 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>apocalypse-parent</artifactId>
+        <artifactId>apocalypse-example</artifactId>
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-example</artifactId>
-    <packaging>pom</packaging>
-    <name>apocalypse-example</name>
-    <url>http://maven.apache.org</url>
-    <modules>
-        <module>apocalypse-example-app</module>
-        <module>apocalypse-example-api</module>
-    </modules>
+    <artifactId>apocalypse-example-api</artifactId>
+    <packaging>jar</packaging>
+    <name>apocalypse-example-api</name>
 
     <dependencyManagement>
         <dependencies>
@@ -31,10 +25,22 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-common</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <!--打包后的名字-->
+        <finalName>apocalypse-example-api</finalName>
+    </build>
+
 </project>

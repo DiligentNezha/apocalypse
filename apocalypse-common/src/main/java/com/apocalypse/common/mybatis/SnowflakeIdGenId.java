@@ -11,4 +11,16 @@ public class SnowflakeIdGenId implements GenId<Long> {
     public Long genId(String table, String column) {
         return GENERATOR.nextId();
     }
+
+    public static String nextProductNo() {
+        return "p" + String.valueOf(GENERATOR.nextId());
+    }
+
+    public static String nextOrderNo() {
+        return "o" + String.valueOf(GENERATOR.nextId());
+    }
+
+    public static String nextBillNo() {
+        return "b" + String.valueOf(GENERATOR.nextId());
+    }
 }

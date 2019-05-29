@@ -1,13 +1,9 @@
 package com.apocalypse.common.mybatis;
 
 import org.apache.ibatis.mapping.MappedStatement;
-import tk.mybatis.mapper.entity.EntityColumn;
-import tk.mybatis.mapper.mapperhelper.EntityHelper;
 import tk.mybatis.mapper.mapperhelper.MapperHelper;
 import tk.mybatis.mapper.mapperhelper.MapperTemplate;
 import tk.mybatis.mapper.mapperhelper.SqlHelper;
-
-import java.util.Set;
 
 /**
  * @author jingkaihui
@@ -33,20 +29,23 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectAllColumns(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        //获取全部列
-        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
-        for (EntityColumn column : columnSet) {
-            sql.append("<if test=\"");
-            sql.append("value != null");
-            if (isNotEmpty() && column.getJavaType().equals(String.class)) {
-                sql.append(" and ");
-                sql.append(" value != '' ");
-            }
-            sql.append(" and property == '").append(column.getProperty());
-            sql.append("'\">\n");
-            sql.append(column.getColumn() + " = #{value,javaType=" + column.getJavaType().getSimpleName() + "}\n");
-            sql.append("</if>\n");
+        sql.append("<if test=\"");
+        sql.append("value != null");
+        if (isNotEmpty()) {
+            sql.append(" and ");
+            sql.append(" value != '' ");
         }
+        sql.append("\">\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        //通过实体类名获取运行时属性对应的字段
+        String ognl = new StringBuilder("${@")
+                .append(propertyHelper)
+                .append("@getColumnByProperty(@java.lang.Class@forName(\"")
+                .append(entityClassName)
+                .append("\"), @tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))}").toString();
+        sql.append(ognl + " = #{value}\n");
+        sql.append("</if>\n");
         // 逻辑删除的未删除查询条件
         sql.append(SqlHelper.whereLogicDelete(entityClass, false));
         sql.append("</where>");
@@ -67,22 +66,52 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectAllColumns(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        //获取全部列
-        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
-        for (EntityColumn column : columnSet) {
-            sql.append("<if test=\"");
-            sql.append("value != null");
-            if (isNotEmpty() && column.getJavaType().equals(String.class)) {
-                sql.append(" and ");
-                sql.append(" value != '' ");
-            }
-            sql.append(" and property == '").append(column.getProperty());
-            sql.append("'\">\n");
-            sql.append(column.getColumn() + " = #{value,javaType=" + column.getJavaType().getSimpleName() + "}\n");
-            sql.append("</if>\n");
+        sql.append("<if test=\"");
+        sql.append("value != null");
+        if (isNotEmpty()) {
+            sql.append(" and ");
+            sql.append(" value != '' ");
         }
+        sql.append("\">\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        //通过实体类名获取运行时属性对应的字段
+        String ognl = new StringBuilder("${@")
+                .append(propertyHelper)
+                .append("@getColumnByProperty(@java.lang.Class@forName(\"")
+                .append(entityClassName)
+                .append("\"), @tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))}").toString();
+        sql.append(ognl + " = #{value}\n");
+        sql.append("</if>\n");
         // 逻辑删除的未删除查询条件
         sql.append(SqlHelper.whereLogicDelete(entityClass, false));
+        sql.append("</where>");
+        return sql.toString();
+    }
+
+    /**
+     * 根据属性查询，查询条件使用in
+     *
+     * @param ms
+     * @return
+     */
+    public String selectInByProperty(MappedStatement ms) {
+        Class<?> entityClass = getEntityClass(ms);
+        //修改返回值类型为实体类型
+        setResultType(ms, entityClass);
+        StringBuilder sql = new StringBuilder();
+        sql.append(SqlHelper.selectAllColumns(entityClass));
+        sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
+        sql.append("<where>\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        String sqlSegment =
+                "${@" + propertyHelper + "@getColumnByProperty(@java.lang.Class@forName(\"" + entityClassName + "\"),"
+                        +   "@tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))} in"
+                        +   "<foreach open=\"(\" close=\")\" separator=\",\" collection=\"values\" item=\"obj\">\n"
+                        +      "#{obj}\n"
+                        +   "</foreach>\n";
+        sql.append(sqlSegment);
         sql.append("</where>");
         return sql.toString();
     }
@@ -100,20 +129,23 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectCountExists(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        //获取全部列
-        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
-        for (EntityColumn column : columnSet) {
-            sql.append("<if test=\"");
-            sql.append("value != null");
-            if (isNotEmpty() && column.getJavaType().equals(String.class)) {
-                sql.append(" and ");
-                sql.append(" value != '' ");
-            }
-            sql.append(" and property == '").append(column.getProperty());
-            sql.append("'\">\n");
-            sql.append(column.getColumn() + " = #{value,javaType=" + column.getJavaType().getSimpleName() + "}\n");
-            sql.append("</if>\n");
+        sql.append("<if test=\"");
+        sql.append("value != null");
+        if (isNotEmpty()) {
+            sql.append(" and ");
+            sql.append(" value != '' ");
         }
+        sql.append("\">\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        //通过实体类名获取运行时属性对应的字段
+        String ognl = new StringBuilder("${@")
+                .append(propertyHelper)
+                .append("@getColumnByProperty(@java.lang.Class@forName(\"")
+                .append(entityClassName)
+                .append("\"), @tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))}").toString();
+        sql.append(ognl + " = #{value}\n");
+        sql.append("</if>\n");
         // 逻辑删除的未删除查询条件
         sql.append(SqlHelper.whereLogicDelete(entityClass, false));
         sql.append("</where>");
@@ -133,20 +165,23 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectCount(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        //获取全部列
-        Set<EntityColumn> columnSet = EntityHelper.getColumns(entityClass);
-        for (EntityColumn column : columnSet) {
-            sql.append("<if test=\"");
-            sql.append("value != null");
-            if (isNotEmpty() && column.getJavaType().equals(String.class)) {
-                sql.append(" and ");
-                sql.append(" value != '' ");
-            }
-            sql.append(" and property == '").append(column.getProperty());
-            sql.append("'\">\n");
-            sql.append(column.getColumn() + " = #{value,javaType=" + column.getJavaType().getSimpleName() + "}\n");
-            sql.append("</if>\n");
+        sql.append("<if test=\"");
+        sql.append("value != null");
+        if (isNotEmpty()) {
+            sql.append(" and ");
+            sql.append(" value != '' ");
         }
+        sql.append("\">\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        //通过实体类名获取运行时属性对应的字段
+        String ognl = new StringBuilder("${@")
+                .append(propertyHelper)
+                .append("@getColumnByProperty(@java.lang.Class@forName(\"")
+                .append(entityClassName)
+                .append("\"), @tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))}").toString();
+        sql.append(ognl + " = #{value}\n");
+        sql.append("</if>\n");
         // 逻辑删除的未删除查询条件
         sql.append(SqlHelper.whereLogicDelete(entityClass, false));
         sql.append("</where>");

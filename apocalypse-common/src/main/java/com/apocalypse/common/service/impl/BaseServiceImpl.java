@@ -1,10 +1,10 @@
 package com.apocalypse.common.service.impl;
 
-
 import com.apocalypse.common.mybatis.MyMapper;
 import com.apocalypse.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
+import tk.mybatis.mapper.weekend.Fn;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -39,8 +39,8 @@ public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
     }
 
     @Override
-    public int deleteByPrimaryKey(Object key) {
-        return myMapper.deleteByPrimaryKey(key);
+    public boolean deleteByPrimaryKey(Object key) {
+        return myMapper.deleteByPrimaryKey(key) == 1;
     }
 
     @Override
@@ -130,8 +130,28 @@ public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
     }
 
     @Override
-    public T selectOneByProperty(String property, Object value) {
-        return myMapper.selectOneByProperty(property, value);
+    public T selectOneByProperty(Fn<T, ?> fn, Object value) {
+        return myMapper.selectOneByProperty(fn, value);
+    }
+
+    @Override
+    public List<T> selectByProperty(Fn<T, ?> fn, Object value) {
+        return myMapper.selectByProperty(fn, value);
+    }
+
+    @Override
+    public List<T> selectInByProperty(Fn<T, ?> fn, List<?> values) {
+        return myMapper.selectInByProperty(fn, values);
+    }
+
+    @Override
+    public boolean existsWithProperty(Fn<T, ?> fn, Object value) {
+        return myMapper.existsWithProperty(fn, value);
+    }
+
+    @Override
+    public int selectCountByProperty(Fn<T, ?> fn, Object value) {
+        return myMapper.selectCountByProperty(fn, value);
     }
 
     @Override
@@ -142,6 +162,11 @@ public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
     @Override
     public List<T> selectByIdList(List<PK> idList) {
         return myMapper.selectByIdList(idList);
+    }
+
+    @Override
+    public T selectOneByExample(Object example) {
+        return myMapper.selectOneByExample(example);
     }
 
 }

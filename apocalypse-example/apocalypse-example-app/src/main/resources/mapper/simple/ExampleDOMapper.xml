@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apocalypse.example.mapper.ExampleDOMapper">
+  <resultMap id="BaseResultMap" type="com.apocalypse.example.model.ExampleDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="deleted" jdbcType="bit" property="deleted" />
+    <result column="create_time" jdbcType="datetime" property="createTime" />
+    <result column="update_time" jdbcType="datetime" property="updateTime" />
+    <result column="hobby" jdbcType="LONGVARCHAR" property="hobby" />
+    <result column="extend" jdbcType="LONGVARCHAR" property="extend" />
+  </resultMap>
+</mapper>
