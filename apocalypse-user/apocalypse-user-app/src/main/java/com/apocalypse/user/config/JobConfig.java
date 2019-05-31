@@ -1,4 +1,4 @@
-package com.apocalypse.example.config;
+package com.apocalypse.user.config;
 
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class JobConfig {
 
     @Bean(initMethod = "start", destroyMethod = "destroy")
     public XxlJobSpringExecutor xxlJobExecutor() {
-        log.info(">>>>>>>>>>> xxl-job:[apocalypse-example] config init.");
+        log.info(">>>>>>>>>>> xxl-job:[apocalypse-user] config init.");
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
         xxlJobSpringExecutor.setAppName(appName);

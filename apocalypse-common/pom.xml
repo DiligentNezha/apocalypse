@@ -12,7 +12,6 @@
     <artifactId>apocalypse-common</artifactId>
     <packaging>jar</packaging>
     <name>apocalypse-common</name>
-    <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>

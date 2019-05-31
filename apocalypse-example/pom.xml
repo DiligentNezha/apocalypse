@@ -12,23 +12,11 @@
     <artifactId>apocalypse-example</artifactId>
     <packaging>pom</packaging>
     <name>apocalypse-example</name>
-    <url>http://maven.apache.org</url>
+
     <modules>
         <module>apocalypse-example-app</module>
         <module>apocalypse-example-api</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -36,5 +24,9 @@
             <artifactId>apocalypse-common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
     </dependencies>
 </project>

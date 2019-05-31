@@ -17,7 +17,6 @@
 
     <packaging>pom</packaging>
     <name>apocalypse-parent</name>
-    <url>http://maven.apache.org</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -39,6 +38,7 @@
         <spring-cloud-dependencies.version>Greenwich.SR1</spring-cloud-dependencies.version>
         <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <swagger-models.version>1.5.21</swagger-models.version>
         <!-- swagger ui增强 -->
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
 
@@ -87,6 +87,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-user-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-dependencies.version}</version>
@@ -116,6 +122,19 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${springfox-swagger2.version}</version>
+                <!-- 解决Springfox-Swagger 2.9.2版本NumberFormatException异常,先排除，再导入，导入的版本有所升级 -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-models</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger-models.version}</version>
             </dependency>
 
             <dependency>
@@ -167,6 +186,11 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
         </dependency>
 
         <!-- 工具 lombok https://projectlombok.org/features/all -->

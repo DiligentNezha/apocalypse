@@ -46,7 +46,7 @@ public class ExampleDO implements Serializable {
     private String remark;
 
     /**
-     * 是否删除
+     * 是否删除：1：已删除；0：未删除
      */
     @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     private Integer deleted;

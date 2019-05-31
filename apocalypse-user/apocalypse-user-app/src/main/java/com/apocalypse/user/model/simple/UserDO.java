@@ -1,17 +1,21 @@
-package com.apocalypse.example.model;
+package com.apocalypse.user.model.simple;
 
 import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.annotation.LogicDelete;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import javax.persistence.*;
+
 @Data
 @Accessors(chain = true)
-@Table(name = "example_extend")
-public class ExampleExtendDO {
+@Table(name = "user")
+public class UserDO implements Serializable {
     /**
      * 编号
      */
@@ -20,19 +24,28 @@ public class ExampleExtendDO {
     private Long id;
 
     /**
-     * 别名
+     * 昵称
      */
-    private String alias;
+    private String nickname;
 
     /**
-     * 备注
+     * 生日
      */
-    private String remark;
+    private LocalDate birthday;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
+     * 手机号
+     */
+    private String phone;
 
     /**
      * 是否删除：1：已删除；0：未删除
      */
-    @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     private Integer deleted;
 
     /**
@@ -46,4 +59,5 @@ public class ExampleExtendDO {
      */
     @Column(name = "update_time")
     private LocalDateTime updateTime;
+
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @ApiModel(description = "响应类")
-public class JsonResult<T> implements Serializable {
+public class Rest<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Boolean success;
