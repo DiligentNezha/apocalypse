@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @Description
  * @date 2019/5/31
  */
-@FeignClient(name = "apocalypse-user")
+@FeignClient(name = "apocalypse-user", path = "/user")
 public interface UserClient {
-
-    @PostMapping("/user/user/register")
+    @PostMapping("/user/register")
     Rest<Long> register(UserRegisterDTO register);
 }

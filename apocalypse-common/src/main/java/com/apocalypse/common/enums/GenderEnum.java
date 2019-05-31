@@ -1,7 +1,5 @@
 package com.apocalypse.common.enums;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +8,7 @@ import java.util.Map;
  * @date 2018/11/10
  * @mail kaihuijing@gmail.com
  */
-public enum SexEnum {
+public enum GenderEnum {
 
     /**
      * 男性
@@ -30,9 +28,9 @@ public enum SexEnum {
     private static final Map<Integer, String> map = new HashMap<>();
 
     static {
-        map.put(SexEnum.MALE.value, SexEnum.MALE.view);
-        map.put(SexEnum.FEMALE.value, SexEnum.FEMALE.view);
-        map.put(SexEnum.SECRET.value, SexEnum.SECRET.view);
+        map.put(GenderEnum.MALE.value, GenderEnum.MALE.view);
+        map.put(GenderEnum.FEMALE.value, GenderEnum.FEMALE.view);
+        map.put(GenderEnum.SECRET.value, GenderEnum.SECRET.view);
     }
 
     /**
@@ -45,7 +43,7 @@ public enum SexEnum {
      */
     private Integer value;
 
-    SexEnum(String view, Integer value) {
+    GenderEnum(String view, Integer value) {
         this.view = view;
         this.value = value;
     }

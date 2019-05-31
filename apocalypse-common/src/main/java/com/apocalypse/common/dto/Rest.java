@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Rest<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Boolean success;
+    private Boolean success = Boolean.TRUE;
 
     private Integer code;
 
