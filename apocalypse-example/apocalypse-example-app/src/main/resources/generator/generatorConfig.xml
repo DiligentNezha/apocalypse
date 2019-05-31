@@ -19,15 +19,18 @@
                         connectionURL="jdbc:mysql://localhost:3306/apocalypse_example?serverTimezone=Asia/Shanghai" userId="root" password="root">
         </jdbcConnection>
 
+        <!-- DO对象生成配置 -->
         <javaModelGenerator targetPackage="com.apocalypse.example.model" targetProject="src/main/java"/>
 
+        <!-- mapper.xml生成配置 -->
         <sqlMapGenerator targetPackage="mapper/simple" targetProject="src/main/resources"/>
 
-        <javaClientGenerator targetPackage="com.apocalypse.example.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
+        <!-- Mapper接口生成配置 -->
+        <javaClientGenerator targetPackage="com.apocalypse.example.mapper.simple" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
 
-        <table tableName="example" domainObjectName="ExampleDO" enableSelectByExample="false"
-               enableDeleteByExample="false" enableUpdateByExample="false" enableCountByExample="false"
-        >
+        <table tableName="example_extend" domainObjectName="ExampleExtendDO" enableSelectByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" enableCountByExample="false">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <columnOverride column="deleted" javaType="java.lang.Integer" jdbcType="bit"/>

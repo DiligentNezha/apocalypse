@@ -17,7 +17,6 @@
         <dependency>
             <groupId>com.apocalypse</groupId>
             <artifactId>apocalypse-common</artifactId>
-            <version>1.0.0</version>
         </dependency>
 
         <dependency>
@@ -53,13 +52,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework</groupId>
-                        <artifactId>springloaded</artifactId>
-                        <version>${springloaded.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>

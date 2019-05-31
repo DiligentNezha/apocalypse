@@ -26,56 +26,74 @@
         <relativePath/>
     </parent>
     <properties>
-        <!-- 基础框架 -->
-        <!-- Spring Boot -->
-        <springboot.version>2.1.4.RELEASE</springboot.version>
-        <spring-cloud-dependencies.version>Greenwich.SR1</spring-cloud-dependencies.version>
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-
-        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
-
         <!-- 编译属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
+        <!-- 基础框架 -->
+        <!-- Spring Boot -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+        <springboot.version>2.1.4.RELEASE</springboot.version>
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+        <spring-cloud-dependencies.version>Greenwich.SR1</spring-cloud-dependencies.version>
+        <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
+        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+        <!-- swagger ui增强 -->
+        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
+
         <!-- 数据库部分 -->
         <mapper.version>3.4.2</mapper.version>
         <pagehelper.version>5.1.8</pagehelper.version>
-        <mapper-spring-boot-starter.version>2.1.4</mapper-spring-boot-starter.version>
-
-        <pagehelper-spring-boot-starter.version>1.2.10</pagehelper-spring-boot-starter.version>
-        <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
-        <problem-spring-web.version>0.23.0</problem-spring-web.version>
+        <!-- 通用Mapper -->
+        <mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
+        <!-- 分页插件 -->
+        <pagehelper-spring-boot-starter.version>1.2.11</pagehelper-spring-boot-starter.version>
+        <!-- 数据库连接池 -->
+        <druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
 
         <!-- 工具部分 -->
-        <fastjson.version>1.2.49</fastjson.version>
-        <javafaker.version>0.16</javafaker.version>
-        <hutool-all.version>4.3.1</hutool-all.version>
-        <mapstruct.version>1.2.0.Final</mapstruct.version>
-        <java-jwt.version>3.8.0</java-jwt.version>
+        <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
+        <fastjson.version>1.2.58</fastjson.version>
+        <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
+        <hutool-all.version>4.5.10</hutool-all.version>
+        <!-- bean 映射转换工具 http://mapstruct.org/ -->
+        <mapstruct.version>1.3.0.Final</mapstruct.version>
+        <!-- jwt 工具 https://github.com/auth0/java-jwt -->
+        <java-jwt.version>3.8.1</java-jwt.version>
+        <!-- 分布式任务调度平台 http://www.xuxueli.com/xxl-job/#/ -->
         <xxl-job.version>2.0.2</xxl-job.version>
 
         <!-- 分布式服务部分 -->
-        <redisson-spring-boot-starter.version>3.10.7</redisson-spring-boot-starter.version>
+        <!-- 分布式锁工具 https://github.com/redisson/redisson#quick-start -->
+        <redisson-spring-boot-starter.version>3.11.0</redisson-spring-boot-starter.version>
 
         <!-- 测试部分 -->
+        <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
+        <javafaker.version>0.18</javafaker.version>
 
         <!-- 插件部分 -->
         <checkstyle.config.location>check-style.xml</checkstyle.config.location>
-        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-        <mybatis-generator-maven-plugin.version>1.3.5</mybatis-generator-maven-plugin.version>
-        <springloaded.version>1.2.5.RELEASE</springloaded.version>
+        <!-- mybatis插件 http://www.mybatis.org/generator/running/runningWithMaven.html -->
+        <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <dependencies>
             <dependency>
                 <groupId>com.apocalypse</groupId>
                 <artifactId>apocalypse-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
@@ -94,7 +112,6 @@
                 <version>${pagehelper-spring-boot-starter.version}</version>
             </dependency>
 
-            <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -107,7 +124,6 @@
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
 
-            <!--mapper-->
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
@@ -126,7 +142,6 @@
                 <version>${java-jwt.version}</version>
             </dependency>
 
-            <!-- http://www.xuxueli.com/xxl-job/#/?id=xxl-job -->
             <dependency>
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
@@ -137,40 +152,37 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
 
-        <!-- 工具 lombok https://projectlombok.org/features/all -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- 工具 http://mapstruct.org/ -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-
-        <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
         </dependency>
 
-        <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
+        <!-- 工具 lombok https://projectlombok.org/features/all -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
@@ -189,14 +201,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

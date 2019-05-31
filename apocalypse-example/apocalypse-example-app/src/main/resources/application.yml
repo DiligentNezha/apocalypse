@@ -22,7 +22,9 @@ pagehelper:
   offset-as-page-num: true
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations:
+    - classpath:mapper/simple/*.xml
+    - classpath:mapper/composite/*.xml
   type-aliases-package: com.apocalypse.example.model
 
 server:

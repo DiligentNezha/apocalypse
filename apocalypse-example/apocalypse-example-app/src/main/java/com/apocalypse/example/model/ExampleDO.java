@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.ColumnType;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -25,6 +26,9 @@ public class ExampleDO implements Serializable {
     @Id
     @KeySql(genId = SnowflakeIdGenId.class)
     private Long id;
+
+    @Column(name = "example_extend_id")
+    private Long exampleExtendId;
 
     /**
      * 姓名
@@ -44,6 +48,7 @@ public class ExampleDO implements Serializable {
     /**
      * 是否删除
      */
+    @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     private Integer deleted;
 
     /**
