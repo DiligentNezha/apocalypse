@@ -21,13 +21,13 @@
         </jdbcConnection>
 
         <!-- DO对象生成配置 -->
-        <javaModelGenerator targetPackage="com.apocalypse.user.model.simple" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="com.apocalypse.user.model" targetProject="src/main/java"/>
 
         <!-- mapper.xml生成配置 -->
-        <sqlMapGenerator targetPackage="mapper/simple" targetProject="src/main/resources"/>
+        <sqlMapGenerator targetPackage="mapper/single" targetProject="src/main/resources"/>
 
         <!-- Mapper接口生成配置 -->
-        <javaClientGenerator targetPackage="com.apocalypse.user.mapper.simple" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="com.apocalypse.user.mapper.single" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
         <table tableName="user" domainObjectName="UserDO" enableSelectByExample="false"

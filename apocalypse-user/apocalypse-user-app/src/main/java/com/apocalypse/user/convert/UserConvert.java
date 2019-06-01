@@ -1,7 +1,7 @@
 package com.apocalypse.user.convert;
 
 import com.apocalypse.user.dto.UserRegisterDTO;
-import com.apocalypse.user.model.simple.UserDO;
+import com.apocalypse.user.model.UserDO;
 import org.mapstruct.Mapper;
 
 /**

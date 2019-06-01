@@ -2,7 +2,7 @@ package com.apocalypse.user.service;
 
 import com.apocalypse.common.service.BaseService;
 import com.apocalypse.user.dto.UserRegisterDTO;
-import com.apocalypse.user.model.simple.UserDO;
+import com.apocalypse.user.model.UserDO;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>

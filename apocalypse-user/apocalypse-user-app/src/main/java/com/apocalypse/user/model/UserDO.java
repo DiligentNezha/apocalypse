@@ -1,4 +1,4 @@
-package com.apocalypse.user.model.simple;
+package com.apocalypse.user.model;
 
 import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import lombok.Data;

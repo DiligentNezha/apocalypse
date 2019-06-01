@@ -3,6 +3,7 @@ package com.apocalypse.user.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -18,10 +19,12 @@ public class UserRegisterDTO implements Serializable {
     /**
      * 昵称
      */
+    @NotBlank
     private String nickname;
 
     /**
      * 手机号
      */
+    @NotBlank
     private String phone;
 }

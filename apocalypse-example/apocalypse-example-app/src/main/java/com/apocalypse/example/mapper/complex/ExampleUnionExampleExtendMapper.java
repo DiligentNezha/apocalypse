@@ -1,4 +1,4 @@
-package com.apocalypse.example.mapper.composite;
+package com.apocalypse.example.mapper.complex;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

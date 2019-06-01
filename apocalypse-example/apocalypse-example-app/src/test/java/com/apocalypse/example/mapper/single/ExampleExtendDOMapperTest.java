@@ -1,15 +1,12 @@
-package com.apocalypse.example.mapper.simple;
+package com.apocalypse.example.mapper.single;
 
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.ExampleExtendDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>

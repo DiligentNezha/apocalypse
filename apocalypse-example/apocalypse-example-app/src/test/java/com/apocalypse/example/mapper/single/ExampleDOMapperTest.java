@@ -1,4 +1,4 @@
-package com.apocalypse.example.mapper.simple;
+package com.apocalypse.example.mapper.single;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -12,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
-
-import static org.junit.Assert.*;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>

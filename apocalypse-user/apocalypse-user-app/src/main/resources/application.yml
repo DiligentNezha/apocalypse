@@ -23,14 +23,14 @@ pagehelper:
 
 mybatis:
   mapper-locations:
-    - classpath:mapper/simple/*.xml
-    - classpath:mapper/composite/*.xml
+    - classpath:mapper/single/*.xml
+    - classpath:mapper/complex/*.xml
   type-aliases-package: com.apocalypse.user.model
 
 server:
   port: 53001
   servlet:
-    context-path: /user
+    context-path: /user-api
 
 spring:
   profiles:

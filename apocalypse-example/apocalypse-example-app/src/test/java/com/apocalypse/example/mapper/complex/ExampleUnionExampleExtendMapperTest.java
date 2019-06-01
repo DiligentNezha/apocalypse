@@ -1,4 +1,4 @@
-package com.apocalypse.example.mapper.composite;
+package com.apocalypse.example.mapper.complex;
 
 import com.apocalypse.example.ExampleApplication;
 import org.junit.Test;
@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
