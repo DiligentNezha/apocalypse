@@ -1,0 +1,54 @@
+logging:
+  config: classpath:logback-spring.xml
+
+mapper:
+  check-example-entity-class: true
+  identity: MYSQL
+  mappers:
+    - com.apocalypse.common.mybatis.MyMapper
+  not-empty: true
+  safe-delete: true
+  safe-update: true
+  seq-format: true
+  style: camelhumpAndLowercase
+  wrap-keyword: '`{0}`'
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  row-bounds-with-count: true
+  offset-as-page-num: true
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/single/*.xml
+    - classpath:mapper/complex/*.xml
+  type-aliases-package: com.apocalypse.user.model
+
+server:
+  port: 53001
+  servlet:
+    context-path: /user-api
+
+spring:
+  profiles:
+    active: @profileActive@
+  datasource:
+    druid:
+      connectionProperties:
+        - druid.stat.mergeSql=true
+        - druid.stat.slowSqlMillis=5000
+      filters:
+        - stat
+        - wall
+        - slf4j
+      maxActive: 20
+      testOnReturn: false
+      validationQuery: SELECT 1 FROM dual
+  application:
+    name: apocalypse-user
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8

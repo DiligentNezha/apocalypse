@@ -1,0 +1,49 @@
+#debug: true
+logging:
+  path: logs/v1.0.0
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: druid
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/apocalypse_user?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 10000ms
+  cloud:
+    inetutils:
+      ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
+        - docker0
+        - veth.*
+    consul:
+      enabled: true
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        enabled: true
+        prefer-ip-address: true
+        service-name: apocalypse-user
+        tags:
+          - java
+          - service
+        health-check-path: ${server.servlet.context-path}/actuator/health
+        instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        # 手动ACK 不开启自动ACK模式，目的是防止报错后未正确处理消息丢失，默认 为 none
+        acknowledge-mode: manual

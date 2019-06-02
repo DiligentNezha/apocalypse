@@ -1,22 +1,26 @@
 package com.apocalypse.common.service;
 
+import org.apache.ibatis.annotations.Param;
+import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
+import tk.mybatis.mapper.weekend.Fn;
+
 import java.util.List;
 
-public interface BaseService <T>{
+public interface BaseService<T, PK> {
 
     /**
      * 保存一个实体，null的属性也会保存，不会使用数据库默认值
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @return 1为成功， 0为失败
      */
     int insert(T record);
 
     /**
      * 保存一个实体，null的属性不会保存，会使用数据库默认值
      *
-     * @param record
-     * @return
+     * @param record 实体
+     * @return 1为成功， 0为失败
      */
     int insertSelective(T record);
 
@@ -34,7 +38,7 @@ public interface BaseService <T>{
      * @param key
      * @return
      */
-    int deleteByPrimaryKey(Object key);
+    boolean deleteByPrimaryKey(Object key);
 
     /**
      * 根据主键更新实体全部字段，null值会被更新
@@ -100,6 +104,22 @@ public interface BaseService <T>{
     boolean existsWithPrimaryKey(Object key);
 
     /**
+     * 根据主键字符串进行查询，类中只有存在一个带有@Id注解的字段
+     *
+     * @param ids 如 "1,2,3,4"
+     * @return
+     */
+    List<T> selectByIds(String ids);
+
+    /**
+     * 根据主键字符串进行删除，类中只有存在一个带有@Id注解的字段
+     *
+     * @param ids 如 "1,2,3,4"
+     * @return
+     */
+    int deleteByIds(String ids);
+
+    /**
      * 根据Example条件进行查询
      *
      * @param example
@@ -156,4 +176,77 @@ public interface BaseService <T>{
      * @return
      */
     int insertUseGeneratedKeys(T record);
+
+    /**
+     * 根据属性及对应值进行查询，只能有一个返回值，有多个结果是抛出异常，查询条件使用等号
+     *
+     * @param fn 查询属性
+     * @param value    属性值
+     * @return
+     */
+    T selectOneByProperty(Fn<T, ?> fn, Object value);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用等号
+     *
+     * @param fn 查询属性
+     * @param value 属性值
+     * @return
+     */
+    List<T> selectByProperty(Fn<T, ?> fn, Object value);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用in
+     *
+     * @param fn 查询属性
+     * @param values 属性值集合
+     * @return
+     */
+    List<T> selectInByProperty(@Param("fn") Fn<T, ?> fn, @Param("value") List<?> values);
+
+    /**
+     * 根据主键字段查询总数，方法参数必须包含完整的主键属性，查询条件使用等号
+     *
+     * @param fn 查询属性
+     * @param value 属性值
+     * @return
+     */
+    boolean existsWithProperty(Fn<T, ?> fn, Object value);
+
+
+    /**
+     * 根据实体中的属性查询总数，查询条件使用等号
+     *
+     * @param fn 查询属性
+     * @param value 属性值
+     * @return
+     */
+    int selectCountByProperty(Fn<T, ?> fn, Object value);
+
+
+    /**
+     * 根据example和aggregateCondition进行聚合查询
+     * 分组不支持having条件过滤， 如需要建议使用xml文件
+     *
+     * @param example
+     * @param aggregateCondition 可以设置聚合查询的属性和分组属性
+     * @return 返回聚合查询属性和分组属性的值
+     */
+    List<T> selectAggregationByExample(Object example, AggregateCondition aggregateCondition);
+
+    /**
+     * 根据主键字符串进行查询，类中只有存在一个带有@Id注解的字段
+     *
+     * @param idList
+     * @return
+     */
+    List<T> selectByIdList(List<PK> idList);
+
+    /**
+     * 根据Example条件进行查询一条结果
+     *
+     * @param example
+     * @return
+     */
+    T selectOneByExample(Object example);
 }
