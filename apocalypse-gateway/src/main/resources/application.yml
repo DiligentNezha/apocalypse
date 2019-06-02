@@ -17,14 +17,8 @@ spring:
           lower-case-service-id: true
       routes:
         # Add your routes here.
-        - id: aliyun_route
-          uri: https://www.aliyun.com/
+        - id: example
+          uri: lb://apocalypse-example/
           predicates:
-            - Path=/aliyun/**
-        - id: httpbin_route
-          uri: https://httpbin.org
-          predicates:
-            - Path=/httpbin/**
-          filters:
-            - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
+            - Path=/example-api/**
 

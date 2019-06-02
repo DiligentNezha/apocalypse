@@ -18,3 +18,4 @@ spring:
           - java
           - gateway
         instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+
