@@ -9,3 +9,22 @@ spring:
     active: @profileActive@
   application:
     name: apocalypse-gateway
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        # Add your routes here.
+        - id: aliyun_route
+          uri: https://www.aliyun.com/
+          predicates:
+            - Path=/aliyun/**
+        - id: httpbin_route
+          uri: https://httpbin.org
+          predicates:
+            - Path=/httpbin/**
+          filters:
+            - RewritePath=/httpbin/(?<segment>.*), /$\{segment}
+
