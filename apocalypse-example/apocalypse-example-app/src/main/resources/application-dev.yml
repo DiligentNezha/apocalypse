@@ -12,8 +12,7 @@ spring:
   redis:
     database: 0
     host: localhost
-    port: 6399
-    password: guanlouyi
+    port: 6379
     lettuce:
       pool:
         max-active: 8
@@ -33,7 +32,6 @@ spring:
       discovery:
         enabled: true
         prefer-ip-address: true
-        service-name: apocalypse-example
         tags:
           - java
           - service

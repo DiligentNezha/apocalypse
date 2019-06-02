@@ -33,9 +33,9 @@
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-        <springboot.version>2.1.4.RELEASE</springboot.version>
+        <springboot.version>2.1.5.RELEASE</springboot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <spring-cloud-dependencies.version>Greenwich.SR1</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>Greenwich.RELEASE</spring-cloud-dependencies.version>
         <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <swagger-models.version>1.5.21</swagger-models.version>
@@ -171,11 +171,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
