@@ -17,8 +17,16 @@ spring:
           lower-case-service-id: true
       routes:
         # Add your routes here.
-        - id: example
+        - id: apocalypse-example
           uri: lb://apocalypse-example/
           predicates:
             - Path=/example-api/**
+          filters:
+            - SwaggerHeaderFilter
+        - id: apocalypse-user
+          uri: lb://apocalypse-user/
+          predicates:
+            - Path=/user-api/**
+          filters:
+            - SwaggerHeaderFilter
 
