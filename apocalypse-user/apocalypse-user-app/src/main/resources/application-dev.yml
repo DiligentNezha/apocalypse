@@ -38,6 +38,12 @@ spring:
           - service
         health-check-path: ${server.servlet.context-path}/actuator/health
         instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      log:
+        switch-pid: true
   rabbitmq:
     host: 127.0.0.1
     port: 5672

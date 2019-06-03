@@ -25,6 +25,12 @@ spring:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
         - docker0
         - veth.*
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      log:
+        switch-pid: true
     consul:
       enabled: true
       host: 127.0.0.1

@@ -2,7 +2,7 @@ logging:
   config: classpath:logback-spring.xml
 
 server:
-  port: 51001
+  port: 31001
 
 spring:
   profiles:

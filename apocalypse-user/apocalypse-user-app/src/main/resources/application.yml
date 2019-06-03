@@ -28,7 +28,7 @@ mybatis:
   type-aliases-package: com.apocalypse.user.model
 
 server:
-  port: 53001
+  port: 33001
   servlet:
     context-path: /user-api
 

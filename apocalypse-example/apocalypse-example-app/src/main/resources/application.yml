@@ -28,7 +28,7 @@ mybatis:
   type-aliases-package: com.apocalypse.example.model
 
 server:
-  port: 52001
+  port: 32001
   servlet:
     context-path: /example-api
 
