@@ -1,0 +1,68 @@
+package com.apocalypse.example.controller;
+
+import cn.hutool.core.thread.ThreadUtil;
+import com.apocalypse.common.dto.Rest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.io.IOException;
+import java.util.concurrent.Callable;
+
+/**
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
+ * @Description
+ * @date 2019/6/4
+ */
+@Slf4j
+@RestController
+@RequestMapping("/async")
+public class AsyncExampleController {
+
+    @GetMapping("/callable")
+    public Callable<Rest<String>> testCallable() {
+        log.info("Controller开始执行！");
+        Callable<Rest<String>> callable = () -> {
+            Thread.sleep(5000);
+
+            log.info("实际工作执行完成！");
+
+            return Rest.ok("我是异步返回的数据");
+        };
+        log.info("Controller执行结束！");
+        return callable;
+    }
+
+    @GetMapping("/deferredResult")
+    public DeferredResult<Rest<String>> deferredResult() {
+        log.info("Controller开始执行！");
+        DeferredResult<Rest<String>> deferredResult = new DeferredResult<>();
+        ThreadUtil.execAsync(() -> {
+            ThreadUtil.sleep(3000);
+            deferredResult.setResult(Rest.ok("我是异步返回的数据"));
+        });
+        log.info("Controller执行结束！");
+        return deferredResult;
+    }
+
+    @GetMapping("/sseEmitter")
+    public SseEmitter sseEmitter() {
+        log.info("Controller开始执行！");
+        SseEmitter sseEmitter = new SseEmitter();
+        ThreadUtil.execAsync(() -> {
+            try {
+                sseEmitter.send(Rest.ok("我是异步返回的数据"), MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
+                ThreadUtil.sleep(3000);
+                sseEmitter.complete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        log.info("Controller执行结束！");
+        return sseEmitter;
+    }
+}
