@@ -2,6 +2,7 @@ package com.apocalypse.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import tk.mybatis.spring.annotation.MapperScan;
@@ -11,6 +12,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @date 2018/11/9
  * @mail kaihuijing@gmail.com
  */
+@EnableCaching
 @MapperScan(basePackages = "com.apocalypse.example.mapper")
 @SpringBootApplication(scanBasePackages = {
         "com.apocalypse.example", "com.apocalypse.common.config",
