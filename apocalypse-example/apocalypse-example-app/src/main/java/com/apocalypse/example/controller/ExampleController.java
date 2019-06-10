@@ -31,4 +31,5 @@ public class ExampleController {
                 .setPhone("1776582321" + randomInt);
         return userClient.register(userRegister);
     }
+
 }
