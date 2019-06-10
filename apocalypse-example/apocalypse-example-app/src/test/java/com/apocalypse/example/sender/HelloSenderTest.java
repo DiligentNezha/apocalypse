@@ -1,5 +1,6 @@
 package com.apocalypse.example.sender;
 
+import com.apocalypse.example.ExampleApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
  * @date 2019/5/29
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = ExampleApplication.class)
 public class HelloSenderTest {
 
     @Autowired

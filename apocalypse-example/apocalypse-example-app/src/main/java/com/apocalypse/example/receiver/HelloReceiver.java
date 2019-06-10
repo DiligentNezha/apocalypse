@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RabbitListener(queues = "hello")
 public class HelloReceiver {
 
     @RabbitHandler
+    @RabbitListener(queues = "hello")
     public void process(Integer i, Message message, Channel channel) {
         try {
             log.info("HelloReceiver received message【{}】", i);
