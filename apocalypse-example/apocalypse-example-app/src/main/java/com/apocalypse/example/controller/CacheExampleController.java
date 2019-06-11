@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@CacheConfig(cacheNames = "spring-cache:example")
 @RequestMapping("/cache")
 public class CacheExampleController {
 
@@ -24,7 +26,7 @@ public class CacheExampleController {
     @Autowired
     private CacheManager cacheManager;
 
-    @Cacheable(cacheNames = "exampleCache")
+    @Cacheable
     @GetMapping("/query/{id}")
     public Rest<ExampleDO> query(@PathVariable("id") Long id) {
         ExampleDO exampleDO = exampleService.selectByPrimaryKey(id);
