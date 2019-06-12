@@ -13,6 +13,7 @@
         <module>apocalypse-user</module>
         <module>apocalypse-gateway</module>
         <module>apocalypse-example</module>
+        <module>apocalypse-system</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -97,6 +98,12 @@
             <dependency>
                 <groupId>com.apocalypse</groupId>
                 <artifactId>apocalypse-example-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-system-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

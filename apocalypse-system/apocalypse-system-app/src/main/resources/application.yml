@@ -25,12 +25,12 @@ mybatis:
   mapper-locations:
     - classpath:mapper/single/*.xml
     - classpath:mapper/complex/*.xml
-  type-aliases-package: com.apocalypse.user.model
+  type-aliases-package: com.apocalypse.system.model
 
 server:
-  port: 35001
+  port: 33001
   servlet:
-    context-path: /user-api
+    context-path: /system-api
 
 spring:
   profiles:
@@ -48,7 +48,7 @@ spring:
       testOnReturn: false
       validationQuery: SELECT 1 FROM dual
   application:
-    name: apocalypse-user
+    name: apocalypse-system
   messages:
     basename: i18n/messages
     encoding: UTF-8
