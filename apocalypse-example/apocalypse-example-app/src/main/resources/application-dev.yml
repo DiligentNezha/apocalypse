@@ -48,3 +48,5 @@ spring:
         acknowledge-mode: manual
   cache:
     type: redis
+    redis:
+      time-to-live: 300000ms

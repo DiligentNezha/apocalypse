@@ -20,6 +20,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>apocalypse-example-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
         </dependency>

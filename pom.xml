@@ -95,6 +95,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-example-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-dependencies.version}</version>

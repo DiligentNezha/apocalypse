@@ -1,38 +1,25 @@
-package com.apocalypse.example.model;
+package com.apocalypse.example.vo;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
-import com.apocalypse.common.mybatis.type.JSONArrayTypeHandler;
-import com.apocalypse.common.mybatis.type.JSONObjectTypeHandler;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
-import tk.mybatis.mapper.annotation.ColumnType;
-import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.annotation.LogicDelete;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import javax.persistence.*;
+
+/**
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
+ * @Description
+ * @date 2019/6/11
+ */
 @Data
-@Accessors(chain = true)
-@Table(name = "example")
-@ApiModel
-public class ExampleDO implements Serializable {
-    /**
-     * 编号
-     */
-    @Id
-    @KeySql(genId = SnowflakeIdGenId.class)
+public class ExampleVO implements Serializable {
+
     @ApiModelProperty(value = "Id")
     private Long id;
 
-    @Column(name = "example_extend_id")
     private Long exampleExtendId;
 
     /**
@@ -56,35 +43,30 @@ public class ExampleDO implements Serializable {
     /**
      * 是否删除：1：已删除；0：未删除
      */
-    @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     @ApiModelProperty(value = "逻辑删除")
     private Integer deleted;
 
     /**
      * 创建时间
      */
-    @Column(name = "create_time")
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
     /**
      * 最后更新时间
      */
-    @Column(name = "update_time")
     @ApiModelProperty(value = "更新时间")
     private LocalDateTime updateTime;
 
     /**
      * 爱好
      */
-    @ColumnType(typeHandler = JSONArrayTypeHandler.class)
     @ApiModelProperty(value = "爱好", dataType = "com.alibaba.fastjson.JSONArray")
     private JSONArray hobby;
 
     /**
      * 扩展
      */
-    @ColumnType(typeHandler = JSONObjectTypeHandler.class)
     @ApiModelProperty(value = "扩展数据", dataType = "com.alibaba.fastjson.JSONObject")
     private JSONObject extend;
 }

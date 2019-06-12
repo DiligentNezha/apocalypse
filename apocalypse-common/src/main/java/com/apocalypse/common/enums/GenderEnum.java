@@ -36,12 +36,12 @@ public enum GenderEnum {
     /**
      * view 展示层
      */
-    private String view;
+    public String view;
 
     /**
      * 数据库当中存储的值
      */
-    private Integer value;
+    public Integer value;
 
     GenderEnum(String view, Integer value) {
         this.view = view;
