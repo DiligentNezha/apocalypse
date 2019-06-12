@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.*;
 @Data
+@ApiModel
 @Accessors(chain = true)
 @Table(name = "example")
-@ApiModel
 public class ExampleDO implements Serializable {
     /**
      * 编号
@@ -54,7 +54,7 @@ public class ExampleDO implements Serializable {
     private String remark;
 
     /**
-     * 是否删除：1：已删除；0：未删除
+     * 是否删除（1：已删除；0：未删除）
      */
     @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     @ApiModelProperty(value = "逻辑删除")

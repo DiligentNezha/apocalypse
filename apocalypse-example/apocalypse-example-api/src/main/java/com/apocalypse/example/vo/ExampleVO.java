@@ -41,7 +41,7 @@ public class ExampleVO implements Serializable {
     private String remark;
 
     /**
-     * 是否删除：1：已删除；0：未删除
+     * 是否删除（1：已删除；0：未删除）
      */
     @ApiModelProperty(value = "逻辑删除")
     private Integer deleted;

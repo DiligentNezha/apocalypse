@@ -44,7 +44,7 @@ public class UserDO implements Serializable {
     private String phone;
 
     /**
-     * 是否删除：1：已删除；0：未删除
+     * 是否删除（1：已删除；0：未删除）
      */
     private Integer deleted;
 

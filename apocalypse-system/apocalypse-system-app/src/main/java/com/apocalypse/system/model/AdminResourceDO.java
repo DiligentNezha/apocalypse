@@ -1,40 +1,39 @@
-package com.apocalypse.example.model;
+package com.apocalypse.system.model;
 
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.annotation.LogicDelete;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 @Data
 @ApiModel
 @Accessors(chain = true)
-@Table(name = "example_extend")
-public class ExampleExtendDO {
+@Table(name = "admin_resource_union")
+public class AdminResourceDO implements Serializable {
     /**
      * 编号
      */
     @Id
-    @KeySql(genId = SnowflakeIdGenId.class)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /**
-     * 别名
+     * 管理员编号
      */
-    private String alias;
+    @Column(name = "admin_id")
+    private Integer adminId;
 
     /**
-     * 备注
+     * 资源编号
      */
-    private String remark;
+    @Column(name = "resource_id")
+    private Integer resourceId;
 
     /**
      * 是否删除（1：已删除；0：未删除）
      */
-    @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     private Integer deleted;
 
     /**
@@ -44,7 +43,7 @@ public class ExampleExtendDO {
     private LocalDateTime createTime;
 
     /**
-     * 最后更新时间
+     * 更新时间
      */
     @Column(name = "update_time")
     private LocalDateTime updateTime;

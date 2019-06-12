@@ -16,13 +16,21 @@ spring:
         locator:
           lower-case-service-id: true
       routes:
-        # Add your routes here.
+        # example 模块
         - id: apocalypse-example
           uri: lb://apocalypse-example/
           predicates:
             - Path=/example-api/**
           filters:
             - SwaggerHeaderFilter
+        # system 模块
+        - id: apocalypse-system
+          uri: lb://apocalypse-system/
+          predicates:
+            - Path=/system-api/**
+          filters:
+            - SwaggerHeaderFilter
+        # user 模块
         - id: apocalypse-user
           uri: lb://apocalypse-user/
           predicates:

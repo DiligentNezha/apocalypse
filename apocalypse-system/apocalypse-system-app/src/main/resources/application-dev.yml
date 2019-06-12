@@ -7,8 +7,7 @@ spring:
     name: druid
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/apocalypse_system?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
-    &useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/apocalypse_system?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
   redis:
     database: 0

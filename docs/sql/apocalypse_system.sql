@@ -26,7 +26,7 @@ CREATE TABLE `admin`  (
   `mail` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
   `nickname` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '昵称',
   `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '密码',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -41,7 +41,7 @@ CREATE TABLE `admin_admingroup_union`  (
   `admin_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员编号',
   `admingroup_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员分组编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '组名',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -55,7 +55,7 @@ CREATE TABLE `admin_resource_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `admin_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员编号',
   `resource_id` int(11) NOT NULL DEFAULT 0 COMMENT '资源编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -69,7 +69,7 @@ CREATE TABLE `admin_role_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `admin_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员编号',
   `role_id` int(11) NOT NULL DEFAULT 0 COMMENT '角色编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS `admingroup`;
 CREATE TABLE `admingroup`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '管理员组名',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '角色名',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -132,7 +132,7 @@ CREATE TABLE `role_admingroup_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `role_id` int(11) NOT NULL DEFAULT 0 COMMENT '角色编号',
   `admingroup_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员分组编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -146,7 +146,7 @@ CREATE TABLE `role_resource_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `role_id` int(11) NOT NULL DEFAULT 0 COMMENT '角色编号',
   `resource_id` int(11) NOT NULL DEFAULT 0 COMMENT '资源编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `system`;
 CREATE TABLE `system`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '系统名',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE

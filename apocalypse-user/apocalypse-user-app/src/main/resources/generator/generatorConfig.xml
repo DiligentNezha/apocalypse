@@ -15,9 +15,7 @@
             <property name="mappers" value="com.apocalypse.common.mybatis.MyMapper"/>
         </plugin>
 
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/apocalypse_user?serverTimezone=Asia/Shanghai"
-                        userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/apocalypse_user?serverTimezone=Asia/Shanghai" userId="root" password="root">
         </jdbcConnection>
 
         <!-- DO对象生成配置 -->

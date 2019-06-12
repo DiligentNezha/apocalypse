@@ -29,7 +29,7 @@ CREATE TABLE `example`  (
   `hobby` json NOT NULL COMMENT '爱好',
   `extend` json NOT NULL COMMENT '扩展',
   `remark` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -43,7 +43,7 @@ CREATE TABLE `example_extend`  (
   `id` bigint(20) NOT NULL COMMENT '编号',
   `alias` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '别名',
   `remark` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '最后更新时间',
   PRIMARY KEY (`id`) USING BTREE
