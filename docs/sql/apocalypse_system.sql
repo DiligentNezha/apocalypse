@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50724
  Source Host           : localhost:3306
- Source Schema         : apocalypse-system
+ Source Schema         : apocalypse_system
 
  Target Server Type    : MySQL
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 12/06/2019 16:10:35
+ Date: 12/06/2019 17:59:02
 */
 
 SET NAMES utf8mb4;
@@ -33,13 +33,13 @@ CREATE TABLE `admin`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for admin_admingroup_union
+-- Table structure for admin_group_union
 -- ----------------------------
-DROP TABLE IF EXISTS `admin_admingroup_union`;
-CREATE TABLE `admin_admingroup_union`  (
+DROP TABLE IF EXISTS `admin_group_union`;
+CREATE TABLE `admin_group_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `admin_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员编号',
-  `admingroup_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员分组编号',
+  `group_id` int(11) NOT NULL DEFAULT 0 COMMENT '分组编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '组名',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -76,17 +76,18 @@ CREATE TABLE `admin_role_union`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for admingroup
+-- Table structure for group
 -- ----------------------------
-DROP TABLE IF EXISTS `admingroup`;
-CREATE TABLE `admingroup`  (
+DROP TABLE IF EXISTS `group`;
+CREATE TABLE `group`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '管理员组名',
+  `type` tinyint(4) NOT NULL DEFAULT 1 COMMENT '组类型（1：管理员组；2：角色组）',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员分组表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '分组表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for resource
@@ -106,6 +107,7 @@ CREATE TABLE `resource`  (
   `orders` int(11) NOT NULL DEFAULT 0 COMMENT '顺序',
   `require_auth` bit(1) NOT NULL DEFAULT b'1' COMMENT '需要授权',
   `visible` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否可见',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
@@ -122,16 +124,16 @@ CREATE TABLE `role`  (
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for role_admingroup_union
+-- Table structure for role_group_union
 -- ----------------------------
-DROP TABLE IF EXISTS `role_admingroup_union`;
-CREATE TABLE `role_admingroup_union`  (
+DROP TABLE IF EXISTS `role_group_union`;
+CREATE TABLE `role_group_union`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `role_id` int(11) NOT NULL DEFAULT 0 COMMENT '角色编号',
-  `admingroup_id` int(11) NOT NULL DEFAULT 0 COMMENT '管理员分组编号',
+  `group_id` int(11) NOT NULL DEFAULT 0 COMMENT '分组编号',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除（1：已删除；0：未删除）',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
