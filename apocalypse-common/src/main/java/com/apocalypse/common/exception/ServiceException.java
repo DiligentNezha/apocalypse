@@ -2,21 +2,22 @@ package com.apocalypse.common.exception;
 
 
 import lombok.Data;
-import org.slf4j.Logger;
 
 @Data
-public class ServiceException extends RuntimeException{
+public class ServiceException extends RuntimeException {
 
-    private String code;
+    /**
+     * 错误码
+     */
+    private final Integer code;
 
-    public ServiceException(Logger logger, String code, String message, Throwable cause, String temp, Object... args) {
-        super(message, cause);
+    public ServiceException(Integer code, String message) {
+        super(message);
         this.code = code;
     }
 
-    public ServiceException(String code, String message) {
-        super(message);
-        this.code = code;
+    public Integer getCode() {
+        return code;
     }
 
 }

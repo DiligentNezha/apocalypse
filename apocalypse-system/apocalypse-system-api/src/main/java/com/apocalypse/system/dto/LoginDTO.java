@@ -14,9 +14,13 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class RoleCreateDTO implements Serializable {
+public class LoginDTO implements Serializable {
 
     @NotBlank
-    @ApiModelProperty(value = "角色名", required = true, example = "店小二")
-    private String name;
+    @ApiModelProperty(value = "邮箱", required = true, example = "499508968@qq.com")
+    private String mail;
+
+    @NotBlank
+    @ApiModelProperty(value = "密码", required = true, example = "123456")
+    private String password;
 }

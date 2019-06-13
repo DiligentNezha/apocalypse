@@ -1,5 +1,6 @@
 package com.apocalypse.common.dto;
 
+import com.apocalypse.common.enums.ErrorCodeMark;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,7 +15,7 @@ public class Rest<T> implements Serializable {
 
     private Boolean success = Boolean.TRUE;
 
-    private Integer code;
+    private Integer code = 0;
 
     private String msg;
 
@@ -30,8 +31,24 @@ public class Rest<T> implements Serializable {
         return rest;
     }
 
-    public static Rest error() {
+    public static Rest error(ErrorCodeMark errorCodeMark, String msg) {
         return new Rest<>()
+                .setCode(errorCodeMark.getCode())
+                .setMsg(msg)
+                .setSuccess(false);
+    }
+
+    public static Rest error(ErrorCodeMark errorCodeMark) {
+        return new Rest<>()
+                .setCode(errorCodeMark.getCode())
+                .setMsg(errorCodeMark.getMsg())
+                .setSuccess(false);
+    }
+
+    public static Rest error(Integer code, String msg) {
+        return new Rest<>()
+                .setCode(code)
+                .setMsg(msg)
                 .setSuccess(false);
     }
 

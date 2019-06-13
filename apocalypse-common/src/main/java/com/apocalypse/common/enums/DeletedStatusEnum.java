@@ -8,28 +8,24 @@ import java.util.Map;
  * @date 2018/11/10
  * @mail kaihuijing@gmail.com
  */
-public enum GenderEnum {
+public enum DeletedStatusEnum {
 
     /**
-     * 男性
+     * （正常）未删除
      */
-    MALE(1, "男"),
+    NOT_DELETED(0, "(正常)未删除"),
 
     /**
-     * 女性
+     * 已删除
      */
-    FEMALE(2, "女"),
+    DELETED(1, "已删除"),
 
-    /**
-     * 保密
-     */
-    SECRET(3, "保密");
-
+    ;
     private static final Map<Integer, String> map = new HashMap<>();
 
     static {
-        GenderEnum[] values = values();
-        for (GenderEnum value : values) {
+        DeletedStatusEnum[] values = values();
+        for (DeletedStatusEnum value : values) {
             map.put(value.value, value.name);
         }
     }
@@ -44,7 +40,7 @@ public enum GenderEnum {
      */
     public Integer value;
 
-    GenderEnum(Integer value, String name) {
+    DeletedStatusEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }

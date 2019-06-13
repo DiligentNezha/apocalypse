@@ -4,14 +4,17 @@ import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.enums.SysErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import springfox.documentation.service.ResponseMessage;
 
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @RestControllerAdvice
@@ -23,14 +26,19 @@ public class ExceptionHandling {
         log.error(e.getMessage(), e);
         Rest<Object> response = new Rest<>();
         response.setSuccess(false);
-        return response;
+        return Rest.error(SysErrorCodeEnum.SYS_ERROR);
+    }
+
+    @ExceptionHandler
+    public Rest handler(ServiceException e) {
+        //处理异常
+        log.warn(e.getMessage());
+        return Rest.error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler
     public Rest handler(MethodArgumentNotValidException e) {
         //处理异常
-        Rest<Object> response = new Rest<>();
-        response.setSuccess(false);
         List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
         JSONArray jsonArray = new JSONArray();
         String msg = "参数校验异常！";
@@ -41,7 +49,7 @@ public class ExceptionHandling {
                 Object rejectedValue = ((FieldError) error).getRejectedValue();
                 jsonArray.fluentAdd(new JSONObject()
                         .fluentPut("参数", field)
-                        .fluentPut("错误的值", ObjectUtil.defaultIfNull(rejectedValue, "null"))
+                        .fluentPut("接收到的值", ObjectUtil.defaultIfNull(rejectedValue, "null"))
                         .fluentPut("错误信息", defaultMessage));
                 msg = jsonArray.toJSONString();
             } else if (error instanceof ObjectError) {
@@ -49,8 +57,7 @@ public class ExceptionHandling {
             }
         }
         log.warn("参数校验异常！{}", msg);
-        response.setMsg(msg);
-        return response;
+        return Rest.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
     }
 
 }
