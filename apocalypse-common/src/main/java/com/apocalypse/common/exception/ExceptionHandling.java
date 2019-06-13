@@ -5,16 +5,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.enums.SysErrorCodeEnum;
+import com.apocalypse.common.util.ServiceExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import springfox.documentation.service.ResponseMessage;
 
 import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 @RestControllerAdvice
@@ -26,7 +25,7 @@ public class ExceptionHandling {
         log.error(e.getMessage(), e);
         Rest<Object> response = new Rest<>();
         response.setSuccess(false);
-        return Rest.error(SysErrorCodeEnum.SYS_ERROR);
+        return ServiceExceptionUtil.error(SysErrorCodeEnum.SYS_ERROR);
     }
 
     @ExceptionHandler
@@ -57,7 +56,7 @@ public class ExceptionHandling {
             }
         }
         log.warn("参数校验异常！{}", msg);
-        return Rest.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
+        return ServiceExceptionUtil.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
     }
 
 }
