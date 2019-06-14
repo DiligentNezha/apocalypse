@@ -23,6 +23,15 @@ spring:
             - Path=/example-api/**
           filters:
             - SwaggerHeaderFilter
+        # github oauth2
+        - id: oauth-github
+          uri: lb://apocalypse-example/
+          predicates:
+            - Path=/oauth/**
+          filters:
+            - SwaggerHeaderFilter
+            - PrefixPath=/example-api
+#            - RewritePath=/oauth/(?<segment>.*), /example-api/oauth/$\{segment}
         # system 模块
         - id: apocalypse-system
           uri: lb://apocalypse-system/
@@ -37,4 +46,3 @@ spring:
             - Path=/user-api/**
           filters:
             - SwaggerHeaderFilter
-
