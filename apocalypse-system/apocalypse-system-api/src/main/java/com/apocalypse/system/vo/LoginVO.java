@@ -17,6 +17,8 @@ public class LoginVO implements Serializable {
     private String mail;
 
     @ApiModelProperty(value = "密码", example = "123456")
-    private String nickName;
+    private String nickname;
+
+    private String sessionId;
 }
 

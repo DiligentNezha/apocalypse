@@ -1,13 +1,15 @@
 package com.apocalypse.system.controller;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.exception.ServiceException;
 import com.apocalypse.common.util.ServiceExceptionUtil;
+import com.apocalypse.system.convert.AdminConvert;
 import com.apocalypse.system.dto.LoginDTO;
 import com.apocalypse.system.enums.SystemErrorCodeEnum;
 import com.apocalypse.system.model.AdminDO;
 import com.apocalypse.system.service.single.AdminService;
+import com.apocalypse.system.vo.LoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +35,12 @@ public class AccountController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private AdminConvert adminConvert;
+
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "登录", produces = "application/json")
-    public Rest<AdminDO> login(@Validated @RequestBody LoginDTO loginDTO) {
+    public Rest<LoginVO> login(@Validated @RequestBody LoginDTO loginDTO) {
         Weekend<AdminDO> weekend = Weekend.of(AdminDO.class);
         weekend.weekendCriteria()
                 .andEqualTo(AdminDO::getMail, loginDTO.getMail())
@@ -44,7 +49,9 @@ public class AccountController {
         if (ObjectUtil.isNull(adminDO)) {
             throw ServiceExceptionUtil.exception(SystemErrorCodeEnum.ADMIN_USERNAME_NOT_REGISTERED);
         }
-        return Rest.ok(adminDO);
+        LoginVO loginVO = adminConvert.convert(adminDO);
+        loginVO.setSessionId(IdUtil.simpleUUID());
+        return Rest.ok(loginVO);
     }
 
 }

@@ -25,7 +25,7 @@ public class ExceptionHandling {
         log.error(e.getMessage(), e);
         Rest<Object> response = new Rest<>();
         response.setSuccess(false);
-        return ServiceExceptionUtil.error(SysErrorCodeEnum.SYS_ERROR);
+        return Rest.error(SysErrorCodeEnum.SYS_ERROR);
     }
 
     @ExceptionHandler
@@ -56,7 +56,7 @@ public class ExceptionHandling {
             }
         }
         log.warn("参数校验异常！{}", msg);
-        return ServiceExceptionUtil.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
+        return Rest.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
     }
 
 }
