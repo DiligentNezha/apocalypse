@@ -3,14 +3,24 @@ package com.apocalypse.example.controller;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.request.AlipaySystemOauthTokenRequest;
+import com.alipay.api.request.AlipayUserInfoShareRequest;
+import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+import com.alipay.api.response.AlipayUserInfoShareResponse;
 import com.apocalypse.common.dto.Rest;
+import com.apocalypse.example.manager.AlipayManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -41,6 +51,12 @@ public class OAuth2Controller {
      */
     private String acquireUserInfo = "https://api.github.com/user";
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private AlipayManager alipayManager;
+
     @GetMapping("/github/redirect")
     public Rest<JSONObject> redirect(String code) {
         log.info("Auth code【{}】", code);
@@ -60,4 +76,39 @@ public class OAuth2Controller {
         String userInfo = HttpUtil.createGet(acquireUserInfo).header("Authorization", "token " + accessToken).execute().body();
         return Rest.ok(JSON.parseObject(userInfo));
     }
+
+    /**
+     * 支付宝授权回调地址
+     */
+    @GetMapping("/auth/alipay/redirect")
+    public Rest<JSONObject> alipayRedirect(@RequestParam("app_id") String appId,
+                                           @RequestParam("source") String source,
+                                           @RequestParam(value = "scope") String scope,
+                                           @RequestParam("auth_code") String authCode,
+                                           @RequestParam("state") String state) {
+        log.info("state【{}】;appId【{}】;source【{}】;scope【{}】;authCode【{}】", state, appId, source, scope, authCode);
+        HashOperations hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(state, "appId", appId);
+        hashOperations.put(state, "source", source);
+        hashOperations.put(state, "scope", scope);
+        hashOperations.put(state, "authCode", authCode);
+
+        AlipayClient alipayClient = alipayManager.getAlipayClient();
+        AlipaySystemOauthTokenRequest alipaySystemOauthTokenRequest = new AlipaySystemOauthTokenRequest();
+        alipaySystemOauthTokenRequest.setCode(authCode);
+        alipaySystemOauthTokenRequest.setGrantType("authorization_code");
+        try {
+            AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(alipaySystemOauthTokenRequest);
+            hashOperations.put(state, "oauthTokenResponse", oauthTokenResponse);
+
+            AlipayUserInfoShareRequest alipayUserInfoShareRequest = new AlipayUserInfoShareRequest();
+            AlipayUserInfoShareResponse alipayUserInfoShareResponse = alipayClient.execute(alipayUserInfoShareRequest, oauthTokenResponse.getAccessToken());
+            hashOperations.put(state, "alipayUserInfoShareResponse", alipayUserInfoShareResponse);
+        } catch (AlipayApiException e) {
+            //处理异常
+            e.printStackTrace();
+        }
+        return Rest.ok(null);
+    }
+
 }

@@ -66,6 +66,8 @@
         <xxl-job.version>2.0.2</xxl-job.version>
         <!-- 七牛云SDK -->
         <qiniu-java-sdk.version>7.2.2</qiniu-java-sdk.version>
+        <!-- 支付宝SDK -->
+        <alipay-sdk-java.version>3.7.73.ALL</alipay-sdk-java.version>
 
         <!-- 分布式服务部分 -->
         <!-- 分布式锁工具 https://github.com/redisson/redisson#quick-start -->
@@ -193,6 +195,12 @@
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>${qiniu-java-sdk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay-sdk-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
