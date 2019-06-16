@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>数据绑定</h2>
+        <input type="text" v-model="username">
+        <h2>模板语法</h2>
+        <p>hello {{username}}</p>
+        <!-- 强制数据绑定 -->
+        <h2>指令-强制数据绑定</h2>
+        <img :src="imgUrl" alt="">
+        <h2>指令-事件绑定</h2>
+        <button @click="testEvent">按钮</button>
+        <button @click="testEventWithParams('江阿生')">按钮(有参数)</button>
+        <button @click="testEventWithParams(username)">按钮(data中数据)</button>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                username: "江阿生",
+                imgUrl: "https://cn.vuejs.org/images/logo.png"
+            },
+            methods: {
+                testEvent() {
+                    alert("hello");
+                },
+                testEventWithParams(name) {
+                    alert("hello " + name);
+                },
+            }
+        });
+    </script>
+</body>
+</html>
