@@ -100,10 +100,13 @@ public class OAuth2Controller {
         try {
             AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(alipaySystemOauthTokenRequest);
             hashOperations.put(state, "oauthTokenResponse", oauthTokenResponse);
+            hashOperations.put(state, "oauthTokenResponseBody", JSON.parseObject(oauthTokenResponse.getBody()));
 
             AlipayUserInfoShareRequest alipayUserInfoShareRequest = new AlipayUserInfoShareRequest();
             AlipayUserInfoShareResponse alipayUserInfoShareResponse = alipayClient.execute(alipayUserInfoShareRequest, oauthTokenResponse.getAccessToken());
             hashOperations.put(state, "alipayUserInfoShareResponse", alipayUserInfoShareResponse);
+            hashOperations.put(state, "alipayUserInfoShareResponseBody",
+                    JSON.parseObject(alipayUserInfoShareResponse.getBody()));
         } catch (AlipayApiException e) {
             //处理异常
             e.printStackTrace();
