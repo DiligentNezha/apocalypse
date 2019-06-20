@@ -21,7 +21,8 @@
     <dependencies>
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-common</artifactId>
+            <artifactId>apocalypse-common-infrastructure</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>

@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.enums.SysErrorCodeEnum;
-import com.apocalypse.common.util.ServiceExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;

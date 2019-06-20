@@ -4,8 +4,6 @@ import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.enums.ErrorCodeMark;
 import com.apocalypse.common.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
