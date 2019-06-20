@@ -94,6 +94,12 @@
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-common-boot</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.apocalypse</groupId>
                 <artifactId>apocalypse-user-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
