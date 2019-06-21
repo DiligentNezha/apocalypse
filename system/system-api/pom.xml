@@ -3,15 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>apocalypse-user</artifactId>
+        <artifactId>system</artifactId>
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>apocalypse-user-api</artifactId>
+    <artifactId>system-api</artifactId>
     <packaging>jar</packaging>
-    <name>apocalypse-user-api</name>
+    <name>system-api</name>
 
     <dependencies>
         <dependency>
@@ -28,7 +27,7 @@
 
     <build>
         <!--打包后的名字-->
-        <finalName>apocalypse-user-api</finalName>
+        <finalName>system-api</finalName>
     </build>
 
 </project>

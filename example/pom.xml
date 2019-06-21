@@ -9,20 +9,19 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-user</artifactId>
+    <artifactId>example</artifactId>
     <packaging>pom</packaging>
-    <name>apocalypse-user</name>
+    <name>example</name>
 
     <modules>
-        <module>apocalypse-user-app</module>
-        <module>apocalypse-user-api</module>
+        <module>example-app</module>
+        <module>example-api</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-common-infrastructure</artifactId>
-            <version>1.0.0</version>
+            <artifactId>common-infrastructure</artifactId>
         </dependency>
 
         <dependency>

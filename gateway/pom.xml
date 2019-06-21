@@ -9,9 +9,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-gateway</artifactId>
+    <artifactId>gateway</artifactId>
     <packaging>jar</packaging>
-    <name>apocalypse-gateway</name>
+    <name>gateway</name>
 
     <dependencies>
         <dependency>
@@ -58,7 +58,7 @@
     </dependencies>
 
     <build>
-        <finalName>apocalypse-gateway</finalName>
+        <finalName>gateway</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

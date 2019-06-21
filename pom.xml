@@ -9,11 +9,11 @@
     <version>1.0.0</version>
 
     <modules>
-        <module>apocalypse-common</module>
-        <module>apocalypse-user</module>
-        <module>apocalypse-gateway</module>
-        <module>apocalypse-example</module>
-        <module>apocalypse-system</module>
+        <module>common</module>
+        <module>user</module>
+        <module>gateway</module>
+        <module>example</module>
+        <module>system</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -88,31 +88,31 @@
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-common-infrastructure</artifactId>
+                <artifactId>common-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-common-boot</artifactId>
+                <artifactId>common-boot</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-user-api</artifactId>
+                <artifactId>user-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-example-api</artifactId>
+                <artifactId>example-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-system-api</artifactId>
+                <artifactId>system-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

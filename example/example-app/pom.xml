@@ -3,21 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>apocalypse-user</artifactId>
+        <artifactId>example</artifactId>
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apocalypse-user-app</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>example-app</artifactId>
     <packaging>jar</packaging>
-    <name>apocalypse-user-app</name>
+    <name>example-app</name>
 
     <dependencies>
 
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-user-api</artifactId>
+            <artifactId>common-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>user-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>example-api</artifactId>
         </dependency>
 
         <dependency>
@@ -91,10 +101,21 @@
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>apocalypse-user-app</finalName>
+        <finalName>example-app</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

@@ -7,20 +7,21 @@
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-system</artifactId>
+    <artifactId>user</artifactId>
     <packaging>pom</packaging>
-    <name>apocalypse-system</name>
+    <name>user</name>
 
     <modules>
-        <module>apocalypse-system-app</module>
-        <module>apocalypse-system-api</module>
+        <module>user-app</module>
+        <module>user-api</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-common-infrastructure</artifactId>
+            <artifactId>common-infrastructure</artifactId>
         </dependency>
 
         <dependency>

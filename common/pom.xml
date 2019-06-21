@@ -9,12 +9,12 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>apocalypse-common</artifactId>
+    <artifactId>common</artifactId>
     <packaging>pom</packaging>
-    <name>apocalypse-common</name>
+    <name>common</name>
     <modules>
-        <module>apocalypse-common-infrastructure</module>
-        <module>apocalypse-common-boot</module>
+        <module>common-infrastructure</module>
+        <module>common-boot</module>
     </modules>
 
     <dependencies>
