@@ -17,7 +17,7 @@ export default {
   },
   methods: {
       login() {
-          console.info(this.$data);
+          console.info(this.$data)
       }
   }
 }
