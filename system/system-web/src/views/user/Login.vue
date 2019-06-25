@@ -147,6 +147,7 @@ export default {
     get2step({ })
       .then(res => {
         this.requiredTwoStepCaptcha = res.result.stepCode
+        console.info(res);
       })
       .catch(() => {
         this.requiredTwoStepCaptcha = false
