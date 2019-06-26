@@ -1,0 +1,64 @@
+logging:
+  config: classpath:logback-spring.xml
+
+mapper:
+  check-example-entity-class: true
+  identity: MYSQL
+  mappers:
+    - com.apocalypse.common.mybatis.MyMapper
+  not-empty: true
+  safe-delete: true
+  safe-update: true
+  seq-format: true
+  style: camelhumpAndLowercase
+  wrap-keyword: '`{0}`'
+
+swagger:
+  enable: true
+  title: Example模块
+  description: Example相关接口
+  version: 1.0.0
+  base-package: com.apocalypse.example.controller
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  row-bounds-with-count: true
+  offset-as-page-num: true
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/single/*.xml
+    - classpath:mapper/complex/*.xml
+  type-aliases-package: com.apocalypse.example.model
+
+server:
+  port: 32001
+  servlet:
+    context-path: /example-api
+
+spring:
+  profiles:
+    active: @profileActive@
+  datasource:
+    druid:
+      connectionProperties:
+        - druid.stat.mergeSql=true
+        - druid.stat.slowSqlMillis=5000
+      filters:
+        - stat
+        - wall
+        - slf4j
+      maxActive: 20
+      testOnReturn: false
+      validationQuery: SELECT 1 FROM dual
+  application:
+    name: apocalypse-example
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  redis:
+    redisson:
+      config: classpath:/redisson.yaml

@@ -1,0 +1,48 @@
+logging:
+  config: classpath:logback-spring.xml
+
+server:
+  port: 31001
+
+spring:
+  profiles:
+    active: @profileActive@
+  application:
+    name: apocalypse-gateway
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+      routes:
+        # example 模块
+        - id: apocalypse-example
+          uri: lb://apocalypse-example/
+          predicates:
+            - Path=/example-api/**
+          filters:
+            - SwaggerHeaderFilter
+        # github oauth2
+        - id: oauth-github
+          uri: lb://apocalypse-example/
+          predicates:
+            - Path=/oauth/**
+          filters:
+            - SwaggerHeaderFilter
+            - PrefixPath=/example-api
+#            - RewritePath=/oauth/(?<segment>.*), /example-api/oauth/$\{segment}
+        # system 模块
+        - id: apocalypse-system
+          uri: lb://apocalypse-system/
+          predicates:
+            - Path=/system-api/**
+          filters:
+            - SwaggerHeaderFilter
+        # user 模块
+        - id: apocalypse-user
+          uri: lb://apocalypse-user/
+          predicates:
+            - Path=/user-api/**
+          filters:
+            - SwaggerHeaderFilter
