@@ -129,4 +129,26 @@ public class HelloReceiver {
             //报错容错处理
         }
     }
+
+    @RabbitHandler
+    @RabbitListener(queues = RabbitConstant.QUEUE_LOG_WARN)
+    public void processWarnLog(String warnLog, Message message, Channel channel) {
+        try {
+            log.info("HelloReceiver received warn log message【{}】", warnLog);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (Exception e) {
+            //报错容错处理
+        }
+    }
+
+    @RabbitHandler
+    @RabbitListener(queues = RabbitConstant.QUEUE_LOG_ERROR)
+    public void processErrorLog(String errorLog, Message message, Channel channel) {
+        try {
+            log.info("HelloReceiver received error log message【{}】", errorLog);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (Exception e) {
+            //报错容错处理
+        }
+    }
 }

@@ -34,7 +34,6 @@ public class RabbitConfig {
         return new Queue(RabbitConstant.QUEUE_MANY_TO_MANY);
     }
 
-
     @Bean
     public Queue stock() {
         return new Queue(RabbitConstant.QUEUE_STOCK);
@@ -46,18 +45,43 @@ public class RabbitConfig {
     }
 
     @Bean
-    FanoutExchange orderExchange() {
-        return new FanoutExchange(RabbitConstant.EXCHANGE_ORDER);
+    FanoutExchange orderFanoutExchange() {
+        return new FanoutExchange(RabbitConstant.FANOUT_EXCHANGE_ORDER);
     }
 
     @Bean
-    Binding bindingStockToOrderExchange(Queue stock, FanoutExchange orderExchange) {
+    Binding bindingStockToOrderFanoutExchange(Queue stock, FanoutExchange orderExchange) {
         return BindingBuilder.bind(stock).to(orderExchange);
     }
 
     @Bean
-    Binding bindingPointToExchange(Queue point, FanoutExchange orderExchange) {
+    Binding bindingPointToOrderFanoutExchange(Queue point, FanoutExchange orderExchange) {
         return BindingBuilder.bind(point).to(orderExchange);
+    }
+
+    @Bean
+    public Queue logWarn() {
+        return new Queue(QUEUE_LOG_WARN);
+    }
+
+    @Bean
+    public Queue logError() {
+        return new Queue(QUEUE_LOG_ERROR);
+    }
+
+    @Bean
+    TopicExchange logTopicExchange() {
+        return new TopicExchange(TOPIC_EXCHANGE_LOG);
+    }
+
+    @Bean
+    Binding bindingLogWarnToLogTopicExchange(Queue logWarn, TopicExchange logExchange) {
+        return BindingBuilder.bind(logWarn).to(logExchange).with(ROUTING_KEY_LOG_WARN);
+    }
+
+    @Bean
+    Binding bindingLogErrorToLogTopicExchange(Queue logError, TopicExchange logExchange) {
+        return BindingBuilder.bind(logError).to(logExchange).with(ROUTING_KEY_LOG_ERROR);
     }
 
     /**

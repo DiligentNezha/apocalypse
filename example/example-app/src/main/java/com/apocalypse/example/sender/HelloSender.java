@@ -71,7 +71,28 @@ public class HelloSender {
      * 下单
      */
     public void order(Long userId) {
-        amqpTemplate.convertAndSend(RabbitConstant.EXCHANGE_ORDER, null, userId);
+        amqpTemplate.convertAndSend(RabbitConstant.FANOUT_EXCHANGE_ORDER, null, userId);
         log.info("HelloSender send order message userId【{}】", userId);
+    }
+
+    /**
+     * 发送错误日志
+     */
+    public void sendErrorLog() {
+        String msg = "this is error log";
+        // 发送Error Log，com.apocalypse.example.config.RabbitConfig.logWarn 和
+        // com.apocalypse.example.config.RabbitConfig.logError 都可以收到消息
+        amqpTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.error", msg);
+        log.info("HelloSender send error log【{}】", msg);
+    }
+
+    /**
+     * 发送错误日志
+     */
+    public void sendWarnLog() {
+        String msg = "this is warn log";
+        // 发送Warn Log，只有com.apocalypse.example.config.RabbitConfig.logWarn 可以收到消息
+        amqpTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.warn", msg);
+        log.info("HelloSender send warn log【{}】", msg);
     }
 }

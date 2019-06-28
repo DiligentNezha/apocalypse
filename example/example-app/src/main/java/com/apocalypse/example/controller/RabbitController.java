@@ -50,4 +50,16 @@ public class RabbitController {
         helloSender.order(RandomUtil.randomLong(123456789, 987654321));
         return Rest.ok();
     }
+
+    @GetMapping("/log/warn")
+    public Rest<Boolean> warnLog() {
+        helloSender.sendWarnLog();
+        return Rest.ok();
+    }
+
+    @GetMapping("/log/error")
+    public Rest<Boolean> errorLog() {
+        helloSender.sendErrorLog();
+        return Rest.ok();
+    }
 }

@@ -16,7 +16,7 @@ public class RabbitConstant {
     /**
      * 模拟下单后，发送扣减库存消息，增加会员积分消息
      */
-    public static final String EXCHANGE_ORDER = "order";
+    public static final String FANOUT_EXCHANGE_ORDER = "order";
 
     /**
      * 库存队列
@@ -27,6 +27,31 @@ public class RabbitConstant {
      * 积分队列
      */
     public static final String QUEUE_POINT = "point";
+
+    /**
+     * 模拟报警，对不同级别日志进行分发
+     */
+    public static final String TOPIC_EXCHANGE_LOG = "log";
+
+    /**
+     * WARN 消息
+     */
+    public static final String QUEUE_LOG_WARN = "log.warn";
+
+    /**
+     * WARN 消息绑定的路由key
+     */
+    public static final String ROUTING_KEY_LOG_WARN = "log.#";
+
+    /**
+     * ERROR 消息
+     */
+    public static final String QUEUE_LOG_ERROR = "log_error";
+
+    /**
+     * ERROR 消息绑定的路由key
+     */
+    public static final String ROUTING_KEY_LOG_ERROR = "log.error";
 
     /**
      * 发送到该队列的message会在一段时间后过期进入到delay_process_queue
