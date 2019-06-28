@@ -13,6 +13,7 @@
     <name>system-app</name>
 
     <dependencies>
+
         <dependency>
             <groupId>com.apocalypse</groupId>
             <artifactId>system-api</artifactId>
