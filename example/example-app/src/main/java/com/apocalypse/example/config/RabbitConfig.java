@@ -1,5 +1,6 @@
 package com.apocalypse.example.config;
 
+import com.apocalypse.example.constant.RabbitConstant;
 import com.apocalypse.example.receiver.ProcessReceiver;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -19,8 +20,44 @@ import static com.apocalypse.example.constant.RabbitConstant.*;
 public class RabbitConfig {
 
     @Bean
-    public Queue hello() {
-        return new Queue("hello");
+    public Queue oneToOne() {
+        return new Queue(RabbitConstant.QUEUE_ONE_TO_ONE);
+    }
+
+    @Bean
+    public Queue oneToMany() {
+        return new Queue(RabbitConstant.QUEUE_ONE_TO_MANY);
+    }
+
+    @Bean
+    public Queue manyToMany() {
+        return new Queue(RabbitConstant.QUEUE_MANY_TO_MANY);
+    }
+
+
+    @Bean
+    public Queue stock() {
+        return new Queue(RabbitConstant.QUEUE_STOCK);
+    }
+
+    @Bean
+    public Queue point() {
+        return new Queue(RabbitConstant.QUEUE_POINT);
+    }
+
+    @Bean
+    FanoutExchange orderExchange() {
+        return new FanoutExchange(RabbitConstant.EXCHANGE_ORDER);
+    }
+
+    @Bean
+    Binding bindingStockToOrderExchange(Queue stock, FanoutExchange orderExchange) {
+        return BindingBuilder.bind(stock).to(orderExchange);
+    }
+
+    @Bean
+    Binding bindingPointToExchange(Queue point, FanoutExchange orderExchange) {
+        return BindingBuilder.bind(point).to(orderExchange);
     }
 
     /**

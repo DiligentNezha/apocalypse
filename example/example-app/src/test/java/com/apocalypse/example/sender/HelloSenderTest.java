@@ -24,7 +24,7 @@ public class HelloSenderTest {
     @Test
     public void send() {
         for (int i = 0; i < 10; i++) {
-            helloSender.send(i);
+            helloSender.oneToOne(i);
         }
     }
 }

@@ -7,6 +7,27 @@ package com.apocalypse.example.constant;
  */
 public class RabbitConstant {
 
+    public static final String QUEUE_ONE_TO_ONE = "one_to_one";
+
+    public static final String QUEUE_ONE_TO_MANY = "one_to_many";
+
+    public static final String QUEUE_MANY_TO_MANY = "many_to_many";
+
+    /**
+     * 模拟下单后，发送扣减库存消息，增加会员积分消息
+     */
+    public static final String EXCHANGE_ORDER = "order";
+
+    /**
+     * 库存队列
+     */
+    public static final String QUEUE_STOCK = "stock";
+
+    /**
+     * 积分队列
+     */
+    public static final String QUEUE_POINT = "point";
+
     /**
      * 发送到该队列的message会在一段时间后过期进入到delay_process_queue
      * 每个message可以控制自己的失效时间
