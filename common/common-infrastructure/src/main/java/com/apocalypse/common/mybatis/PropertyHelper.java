@@ -5,7 +5,7 @@ import tk.mybatis.mapper.entity.EntityTable;
 import tk.mybatis.mapper.mapperhelper.EntityHelper;
 
 /**
- * @author <a href="jingkaihui@adpanshi.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @Description 通用mapper方法扩展相关工具方法
  * @date 2019/4/8
  */

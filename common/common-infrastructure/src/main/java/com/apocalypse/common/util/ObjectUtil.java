@@ -3,7 +3,7 @@ package com.apocalypse.common.util;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * @author <a href="jingkaihui@adpanshi.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @Description
  * @date 2019/5/24
  */

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import static com.apocalypse.example.constant.RabbitConstant.*;
 
 /**
- * @author <a href="jingkaihui@adpanshi.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @Description RabbitMQ 配置
  * @date 2019/5/27
  */
