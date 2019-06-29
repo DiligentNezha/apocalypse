@@ -1,0 +1,39 @@
+[ 
+    {
+        "auth": "",
+        "host": "localhost",
+        "name": "localhost-6379",
+        "namespace_separator": ":",
+        "port": 6379,
+        "ssh_port": 22,
+        "timeout_connect": 60000,
+        "timeout_execute": 60000
+    },
+    {
+        "auth": "",
+        "host": "127.0.0.1",
+        "name": "master-6301",
+        "port": 6301,
+        "ssh_port": 22,
+        "timeout_connect": 60000,
+        "timeout_execute": 60000
+    },
+    {
+        "auth": "",
+        "host": "127.0.0.1",
+        "name": "slave-6302",
+        "port": 6302,
+        "ssh_port": 22,
+        "timeout_connect": 60000,
+        "timeout_execute": 60000
+    },
+    {
+        "auth": "",
+        "host": "127.0.0.1",
+        "name": "slave-6303",
+        "port": 6303,
+        "ssh_port": 22,
+        "timeout_connect": 60000,
+        "timeout_execute": 60000
+    }
+]
