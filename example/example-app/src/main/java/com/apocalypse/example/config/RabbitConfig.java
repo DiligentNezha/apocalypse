@@ -20,6 +20,16 @@ import static com.apocalypse.example.constant.RabbitConstant.*;
 public class RabbitConfig {
 
     @Bean
+    public Queue transactional() {
+        return new Queue(QUEUE_TRANSACTIONAL);
+    }
+
+    @Bean
+    public Queue producerConfirm() {
+        return new Queue(QUEUE_PRODUCER_CONFIRM);
+    }
+
+    @Bean
     public Queue oneToOne() {
         return new Queue(RabbitConstant.QUEUE_ONE_TO_ONE);
     }

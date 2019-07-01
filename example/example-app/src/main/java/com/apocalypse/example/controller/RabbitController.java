@@ -3,11 +3,16 @@ package com.apocalypse.example.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.example.sender.HelloSender;
+import com.apocalypse.example.sender.ProducerConfirmSender;
+import com.apocalypse.example.sender.TransactionalSender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -21,6 +26,12 @@ public class RabbitController {
 
     @Autowired
     private HelloSender helloSender;
+
+    @Autowired
+    private TransactionalSender transactionalSender;
+
+    @Autowired
+    private ProducerConfirmSender producerConfirmSender;
 
     @GetMapping("/oneToOne")
     public Rest<Boolean> oneToOne() {
@@ -60,6 +71,40 @@ public class RabbitController {
     @GetMapping("/log/error")
     public Rest<Boolean> errorLog() {
         helloSender.sendErrorLog();
+        return Rest.ok();
+    }
+
+    /**
+     * 开启rabbitMQ事务，没有异常消息正常发出
+     * @return
+     */
+    @GetMapping("/transactional")
+    public Rest<Boolean> transactional() throws IOException, TimeoutException {
+        transactionalSender.sendMessageWithTransactional();
+        return Rest.ok();
+    }
+
+    /**
+     * 开启rabbitMQ事务，有运行时异常，所以事务回滚后消息没有发送成功
+     * @return
+     * @throws IOException
+     * @throws TimeoutException
+     */
+    @GetMapping("/transactional/exception")
+    public Rest<Boolean> transactionalContainsException() throws IOException, TimeoutException {
+        transactionalSender.sendMessageWithTransactionalContainsException();
+        return Rest.ok();
+    }
+
+    /**
+     * 发送一条需要生产者确认的消息
+     * @return
+     * @throws IOException
+     * @throws TimeoutException
+     */
+    @GetMapping("/confirm/producer")
+    public Rest<Boolean> producerConfirm() throws IOException, TimeoutException {
+        producerConfirmSender.sendProducerConfirmMessage();;
         return Rest.ok();
     }
 }

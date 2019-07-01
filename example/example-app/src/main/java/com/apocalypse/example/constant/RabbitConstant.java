@@ -7,6 +7,16 @@ package com.apocalypse.example.constant;
  */
 public class RabbitConstant {
 
+    /**
+     * 用来测试RabbitMQ事务的队列
+     */
+    public static final String QUEUE_TRANSACTIONAL = "transactional";
+
+    /**
+     * 用来测试RabbitMQ生产者确认
+     */
+    public static final String QUEUE_PRODUCER_CONFIRM = "producer_confirm";
+
     public static final String QUEUE_ONE_TO_ONE = "one_to_one";
 
     public static final String QUEUE_ONE_TO_MANY = "one_to_many";

@@ -3,7 +3,7 @@ package com.apocalypse.example.sender;
 import cn.hutool.core.util.IdUtil;
 import com.apocalypse.example.constant.RabbitConstant;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,14 +17,14 @@ import org.springframework.stereotype.Component;
 public class HelloSender {
 
     @Autowired
-    private AmqpTemplate amqpTemplate;
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 一对一发送，发送者的路由key和队列名一致
      * @param i
      */
     public void oneToOne(Integer i) {
-        amqpTemplate.convertAndSend(RabbitConstant.QUEUE_ONE_TO_ONE, i, message -> {
+        rabbitTemplate.convertAndSend(RabbitConstant.QUEUE_ONE_TO_ONE, i, message -> {
             message.getMessageProperties().setMessageId(IdUtil.simpleUUID());
             return message;
         });
@@ -36,7 +36,7 @@ public class HelloSender {
      * @param i
      */
     public void oneToMany(Integer i) {
-        amqpTemplate.convertAndSend(RabbitConstant.QUEUE_ONE_TO_MANY, i, message -> {
+        rabbitTemplate.convertAndSend(RabbitConstant.QUEUE_ONE_TO_MANY, i, message -> {
             message.getMessageProperties().setMessageId(IdUtil.simpleUUID());
             return message;
         });
@@ -48,7 +48,7 @@ public class HelloSender {
      * @param i
      */
     public void manyToMany1(Integer i) {
-        amqpTemplate.convertAndSend(RabbitConstant.QUEUE_MANY_TO_MANY, i, message -> {
+        rabbitTemplate.convertAndSend(RabbitConstant.QUEUE_MANY_TO_MANY, i, message -> {
             message.getMessageProperties().setMessageId(IdUtil.simpleUUID());
             return message;
         });
@@ -60,7 +60,7 @@ public class HelloSender {
      * @param i
      */
     public void manyToMany2(Integer i) {
-        amqpTemplate.convertAndSend(RabbitConstant.QUEUE_MANY_TO_MANY, i, message -> {
+        rabbitTemplate.convertAndSend(RabbitConstant.QUEUE_MANY_TO_MANY, i, message -> {
             message.getMessageProperties().setMessageId(IdUtil.simpleUUID());
             return message;
         });
@@ -71,7 +71,7 @@ public class HelloSender {
      * 下单
      */
     public void order(Long userId) {
-        amqpTemplate.convertAndSend(RabbitConstant.FANOUT_EXCHANGE_ORDER, null, userId);
+        rabbitTemplate.convertAndSend(RabbitConstant.FANOUT_EXCHANGE_ORDER, null, userId);
         log.info("HelloSender send order message userId【{}】", userId);
     }
 
@@ -82,7 +82,7 @@ public class HelloSender {
         String msg = "this is error log";
         // 发送Error Log，com.apocalypse.example.config.RabbitConfig.logWarn 和
         // com.apocalypse.example.config.RabbitConfig.logError 都可以收到消息
-        amqpTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.error", msg);
+        rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.error", msg);
         log.info("HelloSender send error log【{}】", msg);
     }
 
@@ -92,7 +92,7 @@ public class HelloSender {
     public void sendWarnLog() {
         String msg = "this is warn log";
         // 发送Warn Log，只有com.apocalypse.example.config.RabbitConfig.logWarn 可以收到消息
-        amqpTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.warn", msg);
+        rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.warn", msg);
         log.info("HelloSender send warn log【{}】", msg);
     }
 }
