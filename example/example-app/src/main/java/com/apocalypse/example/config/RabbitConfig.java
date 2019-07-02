@@ -185,19 +185,4 @@ public class RabbitConfig {
                 .with(DELAY_QUEUE_PER_QUEUE_TTL_NAME);
     }
 
-    /**
-     * 定义delay_process_queue队列的Listener Container
-     *
-     * @param connectionFactory
-     * @return
-     */
-    @Bean
-    SimpleMessageListenerContainer processContainer(ConnectionFactory connectionFactory, ProcessReceiver processReceiver) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        // 监听delay_process_queue
-        container.setQueueNames(DELAY_PROCESS_QUEUE_NAME);
-        container.setMessageListener(new MessageListenerAdapter(processReceiver));
-        return container;
-    }
 }

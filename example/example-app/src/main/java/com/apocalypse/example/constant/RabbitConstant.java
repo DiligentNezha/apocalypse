@@ -46,7 +46,7 @@ public class RabbitConstant {
     /**
      * WARN 消息
      */
-    public static final String QUEUE_LOG_WARN = "log.warn";
+    public static final String QUEUE_LOG_WARN = "log_warn";
 
     /**
      * WARN 消息绑定的路由key

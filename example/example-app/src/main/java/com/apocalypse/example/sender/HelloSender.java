@@ -1,7 +1,11 @@
 package com.apocalypse.example.sender;
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.apocalypse.example.constant.RabbitConstant;
+import com.apocalypse.example.receiver.ProcessReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +98,42 @@ public class HelloSender {
         // 发送Warn Log，只有com.apocalypse.example.config.RabbitConfig.logWarn 可以收到消息
         rabbitTemplate.convertAndSend(RabbitConstant.TOPIC_EXCHANGE_LOG, "log.warn", msg);
         log.info("HelloSender send warn log【{}】", msg);
+    }
+
+    /**
+     * 发送到延迟队列,对消息设置TTL
+     */
+    public void sendDelayQueueWithMessageTtl() {
+        int expiration = 10 * 1000;
+        Object msg = StrUtil.format("send time【{}】;Message From delay_queue_per_message_ttl with expiration【{}】",
+                DateUtil.date().toString(DatePattern.NORM_DATETIME_MS_PATTERN), expiration);
+        rabbitTemplate.convertAndSend(RabbitConstant.DELAY_QUEUE_PER_MESSAGE_TTL_NAME, msg, message -> {
+            message.getMessageProperties().setExpiration(String.valueOf(expiration));
+            return message;
+        });
+        log.info("HelloSender send delay queue with message ttl【{}】", msg);
+    }
+
+    /**
+     * 发送消息到延迟队列，对队列设置TTL
+     */
+    public void sendDelayQueueWithQueueTtl() {
+        for (int i = 1; i <= 3; i++) {
+            Object msg = StrUtil.format("send time【{}】;Message From delay_queue_per_queue_ttl with expiration【{}】",
+                    DateUtil.date().toString(DatePattern.NORM_DATETIME_MS_PATTERN), RabbitConstant.QUEUE_EXPIRATION);
+            rabbitTemplate.convertAndSend(RabbitConstant.DELAY_QUEUE_PER_QUEUE_TTL_NAME, msg);
+            log.info("HelloSender send delay queue with queue ttl【{}】", msg);
+        }
+    }
+
+    /**
+     * 发送失败的消息到队列，队列消费端出错后会将消息重新发送到延迟队列（队列设置了TTL），从而达到延迟重试的效果
+     */
+    public void sendFailMessage() {
+        for (int i = 1; i <= 3; i++) {
+            String msg = ProcessReceiver.FAIL_MESSAGE;
+            rabbitTemplate.convertAndSend(RabbitConstant.DELAY_PROCESS_QUEUE_NAME, msg);
+            log.info("HelloSender send fail message【{}】", msg);
+        }
     }
 }
