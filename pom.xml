@@ -36,7 +36,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
         <springboot.version>2.1.6.RELEASE</springboot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <spring-cloud-dependencies.version>Greenwich.RELEASE</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>Greenwich.SR2</spring-cloud-dependencies.version>
         <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <swagger-models.version>1.5.21</swagger-models.version>

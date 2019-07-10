@@ -21,8 +21,7 @@ public class ProducerConfirmReceiver {
     @RabbitListener(queues = RabbitConstant.QUEUE_PRODUCER_CONFIRM)
     public void processSendMessageWithTransactional(String msg, Message message, Channel channel) {
         try {
-            log.info("ProducerConfirmReceiver received producer confirmed message! message【{}】;messageId【{}】", msg,
-                    message.getMessageProperties().getMessageId());
+            log.info("ProducerConfirmReceiver received producer confirmed message! message【{}】", msg);
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
             //报错容错处理

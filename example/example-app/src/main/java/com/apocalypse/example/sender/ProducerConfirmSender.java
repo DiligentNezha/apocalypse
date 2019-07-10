@@ -3,7 +3,10 @@ package com.apocalypse.example.sender;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.apocalypse.example.constant.RabbitConstant;
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,18 +86,12 @@ public class ProducerConfirmSender {
         // 等待最后一条消息 ack 或 nack 才会结束
         // 该方式会造成程序阻塞，并且不能拿到 ack 消息
 //        channel.waitForConfirmsOrDie();
-        channel.addConfirmListener(new ConfirmListener() {
-            @Override
-            public void handleAck(long deliveryTag, boolean multiple) throws IOException {
-                String msg = StrUtil.format("ack:deliveryTag:{};multiple:{}", deliveryTag, multiple);
-                log.info(msg);
-            }
-
-            @Override
-            public void handleNack(long deliveryTag, boolean multiple) throws IOException {
-                String msg = StrUtil.format("nack:deliveryTag:{};multiple:{}", deliveryTag, multiple);
-                log.info(msg);
-            }
+        channel.addConfirmListener((deliveryTag, multiple) -> {
+            String confirmMsg = StrUtil.format("ack:deliveryTag:{};multiple:{}", deliveryTag, multiple);
+            log.info(confirmMsg);
+        }, (deliveryTag, multiple) -> {
+            String confirmMsg = StrUtil.format("nack:deliveryTag:{};multiple:{}", deliveryTag, multiple);
+            log.info(confirmMsg);
         });
         log.info("执行waitForConfirmsOrDie耗费时间:{}ms", System.currentTimeMillis() - start);
     }
