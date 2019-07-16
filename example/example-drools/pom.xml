@@ -3,31 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>apocalypse-parent</artifactId>
+        <artifactId>example</artifactId>
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>example</artifactId>
-    <packaging>pom</packaging>
-    <name>example</name>
-
-    <modules>
-        <module>example-app</module>
-        <module>example-api</module>
-        <module>example-drools</module>
-    </modules>
+    <artifactId>example-drools</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.apocalypse</groupId>
-            <artifactId>common-infrastructure</artifactId>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-api</artifactId>
+            <version>7.5.0.Final</version>
         </dependency>
 
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>7.5.0.Final</version>
         </dependency>
     </dependencies>
+
 </project>
