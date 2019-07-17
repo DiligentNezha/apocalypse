@@ -18,28 +18,11 @@ insert into t_21 values(0,0,0),(5,5,5),(10,10,10),(15,15,15),(20,20,20),(25,25,2
 ```
     1.案例一  
       等值查询间隙锁
-<table>
-    <tr>
-        <th>session A</th>
-        <th>session B</th>
-        <th>session C</th>
-    </tr>
-    <tr>
-        <td>begin;<br>update t_21 set d=d+1 where id = 7;</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>insert into t_21 values(8,8,8);<br>(blocked)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>update t_21 set d=d+1 where id = 10;<br>(Query OK)</td>
-    </tr>
-</table>  
+|session A|session B|session C|
+|:--:|:--:|:--:|
+|begin;<br>update t_21 set d=d+1 where id = 7;| | |
+| |insert into t_21 values(8,8,8);<br>(<font color=red>blocked</font>)| |
+| | |update t_21 set d=d+1 where id = 10;<br>(<font color=green>Query OK</font>)|
 
     由于表t中没有id=7的记录,所以用我们上面提到的加锁规则判断一下的话:
     1.根据原则1,加锁单位是next-keylock,session A加锁范围就是(5,101];  
@@ -48,28 +31,11 @@ insert into t_21 values(0,0,0),(5,5,5),(10,10,10),(15,15,15),(20,20,20),(25,25,2
 ***
     2.案例二  
         非唯一索引等值锁  
-<table>
-    <tr>
-        <th>session A</th>
-        <th>session B</th>
-        <th>session C</th>
-    </tr>
-    <tr>
-        <td>begin;<br>select id from t_21 where c=5 lock in share mode;</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>update t_21 set d = d + 1 where id = 5;<br>(Query OK)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>insert into t_21 values(7, 7, 7);<br>(blocked)</td>
-    </tr>
-</table>  
+|session A|session B|session C|
+|:--:|:--:|:--:|
+|begin:<br>select id from t_21 where c = 5 lock in share mode;| | |
+| |update t_21 set d = d + 1 where id = 5;<br>(<font color=green>Query OK</font>)| |
+| | |insert into t_21 values(7, 7, 7);<br>(<font color=red>blocked</font>)|
 
     这里session A要给索引c 上 c=5的这一行加上读锁。
     1.根据原则1,加锁单位是next-key lock,因此会给(0,5]加上next-key lock。

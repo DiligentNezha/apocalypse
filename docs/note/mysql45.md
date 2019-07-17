@@ -18,7 +18,7 @@
 ### 18.[为什么这些SQL语句逻辑相同，性能却差异巨大？](mysql/lecture18.md)
 ### 19.[为什么我只查一行的语句，也执行这么慢？](mysql/lecture19.md)
 ### 20.[幻读是什么，幻读有什么问题？](mysql/lecture20.md)
-### 21.[[为什么我只改一行的语句，锁这么多？](mysql/lecture21.md)
+### 21.[为什么我只改一行的语句，锁这么多？](mysql/lecture21.md)
 ### 22.[MySQL有哪些“饮鸩止渴”提高性能的方法？](mysql/lecture22.md)
 ### 23.[MySQL是怎么保证数据不丢的？](mysql/lecture23.md)
 ### 24.[MySQL是怎么保证主备一致的？](mysql/lecture24.md)
