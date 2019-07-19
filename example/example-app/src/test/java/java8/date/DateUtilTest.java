@@ -1,3 +1,5 @@
+package java8.date;
+
 import cn.hutool.core.date.*;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.handler.StringHandler;
@@ -73,7 +75,7 @@ public class DateUtilTest {
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();
-                System.out.println(StrUtil.format("date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
+                System.out.println(StrUtil.format("java8.date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
             }
         }
     }
@@ -93,7 +95,7 @@ public class DateUtilTest {
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();
-                System.out.println(StrUtil.format("date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
+                System.out.println(StrUtil.format("java8.date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
             }
             i++;
             for (int j = 1; j < 10; j++) {
@@ -104,7 +106,7 @@ public class DateUtilTest {
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();
-                System.out.println(StrUtil.format("date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
+                System.out.println(StrUtil.format("java8.date【{}】;hutool week【{}】;weekOfYear【{}】;weekRange【{}】;db week【{}】;hutoolWeek equals dbWeek【{}】;weekOfYear equals dbWeek【{}】", date.toDateStr(), hutoolWeek, weekOfYear, weekRange, dbWeek, hutoolWeek.equals(dbWeek), weekOfYear.equals(dbWeek)));
             }
         }
     }
