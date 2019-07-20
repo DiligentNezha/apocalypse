@@ -2,7 +2,6 @@ package com.apocalypse.example.controller.sharding;
 
 import cn.hutool.core.util.RandomUtil;
 import com.apocalypse.common.dto.Rest;
-import com.apocalypse.example.mapper.single.OrderDOMapper;
 import com.apocalypse.example.model.OrderDO;
 import com.apocalypse.example.service.single.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +31,7 @@ public class ShardingDMLController {
 
     @GetMapping("/order/insert")
     public Rest<Boolean> insert() throws SQLException {
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 1000; i++) {
             OrderDO order = new OrderDO()
                     .setOrderId(i)
                     .setUserId(RandomUtil.randomInt(1, 100000))

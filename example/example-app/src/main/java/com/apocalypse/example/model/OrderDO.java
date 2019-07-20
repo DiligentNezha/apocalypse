@@ -18,7 +18,6 @@ import java.io.Serializable;
 public class OrderDO implements Serializable {
 
     @Id
-    @KeySql(genId = MyGenId.class)
     @Column(name = "order_id")
     private Integer orderId;
 

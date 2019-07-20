@@ -75,10 +75,10 @@ spring:
       tables:
         # 单库分表
         t_order:
-          actual-data-nodes: ds0.t_order_$->{0..9}
+          actual-data-nodes: ds0.order_$->{0..9}
           table-strategy:
             inline:
-              algorithm-expression: t_order_$->{order_id % 10}
+              algorithm-expression: order_$->{order_id % 10}
               sharding-column: order_id
 #        t_order_item:
 #          actual-data-nodes: ds$->{0..1}.t_order_item_$->{0..1}
