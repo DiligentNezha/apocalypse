@@ -2,13 +2,13 @@
 logging:
   path: ./logs/
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    name: druid
-    password: root
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/apocalypse_example?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    name: druid
+#    password: root
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://127.0.0.1:3306/apocalypse_example?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
   redis:
     database: 0
     host: localhost
@@ -51,3 +51,38 @@ spring:
     type: redis
     redis:
       time-to-live: 300000ms
+
+  shardingsphere:
+    datasource:
+      ds0:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://127.0.0.1:3306/apocalypse_example?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+      ds1:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://127.0.0.1:3306/apocalypse_example1?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+      names: ds0,ds1
+    sharding:
+#      default-database-strategy:
+#        inline:
+#          algorithm-expression: ds$->{user_id % 2}
+#          sharding-column: user_id
+      tables:
+        # 单库分表
+        t_order:
+          actual-data-nodes: ds0.t_order_$->{0..9}
+          table-strategy:
+            inline:
+              algorithm-expression: t_order_$->{order_id % 10}
+              sharding-column: order_id
+#        t_order_item:
+#          actual-data-nodes: ds$->{0..1}.t_order_item_$->{0..1}
+#          table-strategy:
+#            inline:
+#              algorithm-expression: t_order_item_$->{order_id % 2}
+#              sharding-column: order_id

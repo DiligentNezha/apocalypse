@@ -17,6 +17,7 @@
         <module>example-app</module>
         <module>example-api</module>
         <module>example-drools</module>
+        <module>example-shardingsphere</module>
     </modules>
 
     <dependencies>
