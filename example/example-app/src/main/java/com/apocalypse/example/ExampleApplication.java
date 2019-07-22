@@ -2,13 +2,9 @@ package com.apocalypse.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.transaction.jta.JtaAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -23,7 +19,7 @@ import tk.mybatis.spring.annotation.MapperScan;
         "com.apocalypse.common.util", "com.apocalypse.common.exception",
         "com.apocalypse.common.advice", "com.apocalypse.common.aspect",
         "com.apocalypse.common.interceptor",
-}, exclude = JtaAutoConfiguration.class)
+})
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.apocalypse"})
 public class ExampleApplication {
