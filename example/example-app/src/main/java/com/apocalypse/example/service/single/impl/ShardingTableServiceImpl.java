@@ -22,23 +22,4 @@ public class ShardingTableServiceImpl extends BaseServiceImpl<ShardingTableDO, L
     @Autowired
     private ShardingTableDOMapper shardingTableDOMapper;
 
-    @Override
-    public void insertDB(ShardingTableDO shardingTableDO) {
-        shardingTableDOMapper.insertDB(shardingTableDO);
-    }
-
-    @Override
-    public ShardingTableDO queryById(Long id) {
-        return shardingTableDOMapper.queryById(id);
-    }
-
-    @Override
-    public List<ShardingTableDO> queryBetween(Long begin, Long end) {
-        return shardingTableDOMapper.queryBetween(begin, end);
-    }
-
-    @Override
-    public List<ShardingTableDO> queryIn(List<Long> ids) {
-        return shardingTableDOMapper.queryIn(ids);
-    }
 }

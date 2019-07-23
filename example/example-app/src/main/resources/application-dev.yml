@@ -76,6 +76,17 @@ spring:
             inline:
               algorithm-expression: sharding_table_$->{id % 5}
               sharding-column: id
+        # 分库分表
+        sharding_database_table:
+          actual-data-nodes: ds$->{0..1}.sharding_database_table_$->{0..4}
+          database-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: ds$->{id % 2}
+          table-strategy:
+            inline:
+              algorithm-expression: sharding_database_table_$->{id % 5}
+              sharding-column: id
       default-data-source-name: ds0
     props:
       sql:

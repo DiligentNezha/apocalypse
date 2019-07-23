@@ -1,6 +1,7 @@
 package com.apocalypse.example.service.single;
 
 import com.apocalypse.common.service.BaseService;
+import com.apocalypse.example.model.ShardingDatabaseTableDO;
 import com.apocalypse.example.model.ShardingTableDO;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.List;
  * @Description
  * @date 2019/7/22
  */
-public interface ShardingTableService extends BaseService<ShardingTableDO, Long> {
+public interface ShardingDatabaseTableService extends BaseService<ShardingDatabaseTableDO, Long> {
 
 }

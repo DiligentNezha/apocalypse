@@ -20,18 +20,18 @@ import java.sql.SQLException;
 @Slf4j
 @RestController
 @RequestMapping("/sharding/ddl")
-@Api(value = "分表DDL", tags = {"分表"}, consumes = "application/json")
-public class ShardingTableDDLController {
+@Api(value = "分库分表DDL", tags = {"分库分表"}, consumes = "application/json")
+public class ShardingDatabaseTableDDLController {
 
     @Autowired
     private DataSource dataSource;
 
-    public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS `sharding_table`;";
+    public static final String DROP_TABLE_SQL = "DROP TABLE IF EXISTS `sharding_database_table`;";
 
-    public static final String TRUNCATE_TABLE_SQL = "TRUNCATE TABLE `sharding_table`;";
+    public static final String TRUNCATE_TABLE_SQL = "TRUNCATE TABLE `sharding_database_table`;";
 
     public static final String CREATE_TABLE_SQL =
-            "CREATE TABLE `sharding_table`  (\n" +
+            "CREATE TABLE `sharding_database_table`  (\n" +
             "  `id` bigint(20) NOT NULL COMMENT '编号',\n" +
             "  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '备注',\n" +
             "  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除：1：已删除；0：未删除',\n" +
@@ -43,7 +43,7 @@ public class ShardingTableDDLController {
     /**
      * 删除表
      */
-    @GetMapping("/table/drop")
+    @GetMapping("/databasetable/drop")
     @ApiOperation(value = "删除表", notes = "执行删除逻辑表的DDL语句，相关物理表会进行删除", produces = "application/json")
     public Rest<Boolean> dropTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(DROP_TABLE_SQL);
@@ -53,7 +53,7 @@ public class ShardingTableDDLController {
     /**
      * 清空表
      */
-    @GetMapping("/table/truncate")
+    @GetMapping("/databasetable/truncate")
     @ApiOperation(value = "清空表", notes = "执行清空逻辑表的DDL语句，相关物理表会进行清空", produces = "application/json")
     public Rest<Boolean> truncateTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(TRUNCATE_TABLE_SQL);
@@ -63,7 +63,7 @@ public class ShardingTableDDLController {
     /**
      * 创建表
      */
-    @GetMapping("/table/create")
+    @GetMapping("/databasetable/create")
     @ApiOperation(value = "创建表", notes = "执行创建逻辑表的DDL语句，相关物理表会进行创建", produces = "application/json")
     public Rest<Boolean> createTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(CREATE_TABLE_SQL);

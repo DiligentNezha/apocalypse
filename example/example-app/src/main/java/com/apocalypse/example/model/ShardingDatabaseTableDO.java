@@ -7,14 +7,13 @@ import lombok.experimental.Accessors;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Accessors(chain = true)
-@Table(name = "sharding_table")
-public class ShardingTableDO implements Serializable {
+@Table(name = "sharding_database_table")
+public class ShardingDatabaseTableDO {
     /**
      * 编号
      */
