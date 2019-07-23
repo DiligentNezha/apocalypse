@@ -22,6 +22,7 @@ public class CustomSelectProvider extends MapperTemplate {
      * @return
      */
     public String selectOneByProperty(MappedStatement ms) {
+        String propertyHelper = PropertyHelper.class.getName();
         Class<?> entityClass = getEntityClass(ms);
         //修改返回值类型为实体类型
         setResultType(ms, entityClass);
@@ -29,15 +30,14 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectAllColumns(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        sql.append("<if test=\"");
-        sql.append("value != null");
-        if (isNotEmpty()) {
-            sql.append(" and ");
-            sql.append(" value != '' ");
-        }
+        sql.append("<if test=\"false==");
+        sql.append("@");
+        sql.append(propertyHelper);
+        sql.append("@isEmpty(value, ");
+        sql.append(isNotEmpty());
+        sql.append(")");
         sql.append("\">\n");
         String entityClassName = entityClass.getName();
-        String propertyHelper = PropertyHelper.class.getName();
         //通过实体类名获取运行时属性对应的字段
         String ognl = new StringBuilder("${@")
                 .append(propertyHelper)
@@ -59,6 +59,7 @@ public class CustomSelectProvider extends MapperTemplate {
      * @return
      */
     public String selectByProperty(MappedStatement ms) {
+        String propertyHelper = PropertyHelper.class.getName();
         Class<?> entityClass = getEntityClass(ms);
         //修改返回值类型为实体类型
         setResultType(ms, entityClass);
@@ -66,15 +67,14 @@ public class CustomSelectProvider extends MapperTemplate {
         sql.append(SqlHelper.selectAllColumns(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        sql.append("<if test=\"");
-        sql.append("value != null");
-        if (isNotEmpty()) {
-            sql.append(" and ");
-            sql.append(" value != '' ");
-        }
+        sql.append("<if test=\"false==");
+        sql.append("@");
+        sql.append(propertyHelper);
+        sql.append("@isEmpty(value, ");
+        sql.append(isNotEmpty());
+        sql.append(")");
         sql.append("\">\n");
         String entityClassName = entityClass.getName();
-        String propertyHelper = PropertyHelper.class.getName();
         //通过实体类名获取运行时属性对应的字段
         String ognl = new StringBuilder("${@")
                 .append(propertyHelper)
@@ -123,21 +123,21 @@ public class CustomSelectProvider extends MapperTemplate {
      * @return
      */
     public String existsWithProperty(MappedStatement ms) {
+        String propertyHelper = PropertyHelper.class.getName();
         Class<?> entityClass = getEntityClass(ms);
 
         StringBuilder sql = new StringBuilder();
         sql.append(SqlHelper.selectCountExists(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        sql.append("<if test=\"");
-        sql.append("value != null");
-        if (isNotEmpty()) {
-            sql.append(" and ");
-            sql.append(" value != '' ");
-        }
+        sql.append("<if test=\"false==");
+        sql.append("@");
+        sql.append(propertyHelper);
+        sql.append("@isEmpty(value, ");
+        sql.append(isNotEmpty());
+        sql.append(")");
         sql.append("\">\n");
         String entityClassName = entityClass.getName();
-        String propertyHelper = PropertyHelper.class.getName();
         //通过实体类名获取运行时属性对应的字段
         String ognl = new StringBuilder("${@")
                 .append(propertyHelper)
@@ -160,20 +160,20 @@ public class CustomSelectProvider extends MapperTemplate {
      */
     public String selectCountByProperty(MappedStatement ms) {
         Class<?> entityClass = getEntityClass(ms);
+        String propertyHelper = PropertyHelper.class.getName();
 
         StringBuilder sql = new StringBuilder();
         sql.append(SqlHelper.selectCount(entityClass));
         sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
         sql.append("<where>\n");
-        sql.append("<if test=\"");
-        sql.append("value != null");
-        if (isNotEmpty()) {
-            sql.append(" and ");
-            sql.append(" value != '' ");
-        }
+        sql.append("<if test=\"false==");
+        sql.append("@");
+        sql.append(propertyHelper);
+        sql.append("@isEmpty(value, ");
+        sql.append(isNotEmpty());
+        sql.append(")");
         sql.append("\">\n");
         String entityClassName = entityClass.getName();
-        String propertyHelper = PropertyHelper.class.getName();
         //通过实体类名获取运行时属性对应的字段
         String ognl = new StringBuilder("${@")
                 .append(propertyHelper)
