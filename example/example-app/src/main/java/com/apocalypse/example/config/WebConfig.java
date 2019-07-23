@@ -8,6 +8,8 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
@@ -15,9 +17,14 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
@@ -29,6 +36,33 @@ public class WebConfig extends WebMvcConfigurationSupport {
                 .allowedHeaders("*")
                 .allowedMethods("*")
                 .allowedOrigins("*");
+    }
+
+    @Override
+    protected void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new Formatter<LocalDate>() {
+            @Override
+            public String print(LocalDate date, Locale locale) {
+                return date.format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN, locale));
+            }
+
+            @Override
+            public LocalDate parse(String date, Locale locale) throws ParseException {
+                return LocalDate.parse(date, DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN, locale));
+            }
+        });
+        registry.addFormatter(new Formatter<LocalDateTime>() {
+            @Override
+            public LocalDateTime parse(String dateTime, Locale locale) throws ParseException {
+                return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN,
+                        locale));
+            }
+
+            @Override
+            public String print(LocalDateTime dateTime, Locale locale) {
+                return dateTime.format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN, locale));
+            }
+        });
     }
 
     @Bean
