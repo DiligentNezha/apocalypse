@@ -30,7 +30,7 @@ public class ShardingDatabaseTableDMLController {
     private ShardingDatabaseTableService shardingDatabaseTableService;
 
     @GetMapping("/databasetable/insert")
-    @ApiOperation(value = "插入数据", notes = "根据分库分片规则，数据会分散的存入对应的数据源的相关物理表", produces = "application/json")
+    @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = "application/json")
     public Rest<Boolean> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
