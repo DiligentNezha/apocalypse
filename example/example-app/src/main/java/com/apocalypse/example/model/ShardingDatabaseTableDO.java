@@ -3,6 +3,7 @@ package com.apocalypse.example.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ public class ShardingDatabaseTableDO {
     /**
      * 是否删除：1：已删除；0：未删除
      */
+    @LogicDelete(notDeletedValue = 0, isDeletedValue = 1)
     private Integer deleted;
 
     /**

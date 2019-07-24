@@ -12,7 +12,7 @@ import java.util.Date;
  * @Description
  * @date 2019/7/22
  */
-public class MonthPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
+public class YearMonthPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
 
     public static final String YEAR_MONTH_FORMATTER = "yyyy_MM";
 

@@ -1,29 +1,26 @@
 package com.apocalypse.example.controller.sharding;
 
-import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
-import cn.hutool.core.date.DateTime;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.util.PageConvertUtil;
 import com.apocalypse.example.model.ShardingYearMonthDO;
 import com.apocalypse.example.service.single.ShardingYearMonthService;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.weekend.Weekend;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,9 +73,12 @@ public class ShardingYearMonthDMLController {
 
     @GetMapping("/yearmonth/query/in")
     @ApiOperation(value = "in查询", notes = "", produces = "application/json")
-    public Rest<List<ShardingYearMonthDO>> queryIn(@RequestParam("ids") List<Long> ids) {
+    public Rest<List<ShardingYearMonthDO>> queryIn(@RequestParam("ids") List<Long> ids,
+                                                   @RequestParam("pageNum") int pageNum,
+                                                   @RequestParam("pageSize") int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<ShardingYearMonthDO> shardingYearMonthDOS = shardingYearMonthService.selectByIdList(ids);
-        return Rest.ok(shardingYearMonthDOS);
+        return Rest.ok(shardingYearMonthDOS).setPage(PageConvertUtil.convert(shardingYearMonthDOS));
     }
 
     @GetMapping("/yearmonth/query/between")

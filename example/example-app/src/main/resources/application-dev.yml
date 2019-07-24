@@ -97,8 +97,8 @@ spring:
           table-strategy:
             standard:
               sharding-column: order_date
-              precise-algorithm-class-name: com.apocalypse.example.sharding.MonthPreciseShardingAlgorithm
-              range-algorithm-class-name: com.apocalypse.example.sharding.MonthRangeShardingAlgorithm
+              precise-algorithm-class-name: com.apocalypse.example.sharding.YearMonthPreciseShardingAlgorithm
+              range-algorithm-class-name: com.apocalypse.example.sharding.YearMonthRangeShardingAlgorithm
       default-data-source-name: ds0
     props:
       sql:

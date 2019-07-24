@@ -18,7 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
         "com.apocalypse.example", "com.apocalypse.common.config",
         "com.apocalypse.common.util", "com.apocalypse.common.exception",
         "com.apocalypse.common.advice", "com.apocalypse.common.aspect",
-        "com.apocalypse.common.interceptor", "com.apocalypse.common.spring.convert"
+        "com.apocalypse.common.interceptor"
 })
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.apocalypse"})

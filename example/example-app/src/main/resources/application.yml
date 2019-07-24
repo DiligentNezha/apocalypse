@@ -62,3 +62,6 @@ spring:
   redis:
     redisson:
       config: classpath:/redisson.yaml
+  main:
+    # ShardingSphere 需要自己创建数据源，和 Druid 数据源冲突，设置允许 bean 定义覆盖来避免报错
+    allow-bean-definition-overriding: true

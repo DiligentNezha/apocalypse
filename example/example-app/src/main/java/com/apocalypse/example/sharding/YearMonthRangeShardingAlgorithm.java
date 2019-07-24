@@ -15,7 +15,7 @@ import java.util.List;
  * @Description
  * @date 2019/7/23
  */
-public class MonthRangeShardingAlgorithm implements RangeShardingAlgorithm<Date> {
+public class YearMonthRangeShardingAlgorithm implements RangeShardingAlgorithm<Date> {
 
     public static final String YEAR_MONTH_FORMATTER = "yyyy_MM";
 

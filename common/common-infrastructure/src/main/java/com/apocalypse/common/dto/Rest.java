@@ -21,6 +21,8 @@ public class Rest<T> implements Serializable {
 
     private T data;
 
+    private Page page;
+
     public static Rest ok() {
         return new Rest();
     }
