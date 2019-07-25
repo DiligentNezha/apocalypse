@@ -145,6 +145,11 @@ public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
     }
 
     @Override
+    public List<T> selectBetweenByProperty(Fn<T, ?> fn, Object begin, Object end) {
+        return myMapper.selectBetweenByProperty(fn, begin, end);
+    }
+
+    @Override
     public boolean existsWithProperty(Fn<T, ?> fn, Object value) {
         return myMapper.existsWithProperty(fn, value);
     }

@@ -202,7 +202,15 @@ public interface BaseService<T, PK> {
      * @param values 属性值集合
      * @return
      */
-    List<T> selectInByProperty(@Param("fn") Fn<T, ?> fn, @Param("value") List<?> values);
+    List<T> selectInByProperty(Fn<T, ?> fn, List<?> values);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用 between
+     *
+     * @param fn 查询属性
+     * @return
+     */
+    List<T> selectBetweenByProperty(Fn<T, ?> fn, Object begin, Object end);
 
     /**
      * 根据主键字段查询总数，方法参数必须包含完整的主键属性，查询条件使用等号

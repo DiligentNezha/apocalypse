@@ -90,7 +90,7 @@ public class CustomSelectProvider extends MapperTemplate {
     }
 
     /**
-     * 根据属性查询，查询条件使用in
+     * 根据属性查询，查询条件使用 in
      *
      * @param ms
      * @return
@@ -111,6 +111,31 @@ public class CustomSelectProvider extends MapperTemplate {
                         +   "<foreach open=\"(\" close=\")\" separator=\",\" collection=\"values\" item=\"obj\">\n"
                         +      "#{obj}\n"
                         +   "</foreach>\n";
+        sql.append(sqlSegment);
+        sql.append("</where>");
+        return sql.toString();
+    }
+
+    /**
+     * 根据属性查询，查询条件使用 between
+     *
+     * @param ms
+     * @return
+     */
+    public String selectBetweenByProperty(MappedStatement ms) {
+        Class<?> entityClass = getEntityClass(ms);
+        //修改返回值类型为实体类型
+        setResultType(ms, entityClass);
+        StringBuilder sql = new StringBuilder();
+        sql.append(SqlHelper.selectAllColumns(entityClass));
+        sql.append(SqlHelper.fromTable(entityClass, tableName(entityClass)));
+        sql.append("<where>\n");
+        String entityClassName = entityClass.getName();
+        String propertyHelper = PropertyHelper.class.getName();
+        String sqlSegment =
+                "${@" + propertyHelper + "@getColumnByProperty(@java.lang.Class@forName(\"" + entityClassName + "\"),"
+                        + "@tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))} "
+                        + "between #{begin} and #{end}";
         sql.append(sqlSegment);
         sql.append("</where>");
         return sql.toString();

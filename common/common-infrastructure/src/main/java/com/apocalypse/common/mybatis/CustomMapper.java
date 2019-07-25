@@ -36,7 +36,7 @@ public interface CustomMapper<T> {
     List<T> selectByProperty(@Param("fn") Fn<T, ?> fn, @Param("value") Object value);
 
     /**
-     * 根据实体中的属性值进行查询，查询条件使用in
+     * 根据实体中的属性值进行查询，查询条件使用 in
      *
      * @param fn 查询属性
      * @param values 属性值集合
@@ -44,6 +44,15 @@ public interface CustomMapper<T> {
      */
     @SelectProvider(type = CustomSelectProvider.class, method = "dynamicSQL")
     List<T> selectInByProperty(@Param("fn") Fn<T, ?> fn, @Param("values") List<?> values);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用 between
+     *
+     * @param fn 查询属性
+     * @return
+     */
+    @SelectProvider(type = CustomSelectProvider.class, method = "dynamicSQL")
+    List<T> selectBetweenByProperty(@Param("fn") Fn<T, ?> fn, @Param("begin") Object begin, @Param("end") Object end);
 
     /**
      * 根据主键字段查询总数，方法参数必须包含完整的主键属性，查询条件使用等号

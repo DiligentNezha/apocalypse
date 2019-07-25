@@ -84,12 +84,14 @@ public class ShardingYearMonthDMLController {
     @GetMapping("/yearmonth/query/between")
     @ApiOperation(value = "between查询", notes = "", produces = "application/json")
     public Rest<List<ShardingYearMonthDO>> queryBetween(@RequestParam("orderDateBegin") LocalDateTime orderDateBegin,
-                                                        @RequestParam("orderDateEnd") LocalDateTime orderDateEnd) {
+                                                        @RequestParam("orderDateEnd") LocalDateTime orderDateEnd,
+                                                        @RequestParam("pageNum") int pageNum,
+                                                        @RequestParam("pageSize") int pageSize) {
         // Inline strategy cannot support range sharding
-        Weekend<ShardingYearMonthDO> weekend = Weekend.of(ShardingYearMonthDO.class);
-        weekend.weekendCriteria()
-                .andBetween(ShardingYearMonthDO::getOrderDate, orderDateBegin, orderDateEnd);
-        List<ShardingYearMonthDO> shardingYearMonthDOS = shardingYearMonthService.selectByExample(weekend);
-        return Rest.ok(shardingYearMonthDOS);
+        PageHelper.startPage(pageNum, pageSize);
+        List<ShardingYearMonthDO> shardingYearMonthDOS =
+                shardingYearMonthService.selectBetweenByProperty(ShardingYearMonthDO::getOrderDate, orderDateBegin,
+                        orderDateEnd);
+        return Rest.ok(shardingYearMonthDOS).setPage(PageConvertUtil.convert(shardingYearMonthDOS));
     }
 }
