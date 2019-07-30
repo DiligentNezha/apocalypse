@@ -1,6 +1,4 @@
 #debug: true
-logging:
-  path: ./logs/
 spring:
   cloud:
     inetutils:
