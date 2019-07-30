@@ -1,14 +1,20 @@
 package com.apocalypse.common.enums;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.apocalypse.common.constraints.IntegerValuesReadable;
+import com.apocalypse.common.constraints.StringValuesReadable;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 景凯辉
  * @date 2018/11/10
  * @mail kaihuijing@gmail.com
  */
-public enum GenderEnum {
+@Getter
+public enum GenderEnum implements StringValuesReadable, IntegerValuesReadable {
 
     /**
      * 男性
@@ -25,51 +31,28 @@ public enum GenderEnum {
      */
     SECRET(3, "保密");
 
-    private static final Map<Integer, String> map = new HashMap<>();
-
-    static {
-        GenderEnum[] values = values();
-        for (GenderEnum value : values) {
-            map.put(value.value, value.name);
-        }
-    }
-
     /**
-     * 状态名
+     * 状态码
      */
-    public String name;
+    public Integer code;
 
     /**
      * 状态值
      */
-    public Integer value;
+    public String value;
 
-    GenderEnum(Integer value, String name) {
-        this.value = value;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
+    GenderEnum(Integer code, String value) {
+        this.code = code;
         this.value = value;
     }
 
-    public static String getValue(Integer value) {
-        return map.get(value);
+    @Override
+    public List<Integer> readIntegerValues() {
+        return Arrays.stream(values()).map(genderEnum -> genderEnum.code).collect(Collectors.toList());
     }
 
-    public static boolean existValue(Integer value) {
-        return map.containsKey(value);
+    @Override
+    public List<String> readStringValues() {
+        return Arrays.stream(values()).map(genderEnum -> genderEnum.value).collect(Collectors.toList());
     }
 }
