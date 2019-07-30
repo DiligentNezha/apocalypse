@@ -112,6 +112,8 @@ public class CustomSelectProvider extends MapperTemplate {
                         +      "#{obj}\n"
                         +   "</foreach>\n";
         sql.append(sqlSegment);
+        // 逻辑删除的未删除查询条件
+        sql.append(SqlHelper.whereLogicDelete(entityClass, false));
         sql.append("</where>");
         return sql.toString();
     }
@@ -137,6 +139,8 @@ public class CustomSelectProvider extends MapperTemplate {
                         + "@tk.mybatis.mapper.weekend.reflection.Reflections@fnToFieldName(fn))} "
                         + "between #{begin} and #{end}";
         sql.append(sqlSegment);
+        // 逻辑删除的未删除查询条件
+        sql.append(SqlHelper.whereLogicDelete(entityClass, false));
         sql.append("</where>");
         return sql.toString();
     }

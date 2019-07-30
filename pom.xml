@@ -41,7 +41,7 @@
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <swagger-models.version>1.5.21</swagger-models.version>
         <!-- swagger ui增强 -->
-        <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
+        <swagger-bootstrap-ui.version>1.9.4</swagger-bootstrap-ui.version>
 
         <!-- 数据库部分 -->
         <mapper.version>3.4.2</mapper.version>
