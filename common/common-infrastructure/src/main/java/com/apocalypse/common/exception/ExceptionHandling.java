@@ -54,7 +54,7 @@ public class ExceptionHandling {
                 msg = error.getDefaultMessage();
             }
         }
-        log.warn("参数校验异常！{}", msg);
+        log.warn("参数校验异常！[{}]", msg);
         return Rest.error(SysErrorCodeEnum.VALIDATION_REQUEST_PARAM_ERROR, msg);
     }
 

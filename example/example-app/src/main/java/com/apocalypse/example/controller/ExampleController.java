@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/example")
@@ -36,10 +38,16 @@ public class ExampleController {
         return userClient.register(userRegister);
     }
 
-    @PostMapping("/enum")
-    @ApiOperation(value = "枚举校验", notes = "扩展枚举校验", produces = "application/json")
-    public Rest<EnumRequest> enumValidate(@Validated @RequestBody EnumRequest request) {
+    @PostMapping("/enum/post")
+    @ApiOperation(value = "枚举校验(RequestBody)", notes = "扩展枚举校验", produces = "application/json")
+    public Rest<EnumRequest> enumPostValidate(@Validated @RequestBody EnumRequest request) {
         return Rest.ok(request);
+    }
+
+    @PostMapping("/enum/get")
+    @ApiOperation(value = "枚举校验(RequestParam)", notes = "扩展枚举校验", produces = "application/json")
+    public Rest<String> enumGetValidate(@Valid @EnumMatch(GenderEnum.class) @RequestParam("gender") String gender) {
+        return Rest.ok(gender);
     }
 
     @Getter
@@ -51,7 +59,6 @@ public class ExampleController {
         private Integer genderIndex;
 
         @EnumMatch(GenderEnum.class)
-        @ApiModelProperty(value = "性别", example = "男")
         private String gender;
     }
 

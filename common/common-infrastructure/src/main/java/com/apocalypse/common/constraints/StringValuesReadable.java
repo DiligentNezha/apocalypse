@@ -3,7 +3,7 @@ package com.apocalypse.common.constraints;
 import java.util.List;
 
 /**
- * @author <a href="jingkaihui@adpanshi.com">jingkaihui</a>
+ * @author <a href="jingkaihui@gmail.com">jingkaihui</a>
  * @Description
  * @date 2019/7/30
  */

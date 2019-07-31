@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -16,7 +17,7 @@ public class EnumMatchIntegerValidator implements ConstraintValidator<EnumMatch,
 
     private Class<? extends ValuesReadable> valuesReadableClass;
 
-    private List<Integer> values;
+    private List<Integer> values = Collections.emptyList();
 
     @Override
     public void initialize(EnumMatch constraintAnnotation) {
