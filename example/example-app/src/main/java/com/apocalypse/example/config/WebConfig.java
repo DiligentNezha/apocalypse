@@ -2,7 +2,7 @@ package com.apocalypse.example.config;
 
 import cn.hutool.core.date.DatePattern;
 import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
+import com.alibaba.fastjson.serializer.SerializeWriter;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,8 +75,37 @@ public class WebConfig extends WebMvcConfigurationSupport {
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         //2.序列化配置
         SerializeConfig serializeConfig = new SerializeConfig();
-        serializeConfig.put(Date.class, new SimpleDateFormatSerializer(DatePattern.NORM_DATETIME_PATTERN));
         serializeConfig.put(Long.class, new ToStringSerializer());
+        serializeConfig.put(LocalDate.class, (serializer, object, fieldName, fieldType, features) -> {
+            SerializeWriter out = serializer.out;
+
+            if (object == null) {
+                out.writeNull();
+            } else {
+                if (fieldType == null) {
+                    fieldType = object.getClass();
+                }
+                if (LocalDate.class == fieldType) {
+                    LocalDate date = (LocalDate) object;
+                    out.writeString(date.format(DateTimeFormatter.ofPattern(DatePattern.CHINESE_DATE_PATTERN)));
+                }
+            }
+        });
+        serializeConfig.put(LocalDateTime.class, (serializer, object, fieldName, fieldType, features) -> {
+            SerializeWriter out = serializer.out;
+            if (object == null) {
+                out.writeNull();
+            } else {
+                if (fieldType == null) {
+                    fieldType = object.getClass();
+                }
+                if (LocalDateTime.class == fieldType) {
+                    LocalDateTime dateTime = (LocalDateTime) object;
+//                    out.writeString(dateTime.format(DateTimeFormatter.ofPattern("yyyy年MM月dd天 HH时mm分ss秒")));
+                    out.writeString(dateTime.format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+                }
+            }
+        });
         //3.添加fastJson的配置信息;
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializeConfig(serializeConfig);

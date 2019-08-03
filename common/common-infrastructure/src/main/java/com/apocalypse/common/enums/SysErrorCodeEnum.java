@@ -1,8 +1,5 @@
 package com.apocalypse.common.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 服务异常，通用系统异常
  *
@@ -29,22 +26,14 @@ import java.util.Map;
  */
 public enum SysErrorCodeEnum implements ErrorCodeMark{
 
-    SYS_ERROR(1001001000, "服务端发生异常"),
-    MISSING_REQUEST_PARAM_ERROR(1001001001, "参数缺失"),
-    VALIDATION_REQUEST_PARAM_ERROR(1001001002, "参数校验不正确"),
+    SYSTEM_BUSY(1001001000, "系统繁忙"),
+    MISSING_REQUEST_PARAMETER(1001001001, "参数缺失"),
+    REQUEST_PARAMETER_NOT_VALID(1001001002, "参数校验不正确"),
+    METHOD_NOT_SUPPORT(1001001003, "请求方法不支持"),
     ;
 
     private final Integer code;
     private final String message;
-
-    private static final Map<Integer, String> map = new HashMap<>();
-
-    static {
-        SysErrorCodeEnum[] values = values();
-        for (SysErrorCodeEnum errorCodeEnum : values) {
-            map.put(errorCodeEnum.code, errorCodeEnum.message);
-        }
-    }
 
     SysErrorCodeEnum(Integer code, String message) {
         this.code = code;
