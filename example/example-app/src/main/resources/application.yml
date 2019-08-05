@@ -16,7 +16,6 @@ swagger:
   description: Example相关接口
   version: 1.0.0
   base-package: com.apocalypse.example.controller
-
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -30,11 +29,12 @@ mybatis:
     - classpath:mapper/single/*.xml
     - classpath:mapper/complex/*.xml
   type-aliases-package: com.apocalypse.example.model
-
 server:
   port: 32001
   servlet:
     context-path: /example-api
+  tomcat:
+    basedir: tomcat
 
 spring:
   profiles:
@@ -62,3 +62,6 @@ spring:
   main:
     # ShardingSphere 需要自己创建数据源，和 Druid 数据源冲突，设置允许 bean 定义覆盖来避免报错
     allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      location: upload

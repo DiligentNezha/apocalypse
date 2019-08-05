@@ -56,9 +56,10 @@ public class InvokeRecordAspect {
         Stream<Object> stream = Arrays.stream(args);
         List<Object> logArgs = stream
                 .filter(arg -> (
-                        !(arg instanceof HttpServletRequest) &&
-                                !(arg instanceof HttpServletResponse))&&
-                        !(arg instanceof MultipartFile) )
+                        !(arg instanceof HttpServletRequest)
+                        && !(arg instanceof HttpServletResponse))
+                        && !(arg instanceof MultipartFile)
+                        && !(arg instanceof  MultipartFile[]))
                 .collect(Collectors.toList());
 
         log.info("请求编号【{}】请求类方法参数【{}】", uuid, JSONObject.toJSONString(logArgs, new SimplePropertyPreFilter() {

@@ -1,9 +1,12 @@
 package com.apocalypse.common.util;
 
+import cn.hutool.extra.servlet.ServletUtil;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -12,8 +15,28 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class HttpContextUtil {
 
+    public static String getClientIP() {
+        return ServletUtil.getClientIP(getHttpServletRequest());
+    }
+
+    public static String getUserAgent() {
+        return ServletUtil.getHeaderIgnoreCase(getHttpServletRequest(), "User-Agent");
+    }
+
+    public static ServletRequestAttributes getServletRequestAttributes() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes());
+    }
+
     public static HttpServletRequest getHttpServletRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return getServletRequestAttributes().getRequest();
+    }
+
+    public static String getHeader(String name) {
+        return getHttpServletRequest().getHeader(name);
+    }
+
+    public static Enumeration<String> getHeaders(String name) {
+        return getHttpServletRequest().getHeaders(name);
     }
 
     /**
@@ -41,5 +64,10 @@ public class HttpContextUtil {
     public static String getOrigin() {
         HttpServletRequest request = getHttpServletRequest();
         return request.getHeader("Origin");
+    }
+
+
+    public static HttpServletResponse getHttpServletResponse() {
+        return getServletRequestAttributes().getResponse();
     }
 }
