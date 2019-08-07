@@ -2,15 +2,19 @@ package com.apocalypse.example.controller.io;
 
 import cn.hutool.core.util.StrUtil;
 import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.util.HttpContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
+import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
@@ -26,23 +30,29 @@ import java.nio.file.Paths;
  */
 @Slf4j
 @Validated
-@RestController
+@Controller
 @RequestMapping("/nio")
 @Api(value = "NIO案例", tags = {"NIO案例"}, consumes = "application/json")
 public class NioController {
 
-    @PostMapping("/file/read")
-    @ApiOperation(value = "文件读取(Files类静态方法)", notes = "使用Files类的read方法读取application", produces = "application/json")
-    public Rest<String> fileRead() throws Exception {
+    @GetMapping("/file/read")
+    @ApiOperation(value = "文件读取(Files类静态方法)", notes = "使用Files类的read方法读取application", produces = MediaType.TEXT_PLAIN_VALUE)
+    public void fileRead() throws Exception {
         String classDirPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
         String filePath = classDirPath + "application.yml";
         String data = StrUtil.str(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
-        return Rest.ok(data);
+        HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        PrintWriter writer = response.getWriter();
+        writer.println(data);
+        writer.flush();
+        writer.close();
     }
 
-    @PostMapping("/buffer/read")
-    @ApiOperation(value = "文件读取(Buffer方式)", notes = "使用Buffer读取application", produces = "application/json")
-    public Rest<String> buffRead() throws Exception {
+    @GetMapping("/buffer/read")
+    @ApiOperation(value = "文件读取(Buffer方式)", notes = "使用Buffer读取application", produces = MediaType.TEXT_PLAIN_VALUE)
+    public void buffRead() throws Exception {
         String classDirPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
         String filePath = classDirPath + "application.yml";
         CharsetDecoder charsetDecoder = StandardCharsets.UTF_8.newDecoder();
@@ -65,7 +75,13 @@ public class NioController {
             byteBuf.compact();
             byteRead = channel.read(byteBuf);
         }
-        return Rest.ok(sb.toString());
+        HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        PrintWriter writer = response.getWriter();
+        writer.println(sb.toString());
+        writer.flush();
+        writer.close();
     }
 
 }
