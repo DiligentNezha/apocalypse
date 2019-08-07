@@ -7,6 +7,7 @@ import com.apocalypse.example.dto.ExampleQueryDTO;
 import com.apocalypse.example.model.ExampleDO;
 import com.apocalypse.example.service.single.ExampleService;
 import com.apocalypse.example.vo.ExampleVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -17,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/cache")
+@Api(value = "SpringCache案例", tags = {"SpringCache案例"}, consumes = "application/json")
 public class CacheExampleController {
 
     @Autowired

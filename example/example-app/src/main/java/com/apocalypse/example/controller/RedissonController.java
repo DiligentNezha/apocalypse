@@ -2,6 +2,7 @@ package com.apocalypse.example.controller;
 
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.redisson.codec.FastJsonCodec;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/redisson")
+@Api(value = "Redisson案例", tags = {"Redisson案例"}, consumes = "application/json")
 public class RedissonController {
 
     /**

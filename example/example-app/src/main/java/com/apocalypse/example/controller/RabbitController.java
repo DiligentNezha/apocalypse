@@ -5,6 +5,7 @@ import com.apocalypse.common.dto.Rest;
 import com.apocalypse.example.sender.HelloSender;
 import com.apocalypse.example.sender.ProducerConfirmSender;
 import com.apocalypse.example.sender.TransactionalSender;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 @RestController
 @RequestMapping("/rabbit")
+@Api(value = "RabbitMQ案例", tags = {"RabbitMQ案例"}, consumes = "application/json")
 public class RabbitController {
 
     @Autowired

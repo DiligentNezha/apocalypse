@@ -2,6 +2,7 @@ package com.apocalypse.example.controller;
 
 import cn.hutool.core.util.IdUtil;
 import com.apocalypse.example.manager.AlipayManager;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import java.net.URLEncoder;
 @Slf4j
 @Controller
 @RequestMapping("/oauth/login")
+@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = "application/json")
 public class OAuth2LoginController {
 
     @Autowired

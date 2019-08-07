@@ -11,6 +11,7 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.example.manager.AlipayManager;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 @Slf4j
 @RestController
 @RequestMapping("/oauth")
+@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = "application/json")
 public class OAuth2Controller {
     /**
      * github 客户端Id
