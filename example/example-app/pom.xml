@@ -122,6 +122,10 @@
             <artifactId>alipay-sdk-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
