@@ -5,6 +5,7 @@ import com.apocalypse.example.manager.AlipayManager;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import java.net.URLEncoder;
 @Slf4j
 @Controller
 @RequestMapping("/oauth/login")
-@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = "application/json")
+@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class OAuth2LoginController {
 
     @Autowired

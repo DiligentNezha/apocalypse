@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ import tk.mybatis.mapper.weekend.Weekend;
 @Slf4j
 @RestController
 @RequestMapping("/account")
-@Api(value = "账号服务", tags = {"公共服务"}, consumes = "application/json")
+@Api(value = "账号服务", tags = {"公共服务"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
 
     @Autowired
@@ -39,7 +40,7 @@ public class AccountController {
     private AdminConvert adminConvert;
 
     @PostMapping("/login")
-    @ApiOperation(value = "登录", notes = "登录", produces = "application/json")
+    @ApiOperation(value = "登录", notes = "登录", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<LoginVO> login(@Validated @RequestBody LoginDTO loginDTO) {
         Weekend<AdminDO> weekend = Weekend.of(AdminDO.class);
         weekend.weekendCriteria()

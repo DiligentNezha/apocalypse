@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 @Slf4j
 @RestController
 @RequestMapping("/sharding/ddl")
-@Api(value = "按年和月分库分表DDL", tags = {"按年和月分库分表"}, consumes = "application/json")
+@Api(value = "按年和月分库分表DDL", tags = {"按年和月分库分表"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ShardingYearnMonthDDLController {
 
     @Autowired
@@ -45,7 +46,7 @@ public class ShardingYearnMonthDDLController {
      * 删除表
      */
     @GetMapping("/yearmonth/drop")
-    @ApiOperation(value = "删除表", notes = "执行删除逻辑表的DDL语句，相关物理表会进行删除", produces = "application/json")
+    @ApiOperation(value = "删除表", notes = "执行删除逻辑表的DDL语句，相关物理表会进行删除", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> dropTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(DROP_TABLE_SQL);
         return Rest.ok(true);
@@ -55,7 +56,7 @@ public class ShardingYearnMonthDDLController {
      * 清空表
      */
     @GetMapping("/yearmonth/truncate")
-    @ApiOperation(value = "清空表", notes = "执行清空逻辑表的DDL语句，相关物理表会进行清空", produces = "application/json")
+    @ApiOperation(value = "清空表", notes = "执行清空逻辑表的DDL语句，相关物理表会进行清空", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> truncateTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(TRUNCATE_TABLE_SQL);
         return Rest.ok(true);
@@ -65,7 +66,7 @@ public class ShardingYearnMonthDDLController {
      * 创建表
      */
     @GetMapping("/yearmonth/create")
-    @ApiOperation(value = "创建表", notes = "执行创建逻辑表的DDL语句，相关物理表会进行创建", produces = "application/json")
+    @ApiOperation(value = "创建表", notes = "执行创建逻辑表的DDL语句，相关物理表会进行创建", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> createTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(CREATE_TABLE_SQL);
         return Rest.ok(true);

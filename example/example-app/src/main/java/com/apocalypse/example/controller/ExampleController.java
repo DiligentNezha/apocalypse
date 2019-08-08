@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +23,14 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("/example")
-@Api(value = "Example", tags = {"Example"}, consumes = "application/json")
+@Api(value = "Example", tags = {"Example"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ExampleController {
 
     @Autowired
     private UserClient userClient;
 
     @GetMapping("/register")
-    @ApiOperation(value = "注册", notes = "用户注册", produces = "application/json")
+    @ApiOperation(value = "注册", notes = "用户注册", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Long> register() {
         int randomInt = RandomUtil.randomInt(1, 10);
         UserRegisterDTO userRegister = new UserRegisterDTO()
@@ -39,13 +40,13 @@ public class ExampleController {
     }
 
     @PostMapping("/enum/post")
-    @ApiOperation(value = "枚举校验(RequestBody)", notes = "扩展枚举校验", produces = "application/json")
+    @ApiOperation(value = "枚举校验(RequestBody)", notes = "扩展枚举校验", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<EnumRequest> enumPostValidate(@Validated @RequestBody EnumRequest request) {
         return Rest.ok(request);
     }
 
     @PostMapping("/enum/get")
-    @ApiOperation(value = "枚举校验(RequestParam)", notes = "扩展枚举校验", produces = "application/json")
+    @ApiOperation(value = "枚举校验(RequestParam)", notes = "扩展枚举校验", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<String> enumGetValidate(@Valid @EnumMatch(GenderEnum.class) @RequestParam("gender") String gender) {
         return Rest.ok(gender);
     }

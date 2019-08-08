@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -32,11 +33,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/file")
-@Api(value = "文件上传下载", tags = {"文件上传下载"}, consumes = "application/json")
+@Api(value = "文件上传下载", tags = {"文件上传下载"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class FileUploadController {
 
     @PostMapping("/upload/single")
-    @ApiOperation(value = "单个文件上传", notes = "单个文件上传", produces = "application/json")
+    @ApiOperation(value = "单个文件上传", notes = "单个文件上传", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<String> upload(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         Path path = Paths.get("/" + originalFilename);
@@ -46,7 +47,7 @@ public class FileUploadController {
 
     @ApiImplicitParam(name = "file[]", value = "文件流对象,接收数组格式", required = true, dataType = "__File", allowMultiple = true)
     @PostMapping(value = "/upload/multi")
-    @ApiOperation(value = "多文件上传", notes = "多文件上传", produces = "application/json")
+    @ApiOperation(value = "多文件上传", notes = "多文件上传", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<String>> multiUpload(@RequestParam(value="file[]") MultipartFile[] files) throws IOException {
         Arrays.stream(files).forEach(file -> {
             String originalFilename = file.getOriginalFilename();

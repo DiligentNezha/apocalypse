@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/redisson")
-@Api(value = "Redisson案例", tags = {"Redisson案例"}, consumes = "application/json")
+@Api(value = "Redisson案例", tags = {"Redisson案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class RedissonController {
 
     /**

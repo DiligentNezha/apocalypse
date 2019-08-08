@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.weekend.Weekend;
 
@@ -23,14 +24,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/sharding/dml")
-@Api(value = "分库分表DML", tags = {"分库分表"}, consumes = "application/json")
+@Api(value = "分库分表DML", tags = {"分库分表"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ShardingDatabaseTableDMLController {
 
     @Autowired
     private ShardingDatabaseTableService shardingDatabaseTableService;
 
     @GetMapping("/databasetable/insert")
-    @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = "application/json")
+    @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
@@ -44,21 +45,21 @@ public class ShardingDatabaseTableDMLController {
     }
 
     @GetMapping("/databasetable/query/{id}")
-    @ApiOperation(value = "根据Id查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "根据Id查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<ShardingDatabaseTableDO> query(@PathVariable("id") Long id) {
         ShardingDatabaseTableDO shardingDatabaseTableDO = shardingDatabaseTableService.selectByPrimaryKey(id);
         return Rest.ok(shardingDatabaseTableDO);
     }
 
     @GetMapping("/databasetable/query/in")
-    @ApiOperation(value = "in查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingDatabaseTableDO>> queryIn(@RequestParam("ids") List<Long> ids) {
         List<ShardingDatabaseTableDO> shardingDatabaseTableDOS = shardingDatabaseTableService.selectByIdList(ids);
         return Rest.ok(shardingDatabaseTableDOS);
     }
 
     @GetMapping("/databasetable/query/between")
-    @ApiOperation(value = "between查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "between查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingDatabaseTableDO>> queryBetween(@RequestParam("begin") Long begin,
                                                     @RequestParam("end") Long end) {
         // Inline strategy cannot support range sharding

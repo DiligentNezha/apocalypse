@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/role")
-@Api(value = "角色管理", tags = {"系统管理"}, consumes = "application/json")
+@Api(value = "角色管理", tags = {"系统管理"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class RoleController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class RoleController {
     private RoleConvert roleConvert;
 
     @PostMapping("/create")
-    @ApiOperation(value = "新增角色", notes = "新增角色", produces = "application/json")
+    @ApiOperation(value = "新增角色", notes = "新增角色", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Integer> create(@Validated @RequestBody RoleCreateDTO roleCreateDTO) {
         RoleDO roleDO = roleConvert.convert(roleCreateDTO);
         roleService.insertSelective(roleDO);

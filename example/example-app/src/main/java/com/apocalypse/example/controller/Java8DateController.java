@@ -5,6 +5,7 @@ import com.apocalypse.common.dto.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +22,11 @@ import static java.time.temporal.ChronoField.values;
 @Slf4j
 @RestController
 @RequestMapping("/example")
-@Api(value = "Java8Date", tags = {"Java8Date"}, consumes = "application/json")
+@Api(value = "Java8Date", tags = {"Java8Date"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class Java8DateController {
 
     @GetMapping("/localDate")
-    @ApiOperation(value = "LocalDate", notes = "LocalDate测试", produces = "application/json")
+    @ApiOperation(value = "LocalDate", notes = "LocalDate测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> localDate() {
         LocalDate date = LocalDate.now();
         Map<String, Object> results = new LinkedHashMap<>();
@@ -59,7 +60,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/localTime")
-    @ApiOperation(value = "LocalTime", notes = "LocalTime测试", produces = "application/json")
+    @ApiOperation(value = "LocalTime", notes = "LocalTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> register() {
         LocalTime time = LocalTime.now();
         Map<String, Object> results = new LinkedHashMap<>();
@@ -83,7 +84,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/localDateTime")
-    @ApiOperation(value = "LocalDateTime", notes = "LocalDateTime测试", produces = "application/json")
+    @ApiOperation(value = "LocalDateTime", notes = "LocalDateTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> localDateTime() {
         LocalDateTime dateTime = LocalDateTime.now();
         Map<String, Object> results = new LinkedHashMap<>();
@@ -128,7 +129,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/zonedDateTime")
-    @ApiOperation(value = "ZonedDateTime", notes = "ZonedDateTime测试", produces = "application/json")
+    @ApiOperation(value = "ZonedDateTime", notes = "ZonedDateTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> zonedDateTime() {
         ZoneId systemDefaultZonId = ZoneId.systemDefault();
 
@@ -143,7 +144,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/period")
-    @ApiOperation(value = "Period", notes = "Period测试", produces = "application/json")
+    @ApiOperation(value = "Period", notes = "Period测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> period() {
         LocalDate beginDate = LocalDate.of(1994, 4, 4);
         LocalDate endDate = LocalDate.of(2019, 8, 3);
@@ -159,7 +160,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/zoneId")
-    @ApiOperation(value = "ZoneId", notes = "ZoneId测试", produces = "application/json")
+    @ApiOperation(value = "ZoneId", notes = "ZoneId测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> zoneId() {
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("默认时区", ZoneId.systemDefault());
@@ -170,7 +171,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/instance")
-    @ApiOperation(value = "Instance", notes = "Instance测试", produces = "application/json")
+    @ApiOperation(value = "Instance", notes = "Instance测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> instance() {
         Instant now = Instant.now();
         Map<String, Object> results = new LinkedHashMap<>();
@@ -187,7 +188,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/duration")
-    @ApiOperation(value = "Duration", notes = "Duration测试", produces = "application/json")
+    @ApiOperation(value = "Duration", notes = "Duration测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> duration() {
         LocalDateTime beginDateTime = LocalDateTime.of(LocalDate.of(1994, 4, 4), LocalTime.MIN);
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.of(2019, 8, 3), LocalTime.MAX);
@@ -205,7 +206,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/monthDay")
-    @ApiOperation(value = "MonthDay", notes = "MonthDay测试", produces = "application/json")
+    @ApiOperation(value = "MonthDay", notes = "MonthDay测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> monthDay() {
         MonthDay monthDay = MonthDay.now();
         Map<String, Object> results = new LinkedHashMap<>();
@@ -222,7 +223,7 @@ public class Java8DateController {
     }
 
     @GetMapping("/yearMonth")
-    @ApiOperation(value = "YearMonth", notes = "YearMonth测试", produces = "application/json")
+    @ApiOperation(value = "YearMonth", notes = "YearMonth测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Map<String, Object>> yearMonth() {
         YearMonth yearMonth = YearMonth.now();
         Map<String, Object> results = new LinkedHashMap<>();

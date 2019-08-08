@@ -1,16 +1,22 @@
 package com.apocalypse.example.controller.io;
 
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.util.HttpContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.LineNumberReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -19,17 +25,40 @@ import java.io.FileReader;
  */
 @Slf4j
 @Validated
-@RestController
+@Controller
 @RequestMapping("/bio")
-@Api(value = "BIO案例", tags = {"BIO案例"}, consumes = "application/json")
+@Api(value = "BIO案例", tags = {"BIO案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class BioController {
 
-    @PostMapping("/file/read")
-    @ApiOperation(value = "文件读取", notes = "读取application.yml", produces = "application/json")
-    public Rest<String> fileReader() throws Exception {
-        String classDirPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
-        String filePath = classDirPath + "application.yml";
-        FileReader fr = new FileReader(filePath);
+    private static final String FILE_PATH =
+            BioController.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "application.yml";
+
+    @GetMapping("/reader/fileReader")
+    @ApiOperation(value = "文件读取(FileReader)", notes = "读取application.yml", produces = MediaType.TEXT_PLAIN_VALUE)
+    public void fileReader() throws Exception {
+        FileReader fr = new FileReader(FILE_PATH);
+        StringBuilder sb = new StringBuilder();
+
+        char[] temp = new char[1024];
+        int len;
+        while ((len = fr.read(temp)) != -1) {
+            sb.append(Arrays.copyOf(temp, len));
+        }
+        fr.close();
+
+        HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        PrintWriter writer = response.getWriter();
+        writer.println(sb);
+        writer.flush();
+        writer.close();
+    }
+
+    @GetMapping("/reader/bufferedReader")
+    @ApiOperation(value = "文件读取(BufferedReader)", notes = "读取application.yml", produces = MediaType.TEXT_PLAIN_VALUE)
+    public void bufferedReader() throws Exception {
+        FileReader fr = new FileReader(FILE_PATH);
         BufferedReader br = new BufferedReader(fr);
         StringBuilder sb = new StringBuilder();
         String str;
@@ -38,6 +67,34 @@ public class BioController {
         }
         br.close();
         fr.close();
-        return Rest.ok(sb.toString());
+
+        HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        PrintWriter writer = response.getWriter();
+        writer.println(sb);
+        writer.flush();
+        writer.close();
     }
+
+    @GetMapping("/reader/lineNumberReader")
+    @ApiOperation(value = "文件读取(LineNumberReader)", notes = "读取application.yml", produces = MediaType.TEXT_PLAIN_VALUE)
+    public void lineNumberReader() throws Exception {
+        FileReader fr = new FileReader(FILE_PATH);
+        LineNumberReader lnr = new LineNumberReader(fr);
+
+        StringBuilder sb = new StringBuilder();
+        lnr.lines().forEachOrdered(line -> {
+            sb.append(lnr.getLineNumber() + ":" + line + "\n");
+        });
+
+        HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
+        response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        PrintWriter writer = response.getWriter();
+        writer.println(sb);
+        writer.flush();
+        writer.close();
+    }
+
 }

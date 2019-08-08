@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ import java.util.HashMap;
 @Slf4j
 @RestController
 @RequestMapping("/oauth")
-@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = "application/json")
+@Api(value = "OAuth2案例", tags = {"OAuth2案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class OAuth2Controller {
     /**
      * github 客户端Id

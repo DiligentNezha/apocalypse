@@ -9,6 +9,7 @@ import com.github.javafaker.Faker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +35,11 @@ import java.util.stream.IntStream;
 @Validated
 @RestController
 @RequestMapping("/lambda")
-@Api(value = "Lambda", tags = {"Lambda"}, consumes = "application/json")
+@Api(value = "Lambda", tags = {"Lambda"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class LambdaController {
 
     @GetMapping("/predicate")
-    @ApiOperation(value = "Predicate", notes = "Predicate测试", consumes = "application/json")
+    @ApiOperation(value = "Predicate", notes = "Predicate测试", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<Integer>> predicate() {
         List<Integer> collect = IntStream.rangeClosed(2, 1000)
                 //素数并且第一位和第三位值一样大
@@ -48,7 +49,7 @@ public class LambdaController {
     }
 
     @GetMapping("/function")
-    @ApiOperation(value = "Function", notes = "Function测试", consumes = "application/json")
+    @ApiOperation(value = "Function", notes = "Function测试", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Rest<String> function() {
         Function<String, Integer> toInteger = Integer::valueOf;
         //把String转成数字，再把数字转回去
@@ -57,7 +58,7 @@ public class LambdaController {
     }
 
     @GetMapping("/supply")
-    @ApiOperation(value = "Supply", notes = "Supply测试", consumes = "application/json")
+    @ApiOperation(value = "Supply", notes = "Supply测试", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Rest<JSONObject> supply() {
         JSONObject result = new JSONObject();
         Supplier<Address> addressSupplier = Faker.instance(Locale.getDefault())::address;
@@ -79,7 +80,7 @@ public class LambdaController {
     }
 
     @GetMapping("/comparator")
-    @ApiOperation(value = "Comparator", notes = "Comparator测试", consumes = "application/json")
+    @ApiOperation(value = "Comparator", notes = "Comparator测试", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<Integer>> comparator() {
         List<Integer> collect = IntStream.rangeClosed(1, 10)
                 .map(operand -> operand + RandomUtil.randomInt(10))

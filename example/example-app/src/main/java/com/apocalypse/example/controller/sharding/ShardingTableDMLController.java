@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +23,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/sharding/dml")
-@Api(value = "分表DML", tags = {"分表"}, consumes = "application/json")
+@Api(value = "分表DML", tags = {"分表"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ShardingTableDMLController {
 
     @Autowired
     private ShardingTableService shardingTableService;
 
     @GetMapping("/table/insert")
-    @ApiOperation(value = "插入数据", notes = "根据分片规则，数据会分散的存入相关物理表", produces = "application/json")
+    @ApiOperation(value = "插入数据", notes = "根据分片规则，数据会分散的存入相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
@@ -43,14 +44,14 @@ public class ShardingTableDMLController {
     }
 
     @GetMapping("/table/query/{id}")
-    @ApiOperation(value = "根据Id查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "根据Id查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<ShardingTableDO> query(@PathVariable("id") Long id) {
         ShardingTableDO shardingTableDO = shardingTableService.selectByPrimaryKey(id);
         return Rest.ok(shardingTableDO);
     }
 
     @GetMapping("/table/query/in")
-    @ApiOperation(value = "in查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingTableDO>> queryIn(@RequestParam("ids") List<Long> ids) {
         List<ShardingTableDO> shardingTableDOS = shardingTableService.selectByIdList(ids);
         return Rest.ok(shardingTableDOS);

@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +32,14 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/sharding/dml")
-@Api(value = "按年和月分库分表DML", tags = {"按年和月分库分表"}, consumes = "application/json")
+@Api(value = "按年和月分库分表DML", tags = {"按年和月分库分表"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class ShardingYearMonthDMLController {
 
     @Autowired
     private ShardingYearMonthService shardingYearMonthService;
 
     @GetMapping("/yearmonth/insert")
-    @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = "application/json")
+    @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Boolean> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
@@ -57,14 +58,14 @@ public class ShardingYearMonthDMLController {
     }
 
     @GetMapping("/yearmonth/query/id")
-    @ApiOperation(value = "根据Id查询", notes = "Id作为分库键，下单时间作为分表键，根据Id查询时，只能得到具体的数据源，因此实际执行的SQL是数据源和该数据源下相关表的全排列组成的SQL", produces = "application/json")
+    @ApiOperation(value = "根据Id查询", notes = "Id作为分库键，下单时间作为分表键，根据Id查询时，只能得到具体的数据源，因此实际执行的SQL是数据源和该数据源下相关表的全排列组成的SQL", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<ShardingYearMonthDO> queryById(@RequestParam("id") Long id) {
         ShardingYearMonthDO shardingYearMonthDO = shardingYearMonthService.selectByPrimaryKey(id);
         return Rest.ok(shardingYearMonthDO);
     }
 
     @GetMapping("/yearmonth/query/orderDate")
-    @ApiOperation(value = "根据orderDate查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "根据orderDate查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingYearMonthDO>> queryByOrderDate(@RequestParam("orderDate") LocalDateTime orderDate) {
         List<ShardingYearMonthDO> shardingYearMonthDOS =
                 shardingYearMonthService.selectByProperty(ShardingYearMonthDO::getOrderDate, orderDate);
@@ -72,7 +73,7 @@ public class ShardingYearMonthDMLController {
     }
 
     @GetMapping("/yearmonth/query/in")
-    @ApiOperation(value = "in查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingYearMonthDO>> queryIn(@RequestParam("ids") List<Long> ids,
                                                    @RequestParam("pageNum") int pageNum,
                                                    @RequestParam("pageSize") int pageSize) {
@@ -82,7 +83,7 @@ public class ShardingYearMonthDMLController {
     }
 
     @GetMapping("/yearmonth/query/between")
-    @ApiOperation(value = "between查询", notes = "", produces = "application/json")
+    @ApiOperation(value = "between查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<List<ShardingYearMonthDO>> queryBetween(@RequestParam("orderDateBegin") LocalDateTime orderDateBegin,
                                                         @RequestParam("orderDateEnd") LocalDateTime orderDateEnd,
                                                         @RequestParam("pageNum") int pageNum,

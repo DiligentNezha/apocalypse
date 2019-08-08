@@ -10,6 +10,7 @@ import com.apocalypse.example.vo.ExampleVO;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/cache")
-@Api(value = "SpringCache案例", tags = {"SpringCache案例"}, consumes = "application/json")
+@Api(value = "SpringCache案例", tags = {"SpringCache案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class CacheExampleController {
 
     @Autowired
