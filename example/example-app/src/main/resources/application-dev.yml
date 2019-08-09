@@ -100,4 +100,4 @@ spring:
       default-data-source-name: ds0
     props:
       sql:
-        show: true
+        show: false
