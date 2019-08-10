@@ -1,6 +1,7 @@
 package com.apocalypse.common.aspect;
 
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.JSONSerializer;
@@ -21,15 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * 用于打印方法执行前参数及执行后的结果
  */
+@Slf4j
 @Aspect
 @Component
-@Slf4j
 public class InvokeRecordAspect {
 
     /**
@@ -40,6 +42,7 @@ public class InvokeRecordAspect {
     private void controllerAspect() {
     }
 
+    @ResponseBody
     @Around("controllerAspect()")
     public Object doRecord(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
@@ -71,9 +74,9 @@ public class InvokeRecordAspect {
         log.info("<------请求内容------");
 
         result = joinPoint.proceed(args);
-
+        String msg = ObjectUtil.isNull(result) ? null : result instanceof Rest ? JSONObject.toJSONString(result) : result.toString();
         log.info("------返回内容------>");
-        log.info("请求编号【{}】Response内容【{}】", uuid, result instanceof Rest ? JSONObject.toJSONString(result) : result.toString());
+        log.info("请求编号【{}】Response内容【{}】", uuid, msg);
         log.info("------返回内容------>");
         return result;
     }
