@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
+import com.apocalypse.common.dto.Rest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -39,7 +40,6 @@ public class InvokeRecordAspect {
     private void controllerAspect() {
     }
 
-    @ResponseBody
     @Around("controllerAspect()")
     public Object doRecord(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
@@ -73,7 +73,7 @@ public class InvokeRecordAspect {
         result = joinPoint.proceed(args);
 
         log.info("------返回内容------>");
-        log.info("请求编号【{}】Response内容【{}】", uuid, JSONObject.toJSONString(result));
+        log.info("请求编号【{}】Response内容【{}】", uuid, result instanceof Rest ? JSONObject.toJSONString(result) : result.toString());
         log.info("------返回内容------>");
         return result;
     }

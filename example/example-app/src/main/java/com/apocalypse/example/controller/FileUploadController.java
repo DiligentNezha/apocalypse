@@ -5,16 +5,17 @@ import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.util.HttpContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -61,21 +62,41 @@ public class FileUploadController {
         return Rest.ok(Arrays.stream(files).map(file -> file.getOriginalFilename()).collect(Collectors.toList()));
     }
 
-    @GetMapping("/download")
-    @ApiOperation(value = "文件下载", notes = "文件下载", produces = "application/octet-stream")
-    public void download() throws IOException {
+    @GetMapping("/download/servletOutputStream")
+    @ApiOperation(value = "文件下载(ServletOutputStream 方式)", notes = "文件下载", produces =
+            MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public void downloadUseServletOutputStream() throws IOException {
         HttpServletResponse response = HttpContextUtil.getHttpServletResponse();
 //        response.setContentType("application/vnd.ms-excel");
-        response.setContentType("text/plain");
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
         response.setHeader("Content-disposition", StrUtil.format("attachment;filename={}.yml",
                 StrUtil.str("配置文件".getBytes("gbk"), StandardCharsets.ISO_8859_1)));
-        ServletOutputStream os = response.getOutputStream();
-        String classDirPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring(1);
-        String filePath = classDirPath + "application.yml";
-        byte[] b = Files.readAllBytes(Paths.get(filePath));
-        os.write(b);
-        os.flush();
-        os.close();
+
+        String filePath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "application.yml";
+
+        Files.copy(Paths.get(filePath), response.getOutputStream());
+    }
+
+    @GetMapping("/download/responseEntity")
+    @ApiOperation(value = "文件下载(ResponseEntity 方式)", notes = "文件下载", produces =
+            MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<InputStreamResource> downloadUseResponseEntity() throws IOException {
+        ClassPathResource fileResource = new ClassPathResource("application.yml");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Expose-Headers", "Content-Disposition");
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Content-Disposition", StrUtil.format("attachment;filename={}",
+                StrUtil.str(fileResource.getFilename().getBytes("gbk"), StandardCharsets.ISO_8859_1)));
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentLength(fileResource.contentLength())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(fileResource.getInputStream()));
     }
 }

@@ -1,8 +1,6 @@
 package com.apocalypse.example.service.complex.impl;
 
-import com.apocalypse.example.model.ExampleDO;
 import com.apocalypse.example.service.complex.TransactionalExampleService;
-import com.apocalypse.example.service.single.ExampleExtendService;
 import com.apocalypse.example.service.single.ExampleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +8,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import springfox.documentation.schema.Example;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
