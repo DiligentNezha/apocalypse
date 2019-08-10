@@ -5,10 +5,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -25,7 +25,7 @@ import java.util.Arrays;
  */
 @Slf4j
 @Validated
-@Controller
+@RestController
 @RequestMapping("/bio")
 @Api(value = "BIO案例", tags = {"BIO案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class BioController {

@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +34,7 @@ import java.sql.ResultSet;
  */
 @Slf4j
 @Validated
-@Controller
+@RestController
 @RequestMapping("/nio")
 @Api(value = "NIO案例", tags = {"NIO案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class NioController {
@@ -41,7 +42,6 @@ public class NioController {
     private static final String FILE_PATH =
             BioController.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1) + "application.yml";
 
-    @ResponseBody
     @GetMapping("/charBuffer/manipulate")
     @ApiOperation(value = "CharBuffer操作", notes = "CharBuffer 操作案例", produces = MediaType.TEXT_PLAIN_VALUE)
     public Rest<String> charBuffer() {

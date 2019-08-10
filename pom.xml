@@ -19,12 +19,6 @@
     <packaging>pom</packaging>
     <name>apocalypse-parent</name>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
-        <relativePath/>
-    </parent>
     <properties>
         <!-- 编译属性 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +28,7 @@
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-        <springboot.version>2.1.7.RELEASE</springboot.version>
+        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
         <spring-cloud-dependencies.version>Greenwich.SR2</spring-cloud-dependencies.version>
         <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
@@ -117,6 +111,14 @@
                 <groupId>com.apocalypse</groupId>
                 <artifactId>system-api</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
