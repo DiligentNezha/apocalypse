@@ -1,4 +1,4 @@
-package com.apocalypse.example.leetcode;
+package com.apocalypse.example.leetcode.simple;
 
 /**
  * @author <a href="jingkaihui@gmail.com">jingkaihui</a>

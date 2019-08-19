@@ -1,4 +1,4 @@
-package com.apocalypse.example.leetcode;
+package com.apocalypse.example.leetcode.simple;
 
 /**
  * @author <a href="jingkaihui@gmail.com">jingkaihui</a>
@@ -18,9 +18,7 @@ public class Solution28 {
         if (needle.isEmpty()) {
             return 0;
         }
-        if (haystack.equals(needle)) {
-            return 0;
-        }
+
         int i;
         int j;
 

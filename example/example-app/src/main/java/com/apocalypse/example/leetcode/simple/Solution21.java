@@ -1,4 +1,5 @@
-package com.apocalypse.example.leetcode;
+package com.apocalypse.example.leetcode.simple;
+
 
 /**
  * @author <a href="jingkaihui@gmail.com">jingkaihui</a>
@@ -59,4 +60,26 @@ public class Solution21 {
         return firstNode.next;
     }
 
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+
+    public ListNode(int val) {
+        this.val = val;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(val);
+        ListNode currentNode = this.next;
+        while (currentNode != null) {
+            sb.append(" -> ");
+            sb.append(currentNode.val);
+            currentNode = currentNode.next;
+        }
+        return sb.toString();
+    }
 }
