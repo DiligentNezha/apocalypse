@@ -77,7 +77,7 @@
         <!-- 分布式服务部分 -->
         <!-- 分布式锁工具 https://github.com/redisson/redisson#quick-start -->
         <redisson-spring-boot-starter.version>3.11.0</redisson-spring-boot-starter.version>
-        <spring-cloud-starter-alibaba-sentinel.version>0.9.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
+        <spring-cloud-starter-alibaba-sentinel.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <!-- 测试部分 -->
         <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
         <javafaker.version>0.18</javafaker.version>
@@ -128,9 +128,9 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-alibaba-sentinel -->
+            <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-sentinel -->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
                 <version>${spring-cloud-starter-alibaba-sentinel.version}</version>
             </dependency>
