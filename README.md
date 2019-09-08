@@ -8,6 +8,24 @@ apocalypse 主要有三个目标
 - 对一些自己感兴趣的新技术编写demo，进行验证，作为新技术的试验田
 - 再进行前两个目标的同时，整合新技术来搭建一套快速开发的脚手架  
 
+### 常用案例
+<div align="center">
+  <img src="docs/img/example.jpg"/>
+</div>
+
+<div align="center">
+  <img src="docs/img/RabbitMQ.jpg"/>
+</div>
+
+<div align="center">
+  <img src="docs/img/ShardingSphere.jpg"/>
+</div>
+
+<div align="center">
+  <img src="docs/img/java8-date.jpg"/>
+</div>
+
+
 ### 学习笔记
 - MySQL
     - [MySQL实战45讲](docs/note/mysql45.md)  

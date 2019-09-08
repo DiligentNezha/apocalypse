@@ -23,6 +23,7 @@ public class Solution1 {
                 if (nums[i] == target - nums[j]) {
                     result[0] = i;
                     result[1] = j;
+                    return result;
                 }
             }
         }
