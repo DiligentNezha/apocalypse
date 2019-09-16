@@ -16,6 +16,7 @@ public class ResponseUtil {
     public static void allCors(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding(Charset.forName("UTF-8").name());
         response.setContentType("application/json;charset=UTF-8");
+        // 使用Access-Control-Allow-Credentials 时， Access-Controller-Allow-Origin 不应该设置为 *
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
         response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));

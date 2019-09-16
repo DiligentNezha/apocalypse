@@ -3,6 +3,7 @@ package com.apocalypse.common.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -52,8 +53,23 @@ public class BeanFactoryUtil implements ApplicationContextAware {
      * @param <T>
      * @return
      */
-    public static <T> T getBean(String name,Class<T> clazz){
+    public static <T> T getBean(String name, Class<T> clazz){
         return getApplicationContext().getBean(name, clazz);
     }
 
+    /**
+     * 获取应用程序当前运行环境
+     * @return
+     */
+    public static Environment currentEnvironment() {
+        return applicationContext.getEnvironment();
+    }
+
+    /**
+     * 获取应用程序当前激活的配置
+     * @return
+     */
+    public static String[] currentProfiles() {
+        return applicationContext.getEnvironment().getActiveProfiles();
+    }
 }

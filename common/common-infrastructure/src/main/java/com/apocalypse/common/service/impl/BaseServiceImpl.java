@@ -6,22 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
 import tk.mybatis.mapper.weekend.Fn;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
 
-    private Class<T> clazz;
-
     @Autowired
     private MyMapper<T, PK> myMapper;
-
-    @SuppressWarnings("unchecked")
-    public BaseServiceImpl() {
-        //得到泛型化的超类
-        ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        clazz = (Class<T>) type.getActualTypeArguments()[0];
-    }
 
     @Override
     public int insert(T record) {

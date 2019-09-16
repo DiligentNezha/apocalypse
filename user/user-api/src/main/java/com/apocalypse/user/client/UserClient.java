@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2019/5/31
  */
 
-@FeignClient(name = "apocalypse-user", path = "/user-api")
+@FeignClient(name = "apocalypse-user", contextId = "user", path = "/user-api")
 @Api(value = "用户服务【内部服务】", tags = {"用户【内部服务】"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public interface UserClient {
 
