@@ -1,6 +1,5 @@
 package com.apocalypse.common.service;
 
-import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.additional.aggregation.AggregateCondition;
 import tk.mybatis.mapper.weekend.Fn;
 
