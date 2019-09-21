@@ -1,4 +1,4 @@
-package com.apocalypse.example.config;
+package com.apocalypse.authentication.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -63,8 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
+    private UserDetailsManager customUserDetailsManager;
+
+    @Autowired
     public void authentication(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(memoryUserDetailsManager());
+//        auth.userDetailsService(memoryUserDetailsManager());
+        auth.userDetailsService(customUserDetailsManager);
     }
 
     /**
