@@ -37,9 +37,9 @@ spring:
           filters:
             - SwaggerHeaderFilter
         # user 模块
-        - id: apocalypse-user
-          uri: lb://apocalypse-user/
+        - id: apocalypse-uac
+          uri: lb://apocalypse-uac/
           predicates:
-            - Path=/user-api/**
+            - Path=/user/**
           filters:
             - SwaggerHeaderFilter

@@ -2,11 +2,10 @@ package com.apocalypse.example.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import com.apocalypse.common.constraints.EnumMatch;
-import com.apocalypse.common.constraints.ValuesReadable;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.enums.GenderEnum;
-import com.apocalypse.user.client.UserClient;
-import com.apocalypse.user.dto.UserRegisterDTO;
+import com.apocalypse.uac.client.UserClient;
+import com.apocalypse.uac.dto.UserRegisterDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;

@@ -10,7 +10,7 @@
 
     <modules>
         <module>common</module>
-        <module>user</module>
+        <module>uac</module>
         <module>gateway</module>
         <module>example</module>
         <module>system</module>
@@ -105,7 +105,7 @@
 
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>user-api</artifactId>
+                <artifactId>uac-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
