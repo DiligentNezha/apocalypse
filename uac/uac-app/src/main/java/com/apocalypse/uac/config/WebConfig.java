@@ -62,5 +62,14 @@ public class WebConfig extends WebMvcConfigurationSupport {
         //把swagger文档地址交由资源处理器处理
         registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+        // 为 spring-security 认证相关的自定义页面注册资源处理器，不然会 404
+        registry.addResourceHandler("/my-login.html").addResourceLocations("classpath:/public/");
+        registry.addResourceHandler("/login-fail.html").addResourceLocations("classpath:/public/");
+        registry.addResourceHandler("/logout.html").addResourceLocations("classpath:/public/");
+
+        // 为静态资源注册资源处理器，不然会 404
+        registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
+        registry.addResourceHandler("/layui/**").addResourceLocations("classpath:/static/layui/");
     }
 }

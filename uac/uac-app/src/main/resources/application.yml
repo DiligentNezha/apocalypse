@@ -9,7 +9,6 @@ mapper:
   seq-format: true
   style: camelhumpAndLowercase
   wrap-keyword: '`{0}`'
-
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -49,3 +48,5 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
+  thymeleaf:
+    cache: false

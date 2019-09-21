@@ -30,13 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf()
                 .disable()
             .formLogin()
+                // 指定表单登录认证的处理路径
+                .loginProcessingUrl("/uac/auth/form")
                 // 自定义登录页、登录失败页、退出登录页必须放在 public 或者 static 中（或者权限放开，总之，
                 // 不能让 spring-security 认为这是一个需要认证才能访问的路径），不然会出现404
                 .loginPage("/my-login.html")
-                // 指定表单登录认证的处理路径
-                .loginProcessingUrl("/auth/form")
                 // 登录成功后跳转路径
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/uac/home")
                 .failureUrl("/login-fail.html")
                 // 必须放开 my-login.html,不然会出现 localhost 将您重定向的次数过多，原因是使用的 anyRequest().authenticated(),
                 // 所有请求都需要授权，首先跳转到 my-login.html 请求登录，发现需要授权，然后就跳转到 my-login.html 去请求授权，结果就
@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
             .logout()
-                .logoutUrl("/auth/logout")
+                .logoutUrl("/uac/auth/logout")
                 .logoutSuccessUrl("/logout.html")
                 // 放开登录退出页，同登录页
                 .permitAll()
