@@ -3,14 +3,18 @@ package com.apocalypse.uac.model;
 import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.GrantedAuthority;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.LogicDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Accessors(chain = true)
@@ -22,6 +26,16 @@ public class UserDO implements Serializable {
     @Id
     @KeySql(genId = SnowflakeIdGenId.class)
     private Long id;
+
+    /**
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
 
     /**
      * 昵称
@@ -44,8 +58,22 @@ public class UserDO implements Serializable {
     private String phone;
 
     /**
+     * 账号是否锁定（1：锁定；0：未锁定）
+     */
+    private Integer accountLocked;
+
+    /**
+     * 账号是否可用（1：可用；0：不可用）
+     */
+    private Integer enabled;
+
+    @Transient
+    private Set<GrantedAuthority> authorities;
+
+    /**
      * 是否删除（1：已删除；0：未删除）
      */
+    @LogicDelete
     private Integer deleted;
 
     /**

@@ -28,12 +28,13 @@ public class AuthenticationController {
         return "redirect:/home";
     }
 
-    // 不能使用 GetMapping， 登录失败后 spring-security 会已 post 请求的方式转发到该路径
+    // 不能使用 GetMapping， 登录失败后 spring-security 会以 post 请求的方式转发到该路径
     @RequestMapping("/login/fail")
     public String loginFail() {
         log.info("登录失败");
         // 此时 spring-security
         // 重定向到登录失败页，不然路径会是处理登录表单提交的路径
-        return "redirect:/login-fail";
+        return "redirect:/login-fail.html";
     }
+
 }

@@ -16,6 +16,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
@@ -24,7 +30,6 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
         </dependency>
-
 
     </dependencies>
 

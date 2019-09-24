@@ -34,25 +34,11 @@ public class UserController {
     }
 
     @Autowired
-    private UserDetailsManager userDetailsManager;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/current")
     public Object current() {
         return SecurityContextHolder.getContext().getAuthentication();
-    }
-
-    @GetMapping("/query/{username}")
-    public Object query(@PathVariable String username) {
-        return userDetailsManager.userExists(username);
-    }
-
-    @GetMapping("/create")
-    public Object create(@RequestParam String username, @RequestParam String password) {
-        userDetailsManager.createUser(User.withUsername(username).password(passwordEncoder.encode(password)).authorities("USER").build());
-        return userDetailsManager.userExists(username);
     }
 
 }
