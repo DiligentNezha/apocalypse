@@ -18,7 +18,6 @@ spring:
         max-idle: 8
         min-idle: 0
     timeout: 10000ms
-    password: rockysaas@redis
   cache:
     type: redis
     redis:
@@ -28,19 +27,9 @@ spring:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
         - docker0
         - veth.*
-    consul:
-      enabled: true
-      host: 127.0.0.1
-      port: 8500
+    nacos:
       discovery:
-        enabled: true
-        prefer-ip-address: true
-        service-name: apocalypse-uac
-        tags:
-          - java
-          - service
-        health-check-path: ${server.servlet.context-path}/actuator/health
-        instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+        server-addr: 127.0.0.1:8848
     sentinel:
       transport:
         dashboard: localhost:8080

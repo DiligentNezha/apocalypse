@@ -5,15 +5,8 @@ spring:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
         - docker0
         - veth.*
-    consul:
-      enabled: true
-      host: 127.0.0.1
-      port: 8500
+    nacos:
       discovery:
-        enabled: true
-        prefer-ip-address: true
-        tags:
-          - java
-          - gateway
-        instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+        server-addr: 127.0.0.1:8848
+
 

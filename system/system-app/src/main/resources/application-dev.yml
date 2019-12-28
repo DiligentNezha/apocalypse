@@ -12,7 +12,6 @@ spring:
     host: localhost
     port: 6379
     timeout: 10000ms
-    password: rockysaas@redis
   cloud:
     inetutils:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
@@ -24,18 +23,9 @@ spring:
         port: 8719
       log:
         switch-pid: true
-    consul:
-      enabled: true
-      host: 127.0.0.1
-      port: 8500
+    nacos:
       discovery:
-        enabled: true
-        prefer-ip-address: true
-        tags:
-          - java
-          - service
-        health-check-path: ${server.servlet.context-path}/actuator/health
-        instance-id: instance-${spring.cloud.client.ip-address}-${spring.application.name}-${server.port}
+        server-addr: 127.0.0.1:8848
   rabbitmq:
     host: 127.0.0.1
     port: 5672
