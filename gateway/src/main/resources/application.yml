@@ -1,6 +1,11 @@
 server:
   port: 31001
-
+swagger:
+  enable: true
+  title: gateway模块
+  description: gateway相关接口
+  version: 1.0.0
+  base-package: com.apocalypse.gateway.controller
 spring:
   profiles:
     active: @profileActive@
@@ -40,6 +45,6 @@ spring:
         - id: apocalypse-uac
           uri: lb://apocalypse-uac/
           predicates:
-            - Path=/user/**
+            - Path=/uac-api/**
           filters:
             - SwaggerHeaderFilter

@@ -16,6 +16,11 @@
 
         <dependency>
             <groupId>com.apocalypse</groupId>
+            <artifactId>common-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
             <artifactId>system-api</artifactId>
         </dependency>
 

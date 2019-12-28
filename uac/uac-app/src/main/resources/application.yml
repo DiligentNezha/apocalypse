@@ -9,6 +9,12 @@ mapper:
   seq-format: true
   style: camelhumpAndLowercase
   wrap-keyword: '`{0}`'
+swagger:
+  enable: true
+  title: UAC模块
+  description: UAC相关接口
+  version: 1.0.0
+  base-package: com.apocalypse.uac.controller
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -21,12 +27,12 @@ mybatis:
   mapper-locations:
     - classpath:mapper/single/*.xml
     - classpath:mapper/complex/*.xml
-  type-aliases-package: com.apocalypse.user.model
+  type-aliases-package: com.apocalypse.uac.model
 
 server:
   port: 35001
   servlet:
-    context-path: /uac
+    context-path: /uac-api
 
 spring:
   profiles:

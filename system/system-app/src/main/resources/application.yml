@@ -9,7 +9,12 @@ mapper:
   seq-format: true
   style: camelhumpAndLowercase
   wrap-keyword: '`{0}`'
-
+swagger:
+  enable: true
+  title: System模块
+  description: System相关接口
+  version: 1.0.0
+  base-package: com.apocalypse.system.controller
 pagehelper:
   helperDialect: mysql
   reasonable: true
