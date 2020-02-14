@@ -1,7 +1,6 @@
-package com.apocalypse.uac.controller.provider;
+package com.apocalypse.uac.feign;
 
 import com.apocalypse.common.dto.Rest;
-import com.apocalypse.uac.client.UserClient;
 import com.apocalypse.uac.dto.UserRegisterDTO;
 import com.apocalypse.uac.service.UserService;
 import lombok.extern.slf4j.Slf4j;

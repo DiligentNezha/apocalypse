@@ -1,4 +1,4 @@
-package com.apocalypse.uac.controller.front;
+package com.apocalypse.uac.controller;
 
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.uac.dto.UserRegisterDTO;

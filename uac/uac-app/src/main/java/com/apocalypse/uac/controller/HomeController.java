@@ -1,4 +1,4 @@
-package com.apocalypse.uac.controller.front;
+package com.apocalypse.uac.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

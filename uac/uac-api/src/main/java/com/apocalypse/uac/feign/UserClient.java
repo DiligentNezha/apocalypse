@@ -1,4 +1,4 @@
-package com.apocalypse.uac.client;
+package com.apocalypse.uac.feign;
 
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.uac.dto.UserRegisterDTO;
