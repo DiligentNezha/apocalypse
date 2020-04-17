@@ -5,12 +5,19 @@ import com.apocalypse.common.redisson.codec.FastJsonCodec;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
+import org.redisson.api.RList;
+import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -22,6 +29,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/redisson")
 @Api(value = "Redisson案例", tags = {"Redisson案例"}, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class RedissonController {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    @GetMapping("/push")
+    public Rest<List> push(@RequestParam("value") String value) {
+        RList<Object> list = redissonClient.getList("list");
+        list.add(value);
+
+        RQueue<Object> queue = redissonClient.getQueue("queue");
+        queue.add(value);
+        return Rest.ok(queue.readAll());
+    }
 
     /**
      * 单节点模式

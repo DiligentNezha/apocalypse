@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.mybatis.SnowflakeIdGenId;
 import com.apocalypse.common.mybatis.type.JSONArrayTypeHandler;
 import com.apocalypse.common.mybatis.type.JSONObjectTypeHandler;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -14,11 +13,12 @@ import tk.mybatis.mapper.annotation.ColumnType;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.annotation.LogicDelete;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import javax.persistence.*;
 @Data
 @ApiModel
 @Accessors(chain = true)

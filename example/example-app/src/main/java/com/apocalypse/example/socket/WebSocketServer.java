@@ -1,5 +1,6 @@
 package com.apocalypse.example.socket;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 @Component
-@ServerEndpoint(value = "/socket",
+@ServerEndpoint(value = "/websocket",
         encoders = {MessageEncoder.class},
         decoders = {MessageDecoder.class})
 public class WebSocketServer {
@@ -31,7 +32,7 @@ public class WebSocketServer {
 
     @OnMessage
     public void onMessage(Session session, Message msg) {
-        log.info("接收到[{}]消息[{}]", session.getId(), msg);
+        log.info("接收到[{}]消息[{}]", session.getId(), JSONObject.toJSONString(msg));
         ChatInfoHolder.receiveMsg(msg);
     }
 

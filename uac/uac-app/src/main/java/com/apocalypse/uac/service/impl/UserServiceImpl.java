@@ -26,6 +26,7 @@ public class UserServiceImpl extends BaseServiceImpl<UserDO, Long> implements Us
     @Override
     public Long register(UserRegisterDTO userRegister) {
         UserDO user = userConvert.convert(userRegister);
+
         userDOMapper.insertSelective(user);
         return user.getId();
     }

@@ -6,7 +6,6 @@ import com.apocalypse.example.convert.ExampleConvert;
 import com.apocalypse.example.dto.ExampleCreateDTO;
 import com.apocalypse.example.dto.ExampleModifyDTO;
 import com.apocalypse.example.dto.ExampleQueryDTO;
-import com.apocalypse.example.mapper.single.ExampleDOMapper;
 import com.apocalypse.example.model.ExampleDO;
 import com.apocalypse.example.service.single.ExampleService;
 import com.apocalypse.example.vo.ExampleVO;
