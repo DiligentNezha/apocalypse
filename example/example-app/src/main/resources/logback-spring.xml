@@ -105,7 +105,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="TRACE_FILE" />
         <appender-ref ref="DEBUG_FILE" />
