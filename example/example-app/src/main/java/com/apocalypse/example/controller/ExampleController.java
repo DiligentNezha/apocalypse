@@ -1,11 +1,9 @@
 package com.apocalypse.example.controller;
 
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.fastjson.JSON;
 import com.apocalypse.common.constraints.EnumMatch;
 import com.apocalypse.common.dto.Rest;
 import com.apocalypse.common.enums.GenderEnum;
-import com.apocalypse.example.sidecar.node.feign.NodeServiceClient;
 import com.apocalypse.uac.dto.UserRegisterDTO;
 import com.apocalypse.uac.feign.UserClient;
 import io.swagger.annotations.Api;
@@ -52,15 +50,15 @@ public class ExampleController {
         return Rest.ok(gender);
     }
 
-    @Autowired
-    private NodeServiceClient nodeServiceClient;
+//    @Autowired
+//    private NodeServiceClient nodeServiceClient;
 
     @PostMapping("/sidecar/node")
     @ApiOperation(value = "异构 node", notes = "异构 node 测试", produces = MediaType.APPLICATION_JSON_VALUE)
     public Rest<Rest> enumGetValidate() {
-        Rest hello = nodeServiceClient.hello();
-        log.info(JSON.toJSONString(hello));
-        return Rest.ok(hello);
+//        Rest hello = nodeServiceClient.hello();
+//        log.info(JSON.toJSONString(hello));
+        return Rest.ok(null);
     }
 
     @Getter

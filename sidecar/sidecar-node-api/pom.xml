@@ -24,6 +24,10 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>common-infrastructure</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

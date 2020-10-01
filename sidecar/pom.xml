@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>example</artifactId>
+        <artifactId>apocalypse-parent</artifactId>
         <groupId>com.apocalypse</groupId>
         <version>1.0.0</version>
     </parent>
@@ -18,4 +18,15 @@
         <module>sidecar-node-api</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>common-infrastructure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+    </dependencies>
 </project>
