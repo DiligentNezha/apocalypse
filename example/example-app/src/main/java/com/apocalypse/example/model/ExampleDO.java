@@ -2,9 +2,9 @@ package com.apocalypse.example.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
-import com.apocalypse.common.mybatis.type.JSONArrayTypeHandler;
-import com.apocalypse.common.mybatis.type.JSONObjectTypeHandler;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.data.mybatis.type.JSONArrayTypeHandler;
+import com.apocalypse.common.data.mybatis.type.JSONObjectTypeHandler;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

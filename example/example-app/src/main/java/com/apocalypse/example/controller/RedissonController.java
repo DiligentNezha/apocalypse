@@ -1,7 +1,8 @@
 package com.apocalypse.example.controller;
 
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.redisson.codec.FastJsonCodec;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.redis.redisson.codec.CustomJsonJacksonCodec;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
@@ -37,13 +38,13 @@ public class RedissonController {
     private RedissonClient redissonClient;
 
     @GetMapping("/push")
-    public Rest<List> push(@RequestParam("value") String value) {
+    public Rest<BaseResponse> push(@RequestParam("value") String value) {
         RList<Object> list = redissonClient.getList("list");
         list.add(value);
 
         RQueue<Object> queue = redissonClient.getQueue("queue");
         queue.add(value);
-        return Rest.ok(queue.readAll());
+        return Rest.vector("content", queue.readAll(), List.class);
     }
 
     /**
@@ -51,16 +52,16 @@ public class RedissonController {
      * @return
      */
     @GetMapping("/single")
-    public Rest<Config> single() {
+    public Rest<BaseResponse> single() {
         // 默认连接地址 127.0.0.1:6379
         // RedissonClient redisson = Redisson.create();
 
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useSingleServer().setAddress("redis://127.0.0.1:6301");
         RedissonClient redisson = Redisson.create(config);
         redisson.shutdown();
-        return Rest.ok(config);
+        return Rest.vector("content", config, Config.class);
     }
 
     /**
@@ -68,16 +69,16 @@ public class RedissonController {
      * @return
      */
     @GetMapping("/masterSlave")
-    public Rest<Config> masterSlave() {
+    public Rest<BaseResponse> masterSlave() {
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useMasterSlaveServers()
                 //可以用"rediss://"来启用SSL连接
                 .setMasterAddress("redis://127.0.0.1:6301")
                 .addSlaveAddress("redis://127.0.0.1:6302", "redis://127.0.0.1:6303");
         RedissonClient redisson = Redisson.create(config);
         redisson.shutdown();
-        return Rest.ok(config);
+        return Rest.vector("content", config, Config.class);
     }
 
     /**
@@ -85,9 +86,9 @@ public class RedissonController {
      * @return
      */
     @GetMapping("/sentinel")
-    public Rest<Config> sentinel() {
+    public Rest<BaseResponse> sentinel() {
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useSentinelServers()
                 .setMasterName("master")
                 //可以用"rediss://"来启用SSL连接
@@ -95,7 +96,7 @@ public class RedissonController {
 
         RedissonClient redisson = Redisson.create(config);
         redisson.shutdown();
-        return Rest.ok(config);
+        return Rest.vector("content", config, Config.class);
     }
 
     /**
@@ -103,9 +104,9 @@ public class RedissonController {
      * @return
      */
     @GetMapping("/cluster")
-    public Rest<Config> cluster() {
+    public Rest<BaseResponse> cluster() {
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useClusterServers()
 
                 // 集群状态扫描间隔时间，单位是毫秒
@@ -115,6 +116,6 @@ public class RedissonController {
 
         RedissonClient redisson = Redisson.create(config);
         redisson.shutdown();
-        return Rest.ok(config);
+        return Rest.vector("content", config, Config.class);
     }
 }

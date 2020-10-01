@@ -1,8 +1,9 @@
 package com.apocalypse.example.controller.io;
 
 import cn.hutool.core.util.StrUtil;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.util.HttpContextUtil;
+import com.apocalypse.common.boot.util.HttpContextUtil;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class NioController {
 
     @GetMapping("/charBuffer/manipulate")
     @ApiOperation(value = "CharBuffer操作", notes = "CharBuffer 操作案例", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<String> charBuffer() {
+    public Rest<BaseResponse> charBuffer() {
         // mark <= position <= limit <= capacity
         //capacity 不可修改
         CharBuffer charBuffer = CharBuffer.allocate(1024);
@@ -89,7 +90,7 @@ public class NioController {
         charBuffer.compact();
         //mark = -1, position = limit - position (2 - 2) = 0, limit = 1024
         //最终 charBuffer 中数组的内容为 哪吒我是新写入的内容
-        return Rest.ok(StrUtil.str(charBuffer.array(), StandardCharsets.UTF_8));
+        return Rest.vector("content", StrUtil.str(charBuffer.array(), StandardCharsets.UTF_8), String.class);
     }
 
     @GetMapping("/file/read")

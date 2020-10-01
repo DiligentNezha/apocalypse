@@ -2,7 +2,8 @@ package com.apocalypse.example.controller.io;
 import	java.nio.ByteBuffer;
 import	java.net.InetSocketAddress;
 
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class ClientController {
 
     @GetMapping("/bio/message/send")
     @ApiOperation(value = "发送消息(发送到BIO服务器)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<Boolean> sendMsgToBIOServer(@RequestParam @NotBlank String msg) {
+    public Rest<BaseResponse> sendMsgToBIOServer(@RequestParam @NotBlank String msg) {
         Socket socket = null;
         try {
             socket = new Socket(HOST, PORT);
@@ -56,12 +57,12 @@ public class ClientController {
         } catch (IOException e) {
 
         }
-        return Rest.ok(Boolean.TRUE);
+        return Rest.success();
     }
 
     @GetMapping("/nio/message/send")
     @ApiOperation(value = "发送消息(发送到NIO服务器)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<Boolean> sendMsgToNIOServer(@RequestParam @NotBlank String msg) throws IOException, InterruptedException {
+    public Rest<BaseResponse> sendMsgToNIOServer(@RequestParam @NotBlank String msg) throws IOException, InterruptedException {
         CharsetEncoder charsetEncoder = StandardCharsets.UTF_8.newEncoder();
 
         CharBuffer charBuffer = CharBuffer.allocate(1024);
@@ -81,6 +82,6 @@ public class ClientController {
             socketChannel.close();
         }
 
-        return Rest.ok(Boolean.TRUE);
+        return Rest.success();
     }
 }

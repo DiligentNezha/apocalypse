@@ -1,6 +1,7 @@
 package com.apocalypse.example.controller;
 
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.example.dto.ExampleCreateDTO;
 import com.apocalypse.example.dto.ExampleModifyDTO;
 import com.apocalypse.example.dto.ExampleQueryDTO;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.element.ElementKind;
 import java.util.List;
 
 @Slf4j
@@ -26,33 +28,33 @@ public class CacheExampleController {
     private ExampleService exampleService;
 
     @GetMapping("/detail/query/{id}")
-    public Rest<ExampleDO> detail(@PathVariable("id") Long id) {
+    public Rest<BaseResponse> detail(@PathVariable("id") Long id) {
         ExampleDO exampleDO = exampleService.detail(id);
-        return Rest.ok(exampleDO);
+        return Rest.vector("content", exampleDO, ExampleDO.class);
     }
 
     @PostMapping("/list/query")
-    public Rest<List<ExampleVO>> list(@Validated @RequestBody ExampleQueryDTO exampleQueryDTO) {
+    public Rest<BaseResponse> list(@Validated @RequestBody ExampleQueryDTO exampleQueryDTO) {
         List<ExampleVO> exampleVOList = exampleService.listQuery(exampleQueryDTO);
-        return Rest.ok(exampleVOList);
+        return Rest.vector("content", exampleVOList, List.class);
     }
 
     @PostMapping("/modify")
-    public Rest<ExampleDO> modify(@Validated @RequestBody ExampleModifyDTO exampleModifyDTO) {
+    public Rest<BaseResponse> modify(@Validated @RequestBody ExampleModifyDTO exampleModifyDTO) {
         ExampleDO modifiedExampleDO = exampleService.modify(exampleModifyDTO);
-        return Rest.ok(modifiedExampleDO);
+        return Rest.vector("content", modifiedExampleDO, ExampleDO.class);
     }
 
     @PostMapping("/create")
-    public Rest<ExampleDO> create(@RequestBody ExampleCreateDTO exampleCreateDTO) {
+    public Rest<BaseResponse> create(@RequestBody ExampleCreateDTO exampleCreateDTO) {
         ExampleDO modifiedExampleDO = exampleService.create(exampleCreateDTO);
-        return Rest.ok(modifiedExampleDO);
+        return Rest.vector("content", modifiedExampleDO, ExampleDO.class);
     }
 
     @GetMapping("/delete/{id}")
-    public Rest<Boolean> delete(@PathVariable("id") Long id) {
+    public Rest<BaseResponse> delete(@PathVariable("id") Long id) {
         exampleService.delete(id);
-        return Rest.ok(true);
+        return Rest.success();
     }
 
 }

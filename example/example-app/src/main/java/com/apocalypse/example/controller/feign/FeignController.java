@@ -1,8 +1,8 @@
 package com.apocalypse.example.controller.feign;
 
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.system.feign.AdminClient;
-import com.apocalypse.system.model.AdminDO;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.idaas.feign.AdminClient;
+import com.apocalypse.idaas.model.AdminDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

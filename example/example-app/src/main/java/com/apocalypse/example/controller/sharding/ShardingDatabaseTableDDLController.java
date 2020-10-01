@@ -1,6 +1,7 @@
 package com.apocalypse.example.controller.sharding;
 
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -46,9 +47,9 @@ public class ShardingDatabaseTableDDLController {
      */
     @GetMapping("/databasetable/drop")
     @ApiOperation(value = "删除表", notes = "执行删除逻辑表的DDL语句，相关物理表会进行删除", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> dropTable() throws SQLException {
+    public Rest<BaseResponse> dropTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(DROP_TABLE_SQL);
-        return Rest.ok(true);
+        return Rest.success();
     }
 
     /**
@@ -56,9 +57,9 @@ public class ShardingDatabaseTableDDLController {
      */
     @GetMapping("/databasetable/truncate")
     @ApiOperation(value = "清空表", notes = "执行清空逻辑表的DDL语句，相关物理表会进行清空", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> truncateTable() throws SQLException {
+    public Rest<BaseResponse> truncateTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(TRUNCATE_TABLE_SQL);
-        return Rest.ok(true);
+        return Rest.success();
     }
 
     /**
@@ -66,8 +67,8 @@ public class ShardingDatabaseTableDDLController {
      */
     @GetMapping("/databasetable/create")
     @ApiOperation(value = "创建表", notes = "执行创建逻辑表的DDL语句，相关物理表会进行创建", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> createTable() throws SQLException {
+    public Rest<BaseResponse> createTable() throws SQLException {
         dataSource.getConnection().createStatement().execute(CREATE_TABLE_SQL);
-        return Rest.ok(true);
+        return Rest.success();
     }
 }

@@ -4,7 +4,10 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.mybatis.util.json.JsonUtil;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -48,50 +51,58 @@ public class ServerController {
 
     @GetMapping("/bio/start")
     @ApiOperation(value = "启动服务(BIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<JSONObject> startBIOServer() throws InterruptedException {
+    public Rest<BaseResponse> startBIOServer() throws InterruptedException {
         ThreadUtil.execute(BIOServer::start);
         TimeUnit.SECONDS.sleep(1);
         ServerSocket serverSocket = BIOServer.serverSocket;
         String host = serverSocket.getInetAddress().getHostAddress();
         int port = serverSocket.getLocalPort();
-        return Rest.ok(new JSONObject().fluentPut("host", host).fluentPut("port", port));
+
+        ObjectNode objectNode = JsonUtil.emptyObjectNode();
+        objectNode.put("host", host);
+        objectNode.put("port", port);
+
+
+        return Rest.vector("server", objectNode, ObjectNode.class);
     }
 
     @GetMapping("/bio/stop")
     @ApiOperation(value = "停止服务(BIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<Boolean> stopBIOServer() throws IOException {
+    public Rest<BaseResponse> stopBIOServer() throws IOException {
         BIOServer.stop();
-        return Rest.ok(Boolean.TRUE);
+        return Rest.success();
     }
 
     @GetMapping("/bio/messages(BIO)")
     @ApiOperation(value = "接收到消息(BIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<ConcurrentLinkedQueue<String>> messagesInBIOServer() {
-        return Rest.ok(BIOServer.messages);
+    public Rest<BaseResponse> messagesInBIOServer() {
+        return Rest.vector("messages", BIOServer.messages, ConcurrentLinkedQueue.class);
     }
 
     @GetMapping("/nio/start")
     @ApiOperation(value = "启动服务(NIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<JSONObject> startNIOServer() throws InterruptedException {
+    public Rest<BaseResponse> startNIOServer() throws InterruptedException {
         ThreadUtil.execute(NIOServer::selector);
         TimeUnit.SECONDS.sleep(1);
         InetSocketAddress localSocketAddress = (InetSocketAddress) NIOServer.ssc.socket().getLocalSocketAddress();
-        return Rest.ok(new JSONObject()
-                .fluentPut("host", localSocketAddress.getAddress().getHostAddress())
-                .fluentPut("port", localSocketAddress.getPort()));
+
+        ObjectNode objectNode = JsonUtil.emptyObjectNode();
+        objectNode.put("host", localSocketAddress.getAddress().getHostAddress());
+        objectNode.put("port", localSocketAddress.getPort());
+        return Rest.vector("server", objectNode, ObjectNode.class);
     }
 
     @GetMapping("/nio/stop")
     @ApiOperation(value = "停止服务(NIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<Boolean> stopNIOServer() throws IOException {
+    public Rest<BaseResponse> stopNIOServer() throws IOException {
         NIOServer.stop();
-        return Rest.ok(Boolean.TRUE);
+        return Rest.success();
     }
 
     @GetMapping("/nio/messages(NIO)")
     @ApiOperation(value = "接收到消息(NIO)", notes = "", produces = MediaType.TEXT_PLAIN_VALUE)
-    public Rest<ConcurrentLinkedQueue<String>> messagesInNIOServer() {
-        return Rest.ok(NIOServer.messages);
+    public Rest<BaseResponse> messagesInNIOServer() {
+        return Rest.vector("messages", BIOServer.messages, ConcurrentLinkedQueue.class);
     }
 
 }

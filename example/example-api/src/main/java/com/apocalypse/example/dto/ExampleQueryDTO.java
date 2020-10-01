@@ -1,6 +1,6 @@
 package com.apocalypse.example.dto;
 
-import com.apocalypse.common.constraints.InList;
+import com.apocalypse.common.core.constraints.InList;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

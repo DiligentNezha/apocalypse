@@ -2,7 +2,7 @@ mapper:
   check-example-entity-class: true
   identity: MYSQL
   mappers:
-    - com.apocalypse.common.mybatis.MyMapper
+    - com.apocalypse.common.data.mybatis.MyMapper
   not-empty: true
   safe-delete: true
   safe-update: true
@@ -56,9 +56,6 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
-  redis:
-    redisson:
-      config: classpath:/redisson.yaml
   main:
     # ShardingSphere 需要自己创建数据源，和 Druid 数据源冲突，设置允许 bean 定义覆盖来避免报错
     allow-bean-definition-overriding: true

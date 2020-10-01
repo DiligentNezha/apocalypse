@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.handler.StringHandler;
 import cn.hutool.db.sql.SqlExecutor;
 import com.alibaba.druid.pool.DruidDataSource;
-import com.apocalypse.common.util.WeekUtil;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -70,8 +69,8 @@ public class DateUtilTest {
             DateRange dates = new DateRange(firstDayOfYear, lastDayOfYear, DateField.DAY_OF_YEAR);
             for (DateTime date : dates) {
                 String hutoolWeek = date.year() + "-" + String.format("%02d", date.weekOfYear());
-                String weekOfYear = WeekUtil.weekOfYear(date);
-                String weekRange = WeekUtil.weekRange(date);
+                String weekOfYear = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekOfYear(date);
+                String weekRange = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekRange(date);
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();
@@ -90,8 +89,8 @@ public class DateUtilTest {
             for (int j = 20; j < 31; j++) {
                 DateTime date = DateUtil.parseDate(i + "-12" + "-" + j);
                 String hutoolWeek = date.year() + "-" + String.format("%02d", date.weekOfYear());
-                String weekOfYear = WeekUtil.weekOfYear(date);
-                String weekRange = WeekUtil.weekRange(date);
+                String weekOfYear = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekOfYear(date);
+                String weekRange = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekRange(date);
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();
@@ -101,8 +100,8 @@ public class DateUtilTest {
             for (int j = 1; j < 10; j++) {
                 DateTime date = DateUtil.parseDate(i + "-01" + "-" + j);
                 String hutoolWeek = date.year() + "-" + String.format("%02d", date.weekOfYear());
-                String weekOfYear = WeekUtil.weekOfYear(date);
-                String weekRange = WeekUtil.weekRange(date);
+                String weekOfYear = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekOfYear(date);
+                String weekRange = com.apocalypse.common.data.mybatis.util.misc.WeekUtil.weekRange(date);
                 Connection connection = dataSource.getConnection();
                 String dbWeek = SqlExecutor.query(connection, "select date_format('" + date.toDateStr() + "', '%Y-%u')", new StringHandler());
                 connection.close();

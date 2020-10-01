@@ -1,6 +1,6 @@
 package com.apocalypse.example.model;
 
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;

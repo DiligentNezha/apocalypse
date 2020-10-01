@@ -1,6 +1,6 @@
 package com.apocalypse.example.controller.ps;
 
-import com.apocalypse.common.redisson.codec.FastJsonCodec;
+import com.apocalypse.common.data.redis.redisson.codec.CustomJsonJacksonCodec;
 import org.redisson.Redisson;
 import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
@@ -15,7 +15,7 @@ import org.redisson.config.Config;
 public class RedisPub {
     public static void main(String[] args) {
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useSingleServer().setAddress("redis://127.0.0.1:6379");
         RedissonClient redisson = Redisson.create(config);
         RTopic topic = redisson.getTopic("order");

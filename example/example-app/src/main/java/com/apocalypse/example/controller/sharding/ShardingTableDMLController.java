@@ -2,8 +2,9 @@ package com.apocalypse.example.controller.sharding;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import com.apocalypse.example.model.ShardingTableDO;
 import com.apocalypse.example.service.single.ShardingTableService;
 import io.swagger.annotations.Api;
@@ -31,7 +32,7 @@ public class ShardingTableDMLController {
 
     @GetMapping("/table/insert")
     @ApiOperation(value = "插入数据", notes = "根据分片规则，数据会分散的存入相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> insert() {
+    public Rest<BaseResponse> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
             String remark = StrUtil.format("Id is {}, I should save in ds0.sharding_table_{}", id, id % 5);
@@ -40,21 +41,21 @@ public class ShardingTableDMLController {
                     .setRemark(remark);
             shardingTableService.insertSelective(shardingTableDO);
         }
-        return Rest.ok(true);
+        return Rest.success();
     }
 
     @GetMapping("/table/query/{id}")
     @ApiOperation(value = "根据Id查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<ShardingTableDO> query(@PathVariable("id") Long id) {
+    public Rest<BaseResponse> query(@PathVariable("id") Long id) {
         ShardingTableDO shardingTableDO = shardingTableService.selectByPrimaryKey(id);
-        return Rest.ok(shardingTableDO);
+        return Rest.vector("content", shardingTableDO, ShardingTableDO.class);
     }
 
     @GetMapping("/table/query/in")
     @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingTableDO>> queryIn(@RequestParam("ids") List<Long> ids) {
+    public Rest<BaseResponse> queryIn(@RequestParam("ids") List<Long> ids) {
         List<ShardingTableDO> shardingTableDOS = shardingTableService.selectByIdList(ids);
-        return Rest.ok(shardingTableDOS);
+        return Rest.vector("content", shardingTableDOS, List.class);
     }
 
 }

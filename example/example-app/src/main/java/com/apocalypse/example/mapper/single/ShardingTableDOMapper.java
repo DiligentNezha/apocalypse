@@ -1,6 +1,6 @@
 package com.apocalypse.example.mapper.single;
 
-import com.apocalypse.common.mybatis.MyMapper;
+import com.apocalypse.common.data.mybatis.MyMapper;
 import com.apocalypse.example.model.ShardingTableDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;

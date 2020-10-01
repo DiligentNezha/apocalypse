@@ -1,7 +1,8 @@
 package com.apocalypse.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class Java8DateController {
 
     @GetMapping("/localDate")
     @ApiOperation(value = "LocalDate", notes = "LocalDate测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> localDate() {
+    public Rest<BaseResponse> localDate() {
         LocalDate date = LocalDate.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("当前天", date);
@@ -56,12 +57,12 @@ public class Java8DateController {
                     results.put(chronoField.name(), date.getLong(chronoField));
                     results.put(chronoField.name() + ".range", date.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/localTime")
     @ApiOperation(value = "LocalTime", notes = "LocalTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> register() {
+    public Rest<BaseResponse> register() {
         LocalTime time = LocalTime.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("当前时间", time);
@@ -80,12 +81,12 @@ public class Java8DateController {
                     results.put(chronoField.name(), time.getLong(chronoField));
                     results.put(chronoField.name() + ".range", time.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/localDateTime")
     @ApiOperation(value = "LocalDateTime", notes = "LocalDateTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> localDateTime() {
+    public Rest<BaseResponse> localDateTime() {
         LocalDateTime dateTime = LocalDateTime.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("当前时间", dateTime);
@@ -125,12 +126,12 @@ public class Java8DateController {
                     results.put(chronoField.name(), dateTime.getLong(chronoField));
                     results.put(chronoField.name() + ".range", dateTime.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/zonedDateTime")
     @ApiOperation(value = "ZonedDateTime", notes = "ZonedDateTime测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> zonedDateTime() {
+    public Rest<BaseResponse> zonedDateTime() {
         ZoneId systemDefaultZonId = ZoneId.systemDefault();
 
         ZonedDateTime now = ZonedDateTime.now(systemDefaultZonId);
@@ -140,12 +141,12 @@ public class Java8DateController {
         ZoneId.getAvailableZoneIds().stream().forEach(zoneId -> {
             results.put(zoneId, now.withZoneSameInstant(ZoneId.of(zoneId)));
         });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/period")
     @ApiOperation(value = "Period", notes = "Period测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> period() {
+    public Rest<BaseResponse> period() {
         LocalDate beginDate = LocalDate.of(1994, 4, 4);
         LocalDate endDate = LocalDate.of(2019, 8, 3);
         Map<String, Object> results = new LinkedHashMap<>();
@@ -156,23 +157,23 @@ public class Java8DateController {
         results.put("开始日期和结束日期之间相隔年", period.getYears());
         results.put("开始日期和结束日期之间相隔月", period.getMonths());
         results.put("开始日期和结束日期之间相隔天", period.getDays());
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/zoneId")
     @ApiOperation(value = "ZoneId", notes = "ZoneId测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> zoneId() {
+    public Rest<BaseResponse> zoneId() {
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("默认时区", ZoneId.systemDefault());
         ZoneId.getAvailableZoneIds().stream().sorted().forEach(zoneId -> results.put(zoneId, new JSONObject()
                 .fluentPut("zoneId", zoneId)
                 .fluentPut("当前时间", ZonedDateTime.now(ZoneId.of(zoneId)))));
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/instance")
     @ApiOperation(value = "Instance", notes = "Instance测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> instance() {
+    public Rest<BaseResponse> instance() {
         Instant now = Instant.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("当前秒数", now.getEpochSecond());
@@ -184,12 +185,12 @@ public class Java8DateController {
                     results.put(chronoField.name(), now.getLong(chronoField));
                     results.put(chronoField.name() + ".range", now.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/duration")
     @ApiOperation(value = "Duration", notes = "Duration测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> duration() {
+    public Rest<BaseResponse> duration() {
         LocalDateTime beginDateTime = LocalDateTime.of(LocalDate.of(1994, 4, 4), LocalTime.MIN);
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.of(2019, 8, 3), LocalTime.MAX);
         Map<String, Object> results = new LinkedHashMap<>();
@@ -202,12 +203,12 @@ public class Java8DateController {
         results.put("开始日期和结束日期之间相隔分钟", duration.toMinutes());
         results.put("开始日期和结束日期之间相隔毫秒", duration.toMillis());
         results.put("开始日期和结束日期之间相隔纳秒", duration.toNanos());
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/monthDay")
     @ApiOperation(value = "MonthDay", notes = "MonthDay测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> monthDay() {
+    public Rest<BaseResponse> monthDay() {
         MonthDay monthDay = MonthDay.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("monthDay", monthDay);
@@ -219,12 +220,12 @@ public class Java8DateController {
                     results.put(chronoField.name(), monthDay.getLong(chronoField));
                     results.put(chronoField.name() + ".range", monthDay.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 
     @GetMapping("/yearMonth")
     @ApiOperation(value = "YearMonth", notes = "YearMonth测试", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, Object>> yearMonth() {
+    public Rest<BaseResponse> yearMonth() {
         YearMonth yearMonth = YearMonth.now();
         Map<String, Object> results = new LinkedHashMap<>();
         results.put("yearMonth", yearMonth);
@@ -236,6 +237,6 @@ public class Java8DateController {
                     results.put(chronoField.name(), yearMonth.getLong(chronoField));
                     results.put(chronoField.name() + ".range", yearMonth.range(chronoField));
                 });
-        return Rest.ok(results);
+        return Rest.vector("content", results, Map.class);
     }
 }

@@ -12,7 +12,7 @@
         <property name="endingDelimiter" value="`"/>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.apocalypse.common.mybatis.MyMapper"/>
+            <property name="mappers" value="com.apocalypse.common.data.mybatis.MyMapper"/>
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"

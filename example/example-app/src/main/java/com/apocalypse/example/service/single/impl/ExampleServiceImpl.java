@@ -1,7 +1,7 @@
 package com.apocalypse.example.service.single.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.apocalypse.common.service.impl.BaseServiceImpl;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
 import com.apocalypse.example.convert.ExampleConvert;
 import com.apocalypse.example.dto.ExampleCreateDTO;
 import com.apocalypse.example.dto.ExampleModifyDTO;

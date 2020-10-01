@@ -13,8 +13,11 @@
     <packaging>pom</packaging>
     <name>common</name>
     <modules>
-        <module>common-infrastructure</module>
-        <module>common-boot</module>
+        <module>apocalypse-all</module>
+        <module>apocalypse-boot</module>
+        <module>apocalypse-core</module>
+        <module>apocalypse-data</module>
+        <module>apocalypse-util</module>
     </modules>
 
     <dependencies>

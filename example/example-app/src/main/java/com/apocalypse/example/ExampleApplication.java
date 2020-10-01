@@ -17,10 +17,14 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableCaching
 @MapperScan(basePackages = "com.apocalypse.example.mapper")
 @SpringBootApplication(scanBasePackages = {
-        "com.apocalypse.example", "com.apocalypse.common.config",
-        "com.apocalypse.common.util", "com.apocalypse.common.exception",
-        "com.apocalypse.common.advice", "com.apocalypse.common.aspect",
-        "com.apocalypse.common.interceptor"
+        "com.apocalypse.example",
+        "com.apocalypse.common.util.bean",
+        "com.apocalypse.common.core.util",
+        "com.apocalypse.common.core.convert",
+        "com.apocalypse.common.data.mybatis.plugin",
+        "com.apocalypse.common.boot.aspect",
+        "com.apocalypse.common.boot.init",
+        "com.apocalypse.common.boot.web.exception"
 })
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {"com.apocalypse"})

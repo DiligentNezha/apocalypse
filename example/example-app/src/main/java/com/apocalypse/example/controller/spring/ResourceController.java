@@ -1,6 +1,7 @@
 package com.apocalypse.example.controller.spring;
 
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class ResourceController {
     @GetMapping("/loader")
     @ApiOperation(value = "DefaultResourceLoader", notes = "DefaultResourceLoader 测试", produces =
             MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Map<String, String>> register() {
+    public Rest<BaseResponse> register() {
         DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
         Map<String, String> map = new HashMap<>();
 
@@ -46,6 +47,6 @@ public class ResourceController {
         Resource resource3 = resourceLoader.getResource(httpUrl);
         map.put(httpUrl, resource3.getClass().getName());
 
-        return Rest.ok(map);
+        return Rest.vector("content", map, Map.class);
     }
 }

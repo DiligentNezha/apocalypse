@@ -1,6 +1,6 @@
 package com.apocalypse.example.controller.io;
 
-import com.apocalypse.common.util.HttpContextUtil;
+import com.apocalypse.common.boot.util.HttpContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

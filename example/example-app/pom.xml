@@ -17,12 +17,7 @@
 
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>common-boot</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.apocalypse</groupId>
-            <artifactId>uac-api</artifactId>
+            <artifactId>apocalypse-boot</artifactId>
         </dependency>
 
         <dependency>
@@ -32,12 +27,7 @@
 
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>system-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.apocalypse</groupId>
-            <artifactId>sidecar-node-api</artifactId>
+            <artifactId>idaas-api</artifactId>
         </dependency>
 
         <dependency>
@@ -120,11 +110,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
 
         <dependency>

@@ -1,8 +1,9 @@
 package com.apocalypse.example.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.util.HttpContextUtil;
+import com.apocalypse.common.boot.util.HttpContextUtil;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -39,17 +40,17 @@ public class FileUploadController {
 
     @PostMapping("/upload/single")
     @ApiOperation(value = "单个文件上传", notes = "单个文件上传", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<String> upload(MultipartFile file) throws IOException {
+    public Rest<BaseResponse> upload(MultipartFile file) throws IOException {
         String originalFilename = file.getOriginalFilename();
         Path path = Paths.get("/" + originalFilename);
         file.transferTo(path);
-        return Rest.ok(path.toString());
+        return Rest.vector("content", path.toString(), String.class);
     }
 
     @ApiImplicitParam(name = "file[]", value = "文件流对象,接收数组格式", required = true, dataType = "__File", allowMultiple = true)
     @PostMapping(value = "/upload/multi")
     @ApiOperation(value = "多文件上传", notes = "多文件上传", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<String>> multiUpload(@RequestParam(value="file[]") MultipartFile[] files) throws IOException {
+    public Rest<BaseResponse> multiUpload(@RequestParam(value="file[]") MultipartFile[] files) throws IOException {
         Arrays.stream(files).forEach(file -> {
             String originalFilename = file.getOriginalFilename();
             Path path = Paths.get("/" + originalFilename);
@@ -59,7 +60,7 @@ public class FileUploadController {
                 e.printStackTrace();
             }
         });
-        return Rest.ok(Arrays.stream(files).map(file -> file.getOriginalFilename()).collect(Collectors.toList()));
+        return Rest.vector("content",Arrays.stream(files).map(file -> file.getOriginalFilename()).collect(Collectors.toList()), List.class);
     }
 
     @GetMapping("/download/servletOutputStream")

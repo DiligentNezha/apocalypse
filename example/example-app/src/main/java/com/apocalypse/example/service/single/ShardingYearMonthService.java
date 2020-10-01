@@ -1,6 +1,6 @@
 package com.apocalypse.example.service.single;
 
-import com.apocalypse.common.service.BaseService;
+import com.apocalypse.common.data.mybatis.service.BaseService;
 import com.apocalypse.example.model.ShardingYearMonthDO;
 
 /**

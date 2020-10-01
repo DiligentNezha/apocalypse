@@ -2,8 +2,9 @@ package com.apocalypse.example.controller.sharding;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import com.apocalypse.example.model.ShardingDatabaseTableDO;
 import com.apocalypse.example.service.single.ShardingDatabaseTableService;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class ShardingDatabaseTableDMLController {
 
     @GetMapping("/databasetable/insert")
     @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> insert() {
+    public Rest<BaseResponse> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
             String remark = StrUtil.format("Id is {}, I should save in ds{}.sharding_table_{}", id, id % 2, id % 5);
@@ -41,32 +42,32 @@ public class ShardingDatabaseTableDMLController {
                     .setRemark(remark);
             shardingDatabaseTableService.insertSelective(shardingDatabaseTableDO);
         }
-        return Rest.ok(true);
+        return Rest.success();
     }
 
     @GetMapping("/databasetable/query/{id}")
     @ApiOperation(value = "根据Id查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<ShardingDatabaseTableDO> query(@PathVariable("id") Long id) {
+    public Rest<BaseResponse> query(@PathVariable("id") Long id) {
         ShardingDatabaseTableDO shardingDatabaseTableDO = shardingDatabaseTableService.selectByPrimaryKey(id);
-        return Rest.ok(shardingDatabaseTableDO);
+        return Rest.vector("content", shardingDatabaseTableDO, ShardingDatabaseTableDO.class);
     }
 
     @GetMapping("/databasetable/query/in")
     @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingDatabaseTableDO>> queryIn(@RequestParam("ids") List<Long> ids) {
+    public Rest<BaseResponse> queryIn(@RequestParam("ids") List<Long> ids) {
         List<ShardingDatabaseTableDO> shardingDatabaseTableDOS = shardingDatabaseTableService.selectByIdList(ids);
-        return Rest.ok(shardingDatabaseTableDOS);
+        return Rest.vector("content", shardingDatabaseTableDOS, List.class);
     }
 
     @GetMapping("/databasetable/query/between")
     @ApiOperation(value = "between查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingDatabaseTableDO>> queryBetween(@RequestParam("begin") Long begin,
+    public Rest<BaseResponse> queryBetween(@RequestParam("begin") Long begin,
                                                     @RequestParam("end") Long end) {
         // Inline strategy cannot support range sharding
         Weekend<ShardingDatabaseTableDO> weekend = Weekend.of(ShardingDatabaseTableDO.class);
         weekend.weekendCriteria()
                 .andBetween(ShardingDatabaseTableDO::getId, begin, end);
         List<ShardingDatabaseTableDO> shardingTableDOS = shardingDatabaseTableService.selectByExample(weekend);
-        return Rest.ok(shardingTableDOS);
+        return Rest.vector("content", shardingTableDOS, List.class);
     }
 }

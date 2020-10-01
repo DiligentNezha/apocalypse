@@ -16,14 +16,12 @@
     <modules>
         <module>example-app</module>
         <module>example-api</module>
-        <module>example-drools</module>
-        <module>example-geek</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>common-infrastructure</artifactId>
+            <artifactId>apocalypse-all</artifactId>
         </dependency>
 
         <dependency>

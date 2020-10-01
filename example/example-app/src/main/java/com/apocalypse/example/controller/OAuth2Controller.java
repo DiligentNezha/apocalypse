@@ -9,7 +9,8 @@ import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.request.AlipayUserInfoShareRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.example.manager.AlipayManager;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,7 @@ public class OAuth2Controller {
     private AlipayManager alipayManager;
 
     @GetMapping("/github/redirect")
-    public Rest<JSONObject> redirect(String code) {
+    public Rest<BaseResponse> redirect(String code) {
         log.info("Auth code【{}】", code);
         JSONObject params = new JSONObject()
                 .fluentPut("client_id", clientId)
@@ -77,18 +78,18 @@ public class OAuth2Controller {
 
         //获取用户信息
         String userInfo = HttpUtil.createGet(acquireUserInfo).header("Authorization", "token " + accessToken).execute().body();
-        return Rest.ok(JSON.parseObject(userInfo));
+        return Rest.vector("content", userInfo, String.class);
     }
 
     /**
      * 支付宝授权回调地址
      */
     @GetMapping("/auth/alipay/redirect")
-    public Rest<JSONObject> alipayRedirect(@RequestParam("app_id") String appId,
-                                           @RequestParam("source") String source,
-                                           @RequestParam(value = "scope") String scope,
-                                           @RequestParam("auth_code") String authCode,
-                                           @RequestParam("state") String state) {
+    public Rest<BaseResponse> alipayRedirect(@RequestParam("app_id") String appId,
+                                             @RequestParam("source") String source,
+                                             @RequestParam(value = "scope") String scope,
+                                             @RequestParam("auth_code") String authCode,
+                                             @RequestParam("state") String state) {
         log.info("state【{}】;appId【{}】;source【{}】;scope【{}】;authCode【{}】", state, appId, source, scope, authCode);
         HashOperations hashOperations = redisTemplate.opsForHash();
         hashOperations.put(state, "appId", appId);
@@ -114,7 +115,7 @@ public class OAuth2Controller {
             //处理异常
             e.printStackTrace();
         }
-        return Rest.ok(null);
+        return Rest.success();
     }
 
 }

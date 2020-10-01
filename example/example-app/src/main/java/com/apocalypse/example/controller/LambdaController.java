@@ -3,7 +3,9 @@ package com.apocalypse.example.controller;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
 import io.swagger.annotations.Api;
@@ -40,26 +42,26 @@ public class LambdaController {
 
     @GetMapping("/predicate")
     @ApiOperation(value = "Predicate", notes = "Predicate测试", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<Integer>> predicate() {
+    public Rest<BaseResponse> predicate() {
         List<Integer> collect = IntStream.rangeClosed(2, 1000)
                 //素数并且第一位和第三位值一样大
                 .filter(((IntPredicate) NumberUtil::isPrimes).and(value -> value / 100 == value % 10))
                 .boxed().collect(Collectors.toList());
-        return Rest.ok(collect);
+        return Rest.vector("content", collect, List.class);
     }
 
     @GetMapping("/function")
     @ApiOperation(value = "Function", notes = "Function测试", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<String> function() {
+    public Rest<BaseResponse> function() {
         Function<String, Integer> toInteger = Integer::valueOf;
         //把String转成数字，再把数字转回去
         Function<String, String> backToString = toInteger.andThen(String::valueOf);
-        return Rest.ok(backToString.apply("123"));
+        return Rest.vector("content", backToString.apply("134"), String.class);
     }
 
     @GetMapping("/supply")
     @ApiOperation(value = "Supply", notes = "Supply测试", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<JSONObject> supply() {
+    public Rest<BaseResponse> supply() {
         JSONObject result = new JSONObject();
         Supplier<Address> addressSupplier = Faker.instance(Locale.getDefault())::address;
         Address address = addressSupplier.get();
@@ -76,12 +78,12 @@ public class LambdaController {
                         e.printStackTrace();
                     }
                 });
-        return Rest.ok(result);
+        return Rest.vector("content", result, JSONObject.class);
     }
 
     @GetMapping("/comparator")
     @ApiOperation(value = "Comparator", notes = "Comparator测试", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<Integer>> comparator() {
+    public Rest<BaseResponse> comparator() {
         List<Integer> collect = IntStream.rangeClosed(1, 10)
                 .map(operand -> operand + RandomUtil.randomInt(10))
                 .sorted()
@@ -89,6 +91,6 @@ public class LambdaController {
                 .limit(3)
                 .boxed()
                 .collect(Collectors.toList());
-        return Rest.ok(collect);
+        return Rest.vector("content", collect, List.class);
     }
 }

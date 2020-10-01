@@ -1,7 +1,8 @@
 package com.apocalypse.example.controller;
 
 import cn.hutool.core.thread.ThreadUtil;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.example.service.complex.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,26 +33,26 @@ public class AsyncExampleController {
     private AsyncService asyncService;
 
     @GetMapping("/callable")
-    public Callable<Rest<String>> testCallable() {
+    public Callable<Rest<BaseResponse>> testCallable() {
         log.info("Controller开始执行！");
-        Callable<Rest<String>> callable = () -> {
+        Callable<Rest<BaseResponse>> callable = () -> {
             Thread.sleep(5000);
 
             log.info("实际工作执行完成！");
 
-            return Rest.ok("我是异步返回的数据");
+            return Rest.vector("content", "我是异步返回的数据", String.class);
         };
         log.info("Controller执行结束！");
         return callable;
     }
 
     @GetMapping("/deferredResult")
-    public DeferredResult<Rest<String>> deferredResult() {
+    public DeferredResult<Rest<BaseResponse>> deferredResult() {
         log.info("Controller开始执行！");
-        DeferredResult<Rest<String>> deferredResult = new DeferredResult<>();
+        DeferredResult<Rest<BaseResponse>> deferredResult = new DeferredResult<>();
         ThreadUtil.execAsync(() -> {
             ThreadUtil.sleep(3000);
-            deferredResult.setResult(Rest.ok("我是异步返回的数据"));
+            return Rest.vector("content", "我是异步返回的数据", String.class);
         });
         log.info("Controller执行结束！");
         return deferredResult;
@@ -63,7 +64,7 @@ public class AsyncExampleController {
         SseEmitter sseEmitter = new SseEmitter();
         ThreadUtil.execAsync(() -> {
             try {
-                sseEmitter.send(Rest.ok("我是异步返回的数据"), MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
+                sseEmitter.send(Rest.success("我是异步返回的数据"), MediaType.valueOf(MediaType.APPLICATION_JSON_UTF8_VALUE));
                 ThreadUtil.sleep(3000);
                 sseEmitter.complete();
             } catch (IOException e) {
@@ -75,8 +76,8 @@ public class AsyncExampleController {
     }
 
     @GetMapping("/asynService")
-    public DeferredResult<Rest<List<String>>> asynService() {
-        DeferredResult<Rest<List<String>>> deferredResult = new DeferredResult<>();
+    public DeferredResult<Rest<BaseResponse>> asynService() {
+        DeferredResult<Rest<BaseResponse>> deferredResult = new DeferredResult<>();
         ThreadUtil.execAsync(() -> {
             System.out.println(Thread.currentThread().getName());
             try {
@@ -84,7 +85,8 @@ public class AsyncExampleController {
                 CompletableFuture<String> secondFunnyName = asyncService.asynService();
                 CompletableFuture<String> thirdFunnyName = asyncService.asynService();
                 CompletableFuture.allOf(firstFunnyName, secondFunnyName, thirdFunnyName).join();
-                deferredResult.setResult(Rest.ok(Arrays.asList(firstFunnyName.get(), secondFunnyName.get(), thirdFunnyName.get())));
+                List content = Arrays.asList(firstFunnyName.get(), secondFunnyName.get(), thirdFunnyName.get());
+                deferredResult.setResult(Rest.vector("content", content, List.class));
             } catch (Exception e) {
                 e.printStackTrace();
             }

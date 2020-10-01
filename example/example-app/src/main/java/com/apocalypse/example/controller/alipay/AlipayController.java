@@ -13,7 +13,8 @@ import com.alipay.api.domain.SettleDetailInfo;
 import com.alipay.api.domain.SettleInfo;
 import com.alipay.api.request.AlipayTradePrecreateRequest;
 import com.alipay.api.response.AlipayTradePrecreateResponse;
-import com.apocalypse.common.dto.Rest;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.example.manager.AlipayManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class AlipayController {
     private AlipayManager alipayManager;
 
     @PostMapping("/trade/precreate")
-    public Rest<AlipayResponse> precreate() throws AlipayApiException {
+    public Rest<BaseResponse> precreate() throws AlipayApiException {
         AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
                 "2019061565614081",
                 alipayManager.getPrivateKey(),
@@ -97,6 +98,6 @@ public class AlipayController {
         QrCodeUtil.generate(response.getQrCode(), 900, 1600, FileUtil.file("alipay.jpg"));
         redisTemplate.opsForValue().set("alipay_response_" + outTradeNo, response);
 
-        return Rest.ok(response);
+        return Rest.vector("alipay", response, AlipayResponse.class);
     }
 }

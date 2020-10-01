@@ -3,8 +3,9 @@ package com.apocalypse.example.controller.redisson;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.redisson.codec.FastJsonCodec;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.redis.redisson.codec.CustomJsonJacksonCodec;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
@@ -39,30 +40,30 @@ public class RedissonPubController {
 
     @GetMapping("/client/all")
     @ApiOperation(value = "获取所有 RedissonClient", notes = "获取所有 Redisson 客户端")
-    public Rest<Collection<Client>> all() {
-        return Rest.ok(CLIENT_MAP.values());
+    public Rest<BaseResponse> all() {
+        return Rest.vector("content", CLIENT_MAP, Map.class);
     }
 
     @GetMapping("/client/shutdown")
     @ApiOperation(value = "关闭 RedissonClient", notes = "关闭 Redisson 客户端")
-    public Rest<Boolean> shutdown(@RequestParam("clientId") String clientId) {
+    public Rest<BaseResponse> shutdown(@RequestParam("clientId") String clientId) {
         RedissonClient redissonClient = CLIENT_MAP.get(clientId).getRedissonClient();
         if (!redissonClient.isShutdown()) {
             redissonClient.shutdown();
         }
-        return Rest.ok(redissonClient.isShutdown());
+        return Rest.vector("content", redissonClient.isShutdown(), Boolean.class);
     }
 
     @GetMapping("/client/create")
     @ApiOperation(value = "创建 RedissonClinet", notes = "创建 Redisscon 客户端")
-    public Rest<Client> create() {
+    public Rest<BaseResponse> create() {
         Client client = createRedissonClient();
-        return Rest.ok(client);
+        return Rest.vector("content", client, Client.class);
     }
 
     @GetMapping("/pub")
     @ApiOperation(value = "消息发布", notes = "发布消息到指定 topic")
-    public Rest<Client> push(@RequestParam("clientId") String clientId,
+    public Rest<BaseResponse> push(@RequestParam("clientId") String clientId,
                              @RequestParam("topicName") String topicName,
                              @RequestParam("msg") Object msg,
                              @RequestParam("msgType") String messageType) {
@@ -77,12 +78,12 @@ public class RedissonPubController {
                 msg = Boolean.parseBoolean(msg.toString());break;
         }
         topic.publish(msg);
-        return Rest.ok(client);
+        return Rest.vector("content", client, Client.class);
     }
 
     @PostMapping("/sub")
     @ApiOperation(value = "消息订阅", notes = "订阅指定 topic 消息", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Client> push(@RequestBody SubscribeRequest subscribeRequest) {
+    public Rest<BaseResponse> push(@RequestBody SubscribeRequest subscribeRequest) {
         String clientId = subscribeRequest.getClientId();
 
         Client client = CLIENT_MAP.get(clientId);
@@ -104,7 +105,7 @@ public class RedissonPubController {
         });
 
         client.setSubscribes(subscribes);
-        return Rest.ok(client);
+        return Rest.vector("content", client, Client.class);
     }
 
     Class<?> convertClass(String className) {
@@ -143,7 +144,7 @@ public class RedissonPubController {
 
     public Client createRedissonClient() {
         Config config = new Config();
-        config.setCodec(new FastJsonCodec());
+        config.setCodec(new CustomJsonJacksonCodec());
         config.useSingleServer().setAddress("redis://127.0.0.1:6379");
         RedissonClient redissonClient = Redisson.create(config);
         String clientId = IdUtil.simpleUUID();

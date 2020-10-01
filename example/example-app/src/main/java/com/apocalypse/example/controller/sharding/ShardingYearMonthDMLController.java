@@ -3,9 +3,11 @@ package com.apocalypse.example.controller.sharding;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import com.apocalypse.common.dto.Rest;
-import com.apocalypse.common.mybatis.SnowflakeIdGenId;
-import com.apocalypse.common.util.PageConvertUtil;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Page;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.data.mybatis.util.PageConvertUtil;
 import com.apocalypse.example.model.ShardingYearMonthDO;
 import com.apocalypse.example.service.single.ShardingYearMonthService;
 import com.github.pagehelper.PageHelper;
@@ -40,7 +42,7 @@ public class ShardingYearMonthDMLController {
 
     @GetMapping("/yearmonth/insert")
     @ApiOperation(value = "插入数据", notes = "根据分库分表规则，数据会分散的存入对应的数据源的相关物理表", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<Boolean> insert() {
+    public Rest<BaseResponse> insert() {
         for (int i = 1; i <= 1000; i++) {
             Long id = SnowflakeIdGenId.nextId() + RandomUtil.randomInt(2);
             int month = RandomUtil.randomInt(12) + 1;
@@ -54,37 +56,37 @@ public class ShardingYearMonthDMLController {
                     .setRemark(remark);
             shardingYearMonthService.insertSelective(shardingYearMonthDO);
         }
-        return Rest.ok(true);
+        return Rest.success();
     }
 
     @GetMapping("/yearmonth/query/id")
     @ApiOperation(value = "根据Id查询", notes = "Id作为分库键，下单时间作为分表键，根据Id查询时，只能得到具体的数据源，因此实际执行的SQL是数据源和该数据源下相关表的全排列组成的SQL", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<ShardingYearMonthDO> queryById(@RequestParam("id") Long id) {
+    public Rest<BaseResponse> queryById(@RequestParam("id") Long id) {
         ShardingYearMonthDO shardingYearMonthDO = shardingYearMonthService.selectByPrimaryKey(id);
-        return Rest.ok(shardingYearMonthDO);
+        return Rest.vector("content", shardingYearMonthDO, ShardingYearMonthDO.class);
     }
 
     @GetMapping("/yearmonth/query/orderDate")
     @ApiOperation(value = "根据orderDate查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingYearMonthDO>> queryByOrderDate(@RequestParam("orderDate") LocalDateTime orderDate) {
+    public Rest<BaseResponse> queryByOrderDate(@RequestParam("orderDate") LocalDateTime orderDate) {
         List<ShardingYearMonthDO> shardingYearMonthDOS =
                 shardingYearMonthService.selectByProperty(ShardingYearMonthDO::getOrderDate, orderDate);
-        return Rest.ok(shardingYearMonthDOS);
+        return Rest.vector("content", shardingYearMonthDOS, List.class);
     }
 
     @GetMapping("/yearmonth/query/in")
     @ApiOperation(value = "in查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingYearMonthDO>> queryIn(@RequestParam("ids") List<Long> ids,
+    public Rest<BaseResponse> queryIn(@RequestParam("ids") List<Long> ids,
                                                    @RequestParam("pageNum") int pageNum,
                                                    @RequestParam("pageSize") int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<ShardingYearMonthDO> shardingYearMonthDOS = shardingYearMonthService.selectByIdList(ids);
-        return Rest.ok(shardingYearMonthDOS).setPage(PageConvertUtil.convert(shardingYearMonthDOS));
+        return Rest.vector("content", shardingYearMonthDOS, List.class);
     }
 
     @GetMapping("/yearmonth/query/between")
     @ApiOperation(value = "between查询", notes = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<List<ShardingYearMonthDO>> queryBetween(@RequestParam("orderDateBegin") LocalDateTime orderDateBegin,
+    public Rest<BaseResponse> queryBetween(@RequestParam("orderDateBegin") LocalDateTime orderDateBegin,
                                                         @RequestParam("orderDateEnd") LocalDateTime orderDateEnd,
                                                         @RequestParam("pageNum") int pageNum,
                                                         @RequestParam("pageSize") int pageSize) {
@@ -93,6 +95,6 @@ public class ShardingYearMonthDMLController {
         List<ShardingYearMonthDO> shardingYearMonthDOS =
                 shardingYearMonthService.selectBetweenByProperty(ShardingYearMonthDO::getOrderDate, orderDateBegin,
                         orderDateEnd);
-        return Rest.ok(shardingYearMonthDOS).setPage(PageConvertUtil.convert(shardingYearMonthDOS));
+        return Rest.vector("content", shardingYearMonthDOS, List.class);
     }
 }
