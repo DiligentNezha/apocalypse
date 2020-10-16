@@ -5,7 +5,7 @@ package com.apocalypse.common.core.module;
  * @description
  * @date 2020/8/25
  */
-public interface StaffAware {
+public interface IdentityAware {
 
     /**
      * 当前身份对应的员工 ID

@@ -1,9 +1,9 @@
-package com.gkjx.saas.health.admin.config.security.authorization;
+package com.apocalypse.idaas.config.security.authorization;
 
-import com.gkjx.common.boot.util.HttpContextUtil;
-import com.gkjx.common.core.api.BaseResponse;
-import com.gkjx.common.core.api.Rest;
-import com.gkjx.common.core.enums.error.AuthorizationErrorCodeEnum;
+import com.apocalypse.common.boot.util.HttpContextUtil;
+import com.apocalypse.common.core.api.BaseResponse;
+import com.apocalypse.common.core.api.Rest;
+import com.apocalypse.common.core.enums.error.AuthorizationErrorCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

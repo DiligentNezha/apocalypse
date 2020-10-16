@@ -1,8 +1,7 @@
-package com.gkjx.saas.health.admin.config.security.authentication;
+package com.apocalypse.idaas.config.security.authentication;
 
+import com.apocalypse.common.boot.util.HttpContextUtil;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.gkjx.common.boot.util.HttpContextUtil;
-import com.gkjx.common.util.json.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -22,9 +21,9 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        ObjectNode data = JsonUtil.emptyObjectNode();
+        ObjectNode data = com.apocalypse.common.util.json.JsonUtil.emptyObjectNode();
 
-        HttpContextUtil.write(response, JsonUtil.defaultObjectMapper()
+        HttpContextUtil.write(response, com.apocalypse.common.util.json.JsonUtil.defaultObjectMapper()
                 .createObjectNode()
                 .put("code", "00000")
                 .put("msg", "退出成功")

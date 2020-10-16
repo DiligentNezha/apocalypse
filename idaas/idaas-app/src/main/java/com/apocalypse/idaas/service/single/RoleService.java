@@ -1,8 +1,7 @@
-package com.gkjx.saas.health.system.service.single;
+package com.apocalypse.idaas.service.single;
 
-import com.gkjx.common.data.mybatis.service.BaseService;
-import com.gkjx.saas.health.system.model.single.Role;
-import org.apache.ibatis.annotations.Select;
+import com.apocalypse.common.data.mybatis.service.BaseService;
+import com.apocalypse.idaas.module.single.Role;
 
 import java.util.List;
 

@@ -1,10 +1,8 @@
-package com.gkjx.saas.health.system.service.single;
+package com.apocalypse.idaas.service.single;
 
-import com.gkjx.common.data.mybatis.service.BaseService;
-import com.gkjx.saas.health.system.api.response.OrganDismissStaffTreeResponse;
-import com.gkjx.saas.health.system.model.single.Identity;
-import com.gkjx.saas.health.system.model.single.Organ;
-import com.gkjx.saas.health.system.model.single.Staff;
+import com.apocalypse.common.data.mybatis.service.BaseService;
+import com.apocalypse.idaas.module.single.Identity;
+import com.apocalypse.idaas.module.single.Organ;
 
 import java.util.List;
 
@@ -49,12 +47,5 @@ public interface OrganService extends BaseService<Organ, Long> {
      * @return
      */
     boolean isChildren(Organ parentOrgan, Organ child);
-
-    /**
-     * 查找当前机构及其子机构已离职员工
-     * @param organId
-     * @return
-     */
-    OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode findCurrentOrganAndChildrenDismissStaff(Long organId);
 
 }

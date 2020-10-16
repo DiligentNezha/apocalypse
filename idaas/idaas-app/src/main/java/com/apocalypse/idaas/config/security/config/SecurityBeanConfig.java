@@ -1,7 +1,7 @@
-package com.gkjx.saas.health.admin.config.security.config;
+package com.apocalypse.idaas.config.security.config;
 
-import com.gkjx.saas.health.admin.config.security.authentication.CustomWebAuthenticationDetails;
-import com.gkjx.saas.health.admin.config.security.authentication.CustomWebAuthenticationDetailsSource;
+import com.apocalypse.idaas.config.security.authentication.CustomWebAuthenticationDetails;
+import com.apocalypse.idaas.config.security.authentication.CustomWebAuthenticationDetailsSource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

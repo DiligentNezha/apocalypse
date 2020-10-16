@@ -1,9 +1,8 @@
-package com.gkjx.saas.health.admin.config.security.authentication;
+package com.apocalypse.idaas.config.security.authentication;
 
+import com.apocalypse.common.boot.util.HttpContextUtil;
+import com.apocalypse.idaas.config.security.userdetails.CustomUserDetails;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.gkjx.common.boot.util.HttpContextUtil;
-import com.gkjx.common.util.json.JsonUtil;
-import com.gkjx.saas.health.admin.config.security.userdetails.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Object principal = authentication.getPrincipal();
 
         CustomUserDetails userDetails;
-        ObjectNode data = JsonUtil.emptyObjectNode();
+        ObjectNode data = com.apocalypse.common.util.json.JsonUtil.emptyObjectNode();
 
         if (principal instanceof CustomUserDetails) {
             userDetails = (CustomUserDetails) principal;
@@ -34,7 +33,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             data.put("loginName", userDetails.getUsername());
         }
 
-        HttpContextUtil.write(response, JsonUtil.defaultObjectMapper()
+        HttpContextUtil.write(response, com.apocalypse.common.util.json.JsonUtil.defaultObjectMapper()
                 .createObjectNode()
                 .put("code", "00000")
                 .put("msg", "认证成功")

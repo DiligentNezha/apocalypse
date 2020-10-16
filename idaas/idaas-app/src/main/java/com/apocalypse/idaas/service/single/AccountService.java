@@ -1,7 +1,8 @@
-package com.gkjx.saas.health.system.service.single;
+package com.apocalypse.idaas.service.single;
 
-import com.gkjx.common.data.mybatis.service.BaseService;
-import com.gkjx.saas.health.system.model.single.Account;
+
+import com.apocalypse.common.data.mybatis.service.BaseService;
+import com.apocalypse.idaas.module.single.Account;
 
 /**
  * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>

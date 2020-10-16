@@ -1,14 +1,13 @@
-package com.gkjx.saas.health.system.service.single.impl;
+package com.apocalypse.idaas.service.single.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.gkjx.saas.health.system.api.response.OrganDismissStaffTreeResponse;
-import com.gkjx.saas.health.system.mapper.single.*;
-import com.gkjx.saas.health.system.model.single.*;
-import com.gkjx.saas.health.system.service.single.ElementService;
-import com.gkjx.saas.health.system.service.single.OrganService;
-import com.gkjx.saas.health.system.service.single.RoleService;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.apocalypse.idaas.mapper.single.*;
+import com.apocalypse.idaas.module.single.*;
+import com.apocalypse.idaas.service.single.ElementService;
+import com.apocalypse.idaas.service.single.OrganService;
+import com.apocalypse.idaas.service.single.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
@@ -104,64 +102,5 @@ public class OrganServiceImpl extends BaseServiceImpl<Organ, Long> implements Or
         List<Organ> children = findCurrentOrganAndChildren(parentOrgan.getId(), null);
         return children.stream().filter(organ -> organ.getId().equals(child.getId())).findAny().isPresent();
     }
-
-    @Override
-    public OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode findCurrentOrganAndChildrenDismissStaff(Long organId) {
-        Organ currentOrgan = organMapper.selectByPrimaryKey(organId);
-        OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode organNode = new OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode();
-        organNode.setKey(currentOrgan.getId())
-                .setTitle(currentOrgan.getName())
-                .setNodeType(currentOrgan.getOrganType());
-
-        List<Staff> staffInTeams = new ArrayList<>();
-
-        List<Team> teams = teamMapper.selectByProperty(Team::getOrganId, organId);
-        List<OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode> teamNodes = teams.stream().map(team -> {
-            OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode teamNode = new OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode();
-            teamNode.setKey(team.getId())
-                    .setTitle(team.getName())
-                    .setNodeType(20);
-            List<TeamIdentityUnion> teamIdentityUnions = teamIdentityUnionMapper.selectByProperty(TeamIdentityUnion::getTeamId, team.getId());
-            List<Long> identityIds = teamIdentityUnions.stream().mapToLong(TeamIdentityUnion::getIdentityId).boxed().collect(Collectors.toList());
-            if (CollUtil.isNotEmpty(identityIds)) {
-                List<Long> staffIds = identityMapper.selectByIdList(identityIds).stream().mapToLong(Identity::getStaffId).boxed().collect(Collectors.toList());
-                List<Staff> staffInTeam = staffMapper.selectByIdList(staffIds);
-
-                staffInTeams.addAll(staffInTeam);
-
-                List<OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode> staffNodes = staffInTeam.stream().filter(Staff::getIsLeaveOffice).map(staff -> {
-                    OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode staffNode = new OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode();
-                    staffNode.setKey(staff.getId())
-                            .setTitle(staff.getName())
-                            .setNodeType(25);
-                    return staffNode;
-                }).collect(Collectors.toList());
-                teamNode.setChildren(staffNodes);
-            }
-            return teamNode;
-        }).collect(Collectors.toList());
-
-        List<Staff> staffInOrgan = staffMapper.selectByProperty(Staff::getOrganId, organId);
-        staffInOrgan.removeAll(staffInTeams);
-        List<OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode> staffNodes = staffInOrgan.stream().filter(staff -> {
-            if (staff.getIsLeaveOffice()) {
-                Identity identity = identityMapper.selectOneByProperty(Identity::getStaffId, staff.getId());
-                // 不存在，说明离职后又复职了
-                return !identityAccountUnionMapper.existsWithProperty(IdentityAccountUnion::getIdentityId, identity.getId());
-            }
-            return false;
-        }).map(staff -> {
-            OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode staffNode = new OrganDismissStaffTreeResponse.OrganDismissStaffTreeNode();
-            staffNode.setKey(staff.getId())
-                    .setTitle(staff.getName())
-                    .setNodeType(25);
-            return staffNode;
-        }).collect(Collectors.toList());
-        teamNodes.addAll(staffNodes);
-        organNode.setChildren(teamNodes);
-
-        return organNode;
-    }
-
 
 }

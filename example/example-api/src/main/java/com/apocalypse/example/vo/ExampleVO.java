@@ -1,7 +1,7 @@
 package com.apocalypse.example.vo;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -61,12 +61,12 @@ public class ExampleVO implements Serializable {
     /**
      * 爱好
      */
-    @ApiModelProperty(value = "爱好", dataType = "com.alibaba.fastjson.JSONArray")
-    private JSONArray hobby;
+    @ApiModelProperty(value = "爱好")
+    private ArrayNode hobby;
 
     /**
      * 扩展
      */
-    @ApiModelProperty(value = "扩展数据", dataType = "com.alibaba.fastjson.JSONObject")
-    private JSONObject extend;
+    @ApiModelProperty(value = "扩展数据")
+    private ObjectNode extend;
 }

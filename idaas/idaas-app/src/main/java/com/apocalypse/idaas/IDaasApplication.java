@@ -13,7 +13,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @mail kaihuijing@gmail.com
  */
 @EnableCaching
-@MapperScan(basePackages = "com.apocalypse.system.mapper")
+@MapperScan(basePackages = "com.apocalypse.idaas.mapper")
 @SpringBootApplication(scanBasePackages = {
         "com.apocalypse.idaas",
         "com.apocalypse.common.util.bean",

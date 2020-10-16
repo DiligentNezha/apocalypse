@@ -1,7 +1,7 @@
-package com.gkjx.saas.health.system.service.single;
+package com.apocalypse.idaas.service.single;
 
-import com.gkjx.common.data.mybatis.service.BaseService;
-import com.gkjx.saas.health.system.model.single.Identity;
+import com.apocalypse.common.data.mybatis.service.BaseService;
+import com.apocalypse.idaas.module.single.Identity;
 
 /**
  * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
@@ -15,19 +15,4 @@ public interface IdentityService extends BaseService<Identity, Long> {
      * @param identity
      */
     void fillRoles(Identity identity);
-
-    /**
-     * 修改身份密码
-     * @param staffId
-     * @param originalPassword
-     * @param password
-     */
-    void modifyPassword(Long staffId, String originalPassword, String password);
-
-    /**
-     * 重置身份密码
-     * @param staffId
-     * @param password
-     */
-    void resetPassword(Long staffId, String password);
 }

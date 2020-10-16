@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description 该类用于没有属性返回时作为解除泛型语法的限制而用
  * @date 2020/4/22
  */

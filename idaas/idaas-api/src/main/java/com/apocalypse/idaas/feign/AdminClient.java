@@ -1,5 +1,6 @@
 package com.apocalypse.idaas.feign;
 
+import com.apocalypse.common.core.api.BaseResponse;
 import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.idaas.model.AdminDO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface AdminClient {
 
     @PostMapping("/provider/admin/get")
-    Rest<AdminDO> get(@RequestBody Integer id);
+    Rest<BaseResponse> get(@RequestBody Integer id);
 
 }

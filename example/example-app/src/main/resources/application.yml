@@ -10,12 +10,6 @@ mapper:
   style: camelhumpAndLowercase
   wrap-keyword: '`{0}`'
 
-swagger:
-  enable: true
-  title: Example模块
-  description: Example相关接口
-  version: 1.0.0
-  base-package: com.apocalypse.example.controller
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -31,10 +25,6 @@ mybatis:
   type-aliases-package: com.apocalypse.example.model
 server:
   port: 32001
-  servlet:
-    context-path: /example-api
-  tomcat:
-    basedir: tomcat
 
 spring:
   profiles:

@@ -5,13 +5,15 @@ spring:
     name: druid
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/apocalypse_system?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/apocalypse_idaas?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
   redis:
-    database: 0
+    database: 5
     host: localhost
     port: 6379
     timeout: 10000ms
+    redisson:
+      config: "classpath:/redisson/redisson-dev.yaml"
   cloud:
     inetutils:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡

@@ -1,4 +1,4 @@
-package com.gkjx.saas.health.admin.config.security.authorization;
+package com.apocalypse.idaas.config.security.authorization;
 
 import org.springframework.security.core.GrantedAuthority;
 

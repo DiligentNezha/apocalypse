@@ -1,7 +1,7 @@
 package com.apocalypse.example.socket;
 
+
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
@@ -21,7 +21,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
 
     @Override
     public boolean willDecode(String s) {
-        return JSON.isValidObject(s);
+        return true;
     }
 
     @Override

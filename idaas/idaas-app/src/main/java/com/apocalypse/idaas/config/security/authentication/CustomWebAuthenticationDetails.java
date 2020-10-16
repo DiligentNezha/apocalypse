@@ -1,4 +1,4 @@
-package com.gkjx.saas.health.admin.config.security.authentication;
+package com.apocalypse.idaas.config.security.authentication;
 
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

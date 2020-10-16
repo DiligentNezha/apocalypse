@@ -1,8 +1,8 @@
 package com.apocalypse.idaas.feign;
 
+import com.apocalypse.common.core.api.BaseResponse;
 import com.apocalypse.common.core.api.Rest;
-import com.apocalypse.idaas.model.AdminDO;
-import com.apocalypse.idaas.service.single.AdminService;
+import com.apocalypse.idaas.service.single.IdentityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminClientController implements AdminClient {
 
     @Autowired
-    private AdminService adminService;
+    private IdentityService identityService;
 
     @Override
-    public Rest<AdminDO> get(Integer id) {
-        return Rest.success(adminService.selectByPrimaryKey(id));
+    public Rest<BaseResponse> get(Integer id) {
+        return Rest.vector("good", "hello", String.class);
     }
 }

@@ -1,4 +1,4 @@
-package com.apocalypse.example.config;
+package com.apocalypse.idaas.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.google.common.collect.Lists;
@@ -24,7 +24,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/3/30
  */
@@ -34,7 +34,7 @@ import java.util.List;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
 
-    @Bean(value = "exampleApi")
+    @Bean(value = "idaasApi")
     public Docket exampleApi() {
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
@@ -43,9 +43,9 @@ public class SwaggerConfig {
                 .directModelSubstitute(LocalTime.class, String.class)
                 .directModelSubstitute(LocalDateTime.class, String.class)
                 .apiInfo(apiInfo())
-                .groupName("example")
+                .groupName("IDaaS")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.example.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.idaas.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Lists.newArrayList(securityContext()))
@@ -73,8 +73,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("案例！！！")
-                .description("<div style='font-size:14px;color:green;'>都是案例</div>")
+                .title("IDaaS！！！")
+                .description("<div style='font-size:14px;color:green;'>IDaaS</div>")
                 .version("1.0")
                 .build();
     }

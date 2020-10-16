@@ -1,15 +1,18 @@
-package com.gkjx.saas.health.system.model.single;
+package com.apocalypse.idaas.module.single;
 
-import com.gkjx.common.data.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.annotation.LogicDelete;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.*;
+
 @Data
 @Accessors(chain = true)
 @Table(name = "role_label")

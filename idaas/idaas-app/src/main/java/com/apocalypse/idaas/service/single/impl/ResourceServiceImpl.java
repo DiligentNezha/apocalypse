@@ -1,11 +1,11 @@
-package com.gkjx.saas.health.system.service.single.impl;
+package com.apocalypse.idaas.service.single.impl;
 
-import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.gkjx.saas.health.system.mapper.single.ElementMapper;
-import com.gkjx.saas.health.system.mapper.single.ResourceMapper;
-import com.gkjx.saas.health.system.model.single.Element;
-import com.gkjx.saas.health.system.model.single.Resource;
-import com.gkjx.saas.health.system.service.single.ResourceService;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.apocalypse.idaas.mapper.single.ElementMapper;
+import com.apocalypse.idaas.mapper.single.ResourceMapper;
+import com.apocalypse.idaas.module.single.Element;
+import com.apocalypse.idaas.module.single.Resource;
+import com.apocalypse.idaas.service.single.ResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

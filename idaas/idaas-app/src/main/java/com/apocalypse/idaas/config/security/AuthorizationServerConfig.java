@@ -1,18 +1,33 @@
-package com.apocalypse.idaas.config;
+package com.apocalypse.idaas.config.security;
 
 import com.apocalypse.common.boot.util.HttpContextUtil;
 import com.apocalypse.common.core.api.BaseResponse;
 import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.common.core.enums.error.AuthenticationErrorCodeEnum;
+import com.apocalypse.idaas.config.security.authentication.CustomAuthenticationEntryPoint;
+import com.apocalypse.idaas.config.security.authorization.CustomAccessDeniedHandler;
 import com.apocalypse.idaas.constants.SecurityConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,21 +41,41 @@ import java.util.Arrays;
  * @date 2020/10/16
  */
 @Configuration
-@EnableWebSecurity
 public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthenticationSuccessHandler successHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler failureHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationDetailsSource authenticationDetailsSource;
+
+    @Autowired
+    private FindByIndexNameSessionRepository sessionRepository;
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .csrf()
                 .disable()
                 .cors()
                 .configurationSource(corsConfigurationSource());
-        http
-                .headers()
-                    .frameOptions()
-                    .disable();
         http
                 .exceptionHandling()
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
@@ -48,6 +83,11 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .formLogin()
+                    .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
+                    .usernameParameter("loginName")
+                    .successHandler(successHandler)
+                    .failureHandler(failureHandler)
+                    .authenticationDetailsSource(authenticationDetailsSource)
                 .permitAll();
         http
                 .logout()
@@ -57,6 +97,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http
                 .authorizeRequests()
+                .antMatchers(SecurityConstants.AUTH_CAPTCHA)
+                .permitAll()
                 .anyRequest()
                 .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
 
@@ -79,12 +121,36 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                         HttpContextUtil.write(response, Rest.error(AuthenticationErrorCodeEnum.CREDENTIALS_EXPIRED));
                     });
                 });
-        super.configure(http);
+    }
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // 静态资源请求放行
+        String[] swaggerExportPaths = {"/doc.html", "/api-docs-ext", "/swagger-resources", "/api-docs", "/swagger-ui.html",
+                "/swagger-resources/configuration/ui", "/swagger-resources/configuration/security",
+                "/manifest.json", "/robots.txt", "/service-worker.js", "/v2/api-docs-ext", "/v2/api-docs",
+                "/favicon.ico", "/index.html", "/webjars/css/chunk-*.css", "/ui",
+                "/webjars/css/app.*.css", "/webjars/js/app.*.js", "/webjars/js/chunk-*.js",
+                "/precache-manifest.*.js"};
+        web.ignoring()
+                .antMatchers(swaggerExportPaths)
+                .antMatchers("/actuator/health")
+                .antMatchers("/actuator/prometheus");
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setHideUserNotFoundExceptions(false);
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     private CorsConfigurationSource corsConfigurationSource() {

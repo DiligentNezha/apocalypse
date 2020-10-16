@@ -1,6 +1,5 @@
-package com.gkjx.saas.health.admin.config;
+package com.apocalypse.idaas.config;
 
-import com.gkjx.common.util.json.JsonUtil;
 import org.redisson.spring.session.config.EnableRedissonHttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,7 @@ import java.io.Serializable;
 public class RedissonConfig {
     private static GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer ;
     {
-        jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(JsonUtil.defaultObjectMapper());
+        jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(com.apocalypse.common.util.json.JsonUtil.defaultObjectMapper());
     }
 
     @Bean

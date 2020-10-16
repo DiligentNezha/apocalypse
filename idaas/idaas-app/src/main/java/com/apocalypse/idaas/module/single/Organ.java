@@ -1,7 +1,7 @@
-package com.gkjx.saas.health.system.model.single;
+package com.apocalypse.idaas.module.single;
 
-import com.gkjx.common.core.module.TreeNode;
-import com.gkjx.common.data.mybatis.SnowflakeIdGenId;
+import com.apocalypse.common.core.module.TreeNode;
+import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.mybatis.mapper.annotation.KeySql;

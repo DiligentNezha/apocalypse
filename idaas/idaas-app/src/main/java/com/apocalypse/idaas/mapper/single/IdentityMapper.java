@@ -1,7 +1,8 @@
-package com.gkjx.saas.health.system.mapper.single;
+package com.apocalypse.idaas.mapper.single;
 
-import com.gkjx.common.data.mybatis.MyMapper;
-import com.gkjx.saas.health.system.model.single.Identity;
+
+import com.apocalypse.common.data.mybatis.MyMapper;
+import com.apocalypse.idaas.module.single.Identity;
 
 public interface IdentityMapper extends MyMapper<Identity, Long> {
 }

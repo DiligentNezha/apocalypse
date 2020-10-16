@@ -1,11 +1,10 @@
-package com.gkjx.saas.health.system.service.single.impl;
+package com.apocalypse.idaas.service.single.impl;
 
-import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.gkjx.saas.health.system.enums.PlatformEnum;
-import com.gkjx.saas.health.system.mapper.single.RoleLabelMapper;
-import com.gkjx.saas.health.system.model.single.RoleLabel;
-import com.gkjx.saas.health.system.service.single.OrganService;
-import com.gkjx.saas.health.system.service.single.RoleLabelService;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.apocalypse.idaas.mapper.single.RoleLabelMapper;
+import com.apocalypse.idaas.module.single.RoleLabel;
+import com.apocalypse.idaas.service.single.OrganService;
+import com.apocalypse.idaas.service.single.RoleLabelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.weekend.Weekend;
@@ -34,27 +33,4 @@ public class RoleLabelServiceImpl extends BaseServiceImpl<RoleLabel, Long> imple
         return roleLabelMapper.selectAllRoleLabels();
     }
 
-    @Override
-    public Long findDefaultRoleLabelId() {
-        Long topOrganId = organService.findTopOrganId();
-        Weekend<RoleLabel> weekend = Weekend.of(RoleLabel.class);
-        WeekendCriteria<RoleLabel, Object> weekendCriteria = weekend.weekendCriteria();
-        weekendCriteria.andEqualTo(RoleLabel::getOrganId, topOrganId);
-        weekendCriteria.andEqualTo(RoleLabel::getName, "默认");
-        weekendCriteria.andEqualTo(RoleLabel::getPlatform, PlatformEnum.DOCTOR_MANAGE.getDbValue());
-
-        RoleLabel defaultRoleLabel = roleLabelMapper.selectOneByExample(weekend);
-        return defaultRoleLabel.getId();
-    }
-
-    @Override
-    public Long findDefaultRoleLabelIdOrganId(Long organId) {
-        Weekend<RoleLabel> weekend = Weekend.of(RoleLabel.class);
-        WeekendCriteria<RoleLabel, Object> weekendCriteria = weekend.weekendCriteria();
-        weekendCriteria.andEqualTo(RoleLabel::getOrganId, organId);
-        weekendCriteria.andEqualTo(RoleLabel::getName, "岗位");
-
-        RoleLabel defaultRoleLabel = roleLabelMapper.selectOneByExample(weekend);
-        return defaultRoleLabel.getId();
-    }
 }

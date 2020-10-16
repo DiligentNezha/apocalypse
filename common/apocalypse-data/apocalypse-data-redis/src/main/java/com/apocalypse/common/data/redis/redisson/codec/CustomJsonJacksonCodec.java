@@ -1,6 +1,6 @@
 package com.apocalypse.common.data.redis.redisson.codec;
 
-import com.apocalypse.common.data.mybatis.util.json.JsonUtil;
+import com.apocalypse.common.util.json.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.redisson.codec.JsonJacksonCodec;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/6/2
  */

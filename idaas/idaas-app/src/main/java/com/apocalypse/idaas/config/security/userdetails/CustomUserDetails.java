@@ -1,13 +1,11 @@
-package com.gkjx.saas.health.admin.config.security.userdetails;
+package com.apocalypse.idaas.config.security.userdetails;
 
-import com.gkjx.common.core.module.AccountAware;
-import com.gkjx.common.core.module.StaffAware;
-import com.gkjx.saas.health.admin.config.security.authorization.CustomGrantedAuthority;
-import com.gkjx.saas.health.admin.model.single.OpsStaff;
-import com.gkjx.saas.health.admin.model.single.ops.OpsAccount;
-import com.gkjx.saas.health.admin.model.single.ops.OpsElement;
-import com.gkjx.saas.health.admin.model.single.ops.OpsRole;
-import com.gkjx.saas.health.admin.model.single.ops.OpsIdentity;
+import com.apocalypse.common.core.module.AccountAware;
+import com.apocalypse.common.core.module.OrganAware;
+import com.apocalypse.common.core.module.IdentityAware;
+import com.apocalypse.common.core.module.TeamAware;
+import com.apocalypse.idaas.config.security.authorization.CustomGrantedAuthority;
+import com.apocalypse.idaas.module.single.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,45 +19,52 @@ import java.util.stream.Collectors;
  * @description
  * @date 2020/6/9
  */
-public class CustomUserDetails implements UserDetails, StaffAware, AccountAware {
+public class CustomUserDetails implements UserDetails, IdentityAware, AccountAware, TeamAware, OrganAware {
 
-    private OpsIdentity opsIdentity;
+    private Organ organ;
 
-    private OpsStaff opsStaff;
+    private Identity identity;
 
-    private List<OpsAccount> opsAccounts;
+    private Staff staff;
 
-    private OpsAccount currentOpsAccount;
+    private Account currentAccount;
 
-    private List<OpsRole> currentOpsRoles;
+    private List<Account> accounts;
 
-    private List<OpsElement> currentOpsElements;
+    private List<Team> teams;
+
+    private List<Role> currentRoles;
+
+    private List<Element> currentElements;
 
     private List<CustomGrantedAuthority> currentAuthorities;
 
     public CustomUserDetails() {
-        this.opsIdentity = new OpsIdentity();
-        this.opsAccounts = new ArrayList<>();
-        this.currentOpsRoles = new ArrayList<>();
-        this.currentOpsElements = new ArrayList<>();
+        this.identity = new Identity();
+        this.accounts = new ArrayList<>();
+        this.currentRoles = new ArrayList<>();
+        this.currentElements = new ArrayList<>();
         this.currentAuthorities = new ArrayList<>();
 
     }
 
-    public CustomUserDetails(OpsIdentity opsIdentity, OpsStaff opsStaff, OpsAccount currentOpsAccount, List<OpsAccount> opsAccounts, List<OpsRole> currentOpsRoles, List<OpsElement> currentOpsElements, List<CustomGrantedAuthority> currentAuthorities) {
-        this.opsAccounts = new ArrayList<>();
-        this.currentOpsRoles = new ArrayList<>();
-        this.currentOpsElements = new ArrayList<>();
+    public CustomUserDetails(Organ organ, Identity identity, Staff staff, Account currentAccount, List<Account> accounts, List<Team> teams, List<Role> roles, List<Element> elements, List<CustomGrantedAuthority> currentAuthorities) {
+        this.accounts = new ArrayList<>();
+        this.currentRoles = new ArrayList<>();
+        this.currentElements = new ArrayList<>();
         this.currentAuthorities = new ArrayList<>();
+        this.teams = new ArrayList<>();
 
-        this.currentOpsAccount = currentOpsAccount;
+        this.currentAccount = currentAccount;
 
-        this.opsIdentity = opsIdentity;
-        this.opsStaff = opsStaff;
+        this.organ = organ;
+        this.identity = identity;
+        this.staff = staff;
 
-        this.opsAccounts.addAll(opsAccounts);
-        this.currentOpsRoles.addAll(currentOpsRoles);
-        this.currentOpsElements.addAll(currentOpsElements);
+        this.accounts.addAll(accounts);
+        this.teams.addAll(teams);
+        this.currentRoles.addAll(roles);
+        this.currentElements.addAll(elements);
         this.currentAuthorities.addAll(currentAuthorities);
     }
 
@@ -70,12 +75,12 @@ public class CustomUserDetails implements UserDetails, StaffAware, AccountAware 
 
     @Override
     public String getPassword() {
-        return opsIdentity.getPassword();
+        return identity.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return opsIdentity.getLoginName();
+        return identity.getLoginName();
     }
 
     @Override
@@ -95,22 +100,36 @@ public class CustomUserDetails implements UserDetails, StaffAware, AccountAware 
 
     @Override
     public boolean isEnabled() {
-        return opsIdentity.getEnabled();
+        return identity.getEnabled();
     }
 
     @Override
     public Long currentStaffId() {
-        return opsStaff.getId();
+        return staff.getId();
     }
 
     @Override
     public Long currentIdentityId() {
-        return opsIdentity.getId();
+        return identity.getId();
     }
 
     @Override
     public Long currentAccountId() {
-        return currentOpsAccount.getId();
+        return currentAccount.getId();
+    }
+
+    @Override
+    public Long currentOrganId() {
+        return organ.getId();
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    @Override
+    public List<Long> currentTeamIds() {
+        return teams.stream().mapToLong(Team::getId).boxed().collect(Collectors.toList());
     }
 
 }

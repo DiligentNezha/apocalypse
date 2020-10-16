@@ -1,19 +1,15 @@
-package com.gkjx.saas.health.system.service.single.impl;
+package com.apocalypse.idaas.service.single.impl;
 
-import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.gkjx.saas.health.system.mapper.single.RoleMapper;
-import com.gkjx.saas.health.system.mapper.single.AccountRoleUnionMapper;
-import com.gkjx.saas.health.system.mapper.single.IdentityAccountUnionMapper;
-import com.gkjx.saas.health.system.model.single.Role;
-import com.gkjx.saas.health.system.model.single.AccountRoleUnion;
-import com.gkjx.saas.health.system.model.single.IdentityAccountUnion;
-import com.gkjx.saas.health.system.service.single.AccountRoleUnionService;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.apocalypse.idaas.mapper.single.AccountRoleUnionMapper;
+import com.apocalypse.idaas.mapper.single.IdentityAccountUnionMapper;
+import com.apocalypse.idaas.mapper.single.RoleMapper;
+import com.apocalypse.idaas.module.single.AccountRoleUnion;
+import com.apocalypse.idaas.service.single.AccountRoleUnionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>

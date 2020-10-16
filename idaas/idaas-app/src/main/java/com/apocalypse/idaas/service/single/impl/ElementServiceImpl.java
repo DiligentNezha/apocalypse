@@ -1,18 +1,16 @@
-package com.gkjx.saas.health.system.service.single.impl;
+package com.apocalypse.idaas.service.single.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.gkjx.common.core.util.ServiceExceptionUtil;
-import com.gkjx.common.core.util.TreeNodeUtil;
-import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.gkjx.saas.health.system.error.SysManageErrorCodeEnum;
-import com.gkjx.saas.health.system.mapper.single.AccountRoleUnionMapper;
-import com.gkjx.saas.health.system.mapper.single.ElementMapper;
-import com.gkjx.saas.health.system.mapper.single.ResourceMapper;
-import com.gkjx.saas.health.system.mapper.single.RoleElementUnionMapper;
-import com.gkjx.saas.health.system.model.single.AccountRoleUnion;
-import com.gkjx.saas.health.system.model.single.Element;
-import com.gkjx.saas.health.system.model.single.RoleElementUnion;
-import com.gkjx.saas.health.system.service.single.ElementService;
+import com.apocalypse.common.core.util.TreeNodeUtil;
+import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.apocalypse.idaas.mapper.single.AccountRoleUnionMapper;
+import com.apocalypse.idaas.mapper.single.ElementMapper;
+import com.apocalypse.idaas.mapper.single.ResourceMapper;
+import com.apocalypse.idaas.mapper.single.RoleElementUnionMapper;
+import com.apocalypse.idaas.module.single.AccountRoleUnion;
+import com.apocalypse.idaas.module.single.Element;
+import com.apocalypse.idaas.module.single.RoleElementUnion;
+import com.apocalypse.idaas.service.single.ElementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +45,7 @@ public class ElementServiceImpl extends BaseServiceImpl<Element, Long> implement
         List<Long> roleIds = accountRoleUnions.stream().mapToLong(AccountRoleUnion::getRoleId).boxed().collect(Collectors.toList());
 
         if (CollUtil.isEmpty(roleIds)) {
-            throw ServiceExceptionUtil.fail(SysManageErrorCodeEnum.ACCOUNT_NO_ROLE, accountId);
+//            throw ServiceExceptionUtil.fail(SysManageErrorCodeEnum.ACCOUNT_NO_ROLE, accountId);
         }
 
         List<RoleElementUnion> roleElements = roleElementUnionMapper.selectInByProperty(RoleElementUnion::getRoleId, roleIds);
@@ -69,7 +67,7 @@ public class ElementServiceImpl extends BaseServiceImpl<Element, Long> implement
     public void fillResource(Element element) {
         Long resourceId = element.getResourceId();
         if (resourceId > 0) {
-            com.gkjx.saas.health.system.model.single.Resource resource = resourceMapper.selectByPrimaryKey(resourceId);
+            com.apocalypse.idaas.module.single.Resource resource = resourceMapper.selectByPrimaryKey(resourceId);
             element.setResource(resource);
         }
     }

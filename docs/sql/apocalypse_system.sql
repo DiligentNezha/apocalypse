@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 50724
  Source Host           : localhost:3306
- Source Schema         : apocalypse_system
+ Source Schema         : apocalypse_idaas
 
  Target Server Type    : MySQL
  Target Server Version : 50724

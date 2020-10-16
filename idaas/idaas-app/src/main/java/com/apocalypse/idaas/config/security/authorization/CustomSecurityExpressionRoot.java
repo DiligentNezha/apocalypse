@@ -1,8 +1,8 @@
-package com.gkjx.saas.health.admin.config.security.authorization;
+package com.apocalypse.idaas.config.security.authorization;
 
 import cn.hutool.core.util.StrUtil;
-import com.gkjx.saas.health.admin.config.security.SecurityConstants;
-import com.gkjx.saas.health.admin.config.security.userdetails.CustomUserDetails;
+import com.apocalypse.idaas.config.security.userdetails.CustomUserDetails;
+import com.apocalypse.idaas.constants.SecurityConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;

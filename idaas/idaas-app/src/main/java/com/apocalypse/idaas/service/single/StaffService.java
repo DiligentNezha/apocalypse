@@ -1,8 +1,8 @@
-package com.gkjx.saas.health.system.service.single;
+package com.apocalypse.idaas.service.single;
 
 
-import com.gkjx.common.data.mybatis.service.BaseService;
-import com.gkjx.saas.health.system.model.single.Staff;
+import com.apocalypse.common.data.mybatis.service.BaseService;
+import com.apocalypse.idaas.module.single.Staff;
 
 /**
  * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
@@ -10,18 +10,4 @@ import com.gkjx.saas.health.system.model.single.Staff;
  * @date 2020/6/8
  */
 public interface StaffService extends BaseService<Staff, Long> {
-
-    /**
-     * 修改员工手机号
-     * @param staffId
-     * @param mobile
-     */
-    void modifyMobile(Long staffId, String mobile);
-
-    /**
-     * 修改员工邮箱
-     * @param staffId
-     * @param email
-     */
-    void modifyEmail(Long staffId, String email);
 }
