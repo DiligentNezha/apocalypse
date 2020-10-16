@@ -1,23 +1,36 @@
-package com.apocalypse.idaas.service.single.impl;
+package com.gkjx.saas.health.system.service.single.impl;
 
-import com.apocalypse.common.data.mybatis.service.impl.BaseServiceImpl;
-import com.apocalypse.idaas.mapper.single.RoleDOMapper;
-import com.apocalypse.idaas.model.RoleDO;
-import com.apocalypse.idaas.service.single.RoleService;
+import com.gkjx.common.data.mybatis.service.impl.BaseServiceImpl;
+import com.gkjx.saas.health.system.mapper.single.RoleMapper;
+import com.gkjx.saas.health.system.model.single.Role;
+import com.gkjx.saas.health.system.service.single.OrganService;
+import com.gkjx.saas.health.system.service.single.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
- * @Description
- * @date 2019/6/10
+ * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
+ * @description
+ * @date 2020/6/8
  */
 @Slf4j
 @Service
-public class RoleServiceImpl extends BaseServiceImpl<RoleDO, Integer> implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl<Role, Long> implements RoleService {
+
+    @Resource
+    private RoleMapper roleMapper;
 
     @Autowired
-    private RoleDOMapper roleDOMapper;
+    private OrganService organService;
 
+    @Override
+    public List<Role> selectAllRoles() {
+        return roleMapper.selectAllRoles();
+    }
 }
