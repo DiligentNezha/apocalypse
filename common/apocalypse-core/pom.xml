@@ -30,14 +30,11 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.18.1-GA</version>
         </dependency>
 
         <dependency>
             <groupId>com.apocalypse</groupId>
             <artifactId>apocalypse-util</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

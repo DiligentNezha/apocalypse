@@ -9,7 +9,7 @@ spring:
 #    username: root
 
   redis:
-    database: 0
+    database: 7
     host: localhost
     port: 6379
     timeout: 10000ms

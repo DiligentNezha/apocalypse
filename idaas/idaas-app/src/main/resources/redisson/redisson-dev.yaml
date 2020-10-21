@@ -1,4 +1,4 @@
 singleServerConfig:
   address: "redis://127.0.0.1:6379"
-  database: 5
+  database: 6
 codec: !<com.apocalypse.common.data.redis.redisson.codec.CustomJsonJacksonCodec> {}

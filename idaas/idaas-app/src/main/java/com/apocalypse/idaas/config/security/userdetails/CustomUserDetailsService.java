@@ -73,7 +73,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         Long topOrganId = organService.findTopOrganId();
         if (topOrganId.equals(0L)) {

@@ -8,7 +8,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/apocalypse_idaas?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
   redis:
-    database: 5
+    database: 6
     host: localhost
     port: 6379
     timeout: 10000ms

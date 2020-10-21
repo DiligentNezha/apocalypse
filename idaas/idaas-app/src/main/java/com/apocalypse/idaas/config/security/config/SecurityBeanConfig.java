@@ -38,8 +38,8 @@ public class SecurityBeanConfig {
         return new HttpSessionEventPublisher();
     }
 
-    @Bean
-    public HttpSessionIdResolver httpSessionIdResolver() {
-        return HeaderHttpSessionIdResolver.xAuthToken();
-    }
+//    @Bean
+//    public HttpSessionIdResolver httpSessionIdResolver() {
+//        return HeaderHttpSessionIdResolver.xAuthToken();
+//    }
 }

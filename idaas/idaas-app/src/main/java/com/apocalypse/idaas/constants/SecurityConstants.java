@@ -8,7 +8,8 @@ package com.apocalypse.idaas.constants;
 public class SecurityConstants {
     public static final String AUTH_CAPTCHA = "/login/captcha/{uuid}";
 
-    public static final String LOGIN_PROCESSING_URL = "/login/json";
+//    public static final String LOGIN_PROCESSING_URL = "/login/json";
+    public static final String LOGIN_PROCESSING_URL = "/auth/oauth/authorize";
 
     public static final String AUTH_LOGOUT = "/logout";
 

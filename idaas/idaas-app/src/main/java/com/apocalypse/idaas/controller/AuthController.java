@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +48,11 @@ public class AuthController {
         throw new IllegalArgumentException("Add Spring Security to handle authentication");
     }
 
+    @GetMapping("/me")
+    @ApiOperation(value = "个人信息", notes = "个人信息", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Rest<BaseResponse> me(@AuthenticationPrincipal AuthenticatedPrincipal principal) {
+        return Rest.vector("principal", principal, principal.getClass());
+    }
 
 }
 

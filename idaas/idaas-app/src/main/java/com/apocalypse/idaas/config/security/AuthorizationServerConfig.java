@@ -74,12 +74,12 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .disable()
-                .cors()
-                .configurationSource(corsConfigurationSource());
+                .cors();
+//                .configurationSource(corsConfigurationSource());
         http
                 .exceptionHandling()
-                .accessDeniedHandler(new CustomAccessDeniedHandler())
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+                .accessDeniedHandler(new CustomAccessDeniedHandler());
+//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
         http
                 .formLogin()
@@ -100,7 +100,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(SecurityConstants.AUTH_CAPTCHA)
                 .permitAll()
                 .anyRequest()
-                .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
+                .authenticated();
+//                .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
 
         http
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> {
@@ -162,7 +163,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         corsConfiguration.addAllowedHeader("*");
         //允许的请求方法，PSOT、GET等
         corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
+//        corsConfiguration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
         corsConfiguration.setAllowCredentials(true);
         //配置允许跨域访问的url
         source.registerCorsConfiguration("/**", corsConfiguration);
