@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.util.List;
 
 /**
- * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/7/6
  */

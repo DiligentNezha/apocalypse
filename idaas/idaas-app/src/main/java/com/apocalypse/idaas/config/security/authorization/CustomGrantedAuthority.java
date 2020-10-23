@@ -3,7 +3,7 @@ package com.apocalypse.idaas.config.security.authorization;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/6/10
  */

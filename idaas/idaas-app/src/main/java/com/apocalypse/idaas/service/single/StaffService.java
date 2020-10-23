@@ -5,7 +5,7 @@ import com.apocalypse.common.data.mybatis.service.BaseService;
 import com.apocalypse.idaas.module.single.Staff;
 
 /**
- * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/6/8
  */

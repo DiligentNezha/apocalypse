@@ -6,7 +6,7 @@ import com.apocalypse.idaas.module.single.Role;
 import java.util.List;
 
 /**
- * @author <a href="jingkaihui@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/6/8
  */
