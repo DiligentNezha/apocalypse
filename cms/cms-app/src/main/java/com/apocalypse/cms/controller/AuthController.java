@@ -1,5 +1,6 @@
 package com.apocalypse.cms.controller;
 
+import com.apocalypse.cms.api.response.OAuth2MeResponse;
 import com.apocalypse.common.core.api.BaseResponse;
 import com.apocalypse.common.core.api.Rest;
 import com.apocalypse.idaas.api.request.AdminLoginRequest;
@@ -12,6 +13,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,11 +40,21 @@ public class AuthController {
         throw new IllegalArgumentException("Add Spring Security to handle authentication");
     }
 
+    @Autowired
+    private OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
 
     @GetMapping("/me")
     @ApiOperation(value = "个人信息", notes = "个人信息", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<BaseResponse> me(Authentication authentication, @AuthenticationPrincipal AuthenticatedPrincipal authenticatedPrincipal) {
-        return Rest.vector("principal", authenticatedPrincipal, authenticatedPrincipal.getClass());
+    public Rest<OAuth2MeResponse> me(OAuth2AuthenticationToken authenticationToken) {
+        OAuth2MeResponse response = new OAuth2MeResponse();
+
+        OAuth2AuthorizedClient oAuth2AuthorizedClient = oAuth2AuthorizedClientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getName());
+        String clientName = oAuth2AuthorizedClient.getClientRegistration().getClientName();
+
+        response.setAuthentication(authenticationToken)
+                .setClientName(clientName);
+
+        return Rest.success(response);
     }
 
 }
