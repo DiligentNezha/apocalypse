@@ -64,11 +64,6 @@ public class Element implements TreeNode<Element>, Serializable {
     private Boolean visible;
 
     /**
-     * 元素所属平台：1：医生管理端；5：医生端
-     */
-    private Integer platform;
-
-    /**
      * 元素类型：1：菜单；5：页面；10：按钮
      */
     private Integer type;
@@ -87,6 +82,7 @@ public class Element implements TreeNode<Element>, Serializable {
     /**
      * 属性
      */
+    @Transient
     @ColumnType(typeHandler = JSONObjectTypeHandler.class)
     private ObjectNode props;
 

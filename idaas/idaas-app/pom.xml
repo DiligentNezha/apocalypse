@@ -25,12 +25,6 @@
         <dependency>
             <groupId>com.apocalypse</groupId>
             <artifactId>apocalypse-data-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>redisson</artifactId>
-                    <groupId>org.redisson</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -54,20 +48,15 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -85,7 +74,20 @@
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
-<!--        <dependency>-->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.12</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.msgpack/jackson-dataformat-msgpack -->
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>jackson-dataformat-msgpack</artifactId>
+            <version>0.8.21</version>
+        </dependency>
+
+
+        <!--        <dependency>-->
 <!--            <groupId>org.springframework.security.oauth</groupId>-->
 <!--            <artifactId>spring-security-oauth2</artifactId>-->
 <!--            <version>2.5.0.RELEASE</version>-->
@@ -96,11 +98,10 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-data-22</artifactId>
-            <version>3.12.5</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.redisson</groupId>-->
+<!--            <artifactId>redisson-spring-data-23</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.xuxueli</groupId>
@@ -136,6 +137,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>

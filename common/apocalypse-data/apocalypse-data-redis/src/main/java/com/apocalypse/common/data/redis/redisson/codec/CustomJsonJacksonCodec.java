@@ -1,12 +1,8 @@
 package com.apocalypse.common.data.redis.redisson.codec;
 
 import cn.hutool.core.date.DatePattern;
-import com.apocalypse.common.util.json.JsonUtil;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -15,11 +11,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.redisson.codec.JsonJacksonCodec;
-import org.springframework.security.jackson2.CoreJackson2Module;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
-import org.springframework.security.web.jackson2.WebJackson2Module;
-import org.springframework.security.web.jackson2.WebServletJackson2Module;
-import org.springframework.security.web.server.jackson2.WebServerJackson2Module;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -129,26 +121,56 @@ public class CustomJsonJacksonCodec extends JsonJacksonCodec {
 //    }
 
     public CustomJsonJacksonCodec() {
-        super(createObjectMapperWithSecurity());
+//        super(createObjectMapperWithSecurity());
+        super();
+        customObjectMapper();
     }
 
     public CustomJsonJacksonCodec(ClassLoader classLoader) {
-        super(createObjectMapper(classLoader, createObjectMapperWithSecurity()));
+//        super(createObjectMapper(classLoader, createObjectMapperWithSecurity()));
+        super(classLoader);
+        customObjectMapper();
     }
 
     public CustomJsonJacksonCodec(ClassLoader classLoader, CustomJsonJacksonCodec codec) {
-        super(createObjectMapper(classLoader, codec.mapObjectMapper.copy()));
+//        super(createObjectMapper(classLoader, codec.mapObjectMapper.copy()));
+        super(classLoader, codec);
+        customObjectMapper();
     }
 
-    @Override
-    protected void init(ObjectMapper objectMapper) {
-        super.init(objectMapper);
+//    @Override
+//    protected void init(ObjectMapper objectMapper) {
+//        super.init(objectMapper);
+//
+//        objectMapper.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
+//        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+//
+//        JavaTimeModule javaTimeModule = new JavaTimeModule();
+//        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)));
+//        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)));
+//
+//        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)));
+//        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)));
+//
+//        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+//        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+//
+//        objectMapper.registerModule(javaTimeModule);
+//        objectMapper.registerModule(new SimpleModule());
+//        objectMapper.registerModules(SecurityJackson2Modules.getModules(getClassLoader()));
+//        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+//        objectMapper.registerModule(new CoreJackson2Module());
+//        objectMapper.registerModule(new WebJackson2Module());
+//        objectMapper.registerModule(new WebServletJackson2Module());
+//        objectMapper.registerModule(new WebServerJackson2Module());
+//        objectMapper.registerModule(new CasJackson2Module());
+//        objectMapper.registerModule(new OAuth2ClientJackson2Module());
 
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.registerModule(new SimpleModule());
+//    }
 
-        objectMapper.disable(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS);
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    private ObjectMapper customObjectMapper() {
+//        ObjectMapper objectMapper = JsonUtil.defaultObjectMapper().copy();
+        ObjectMapper objectMapper = getObjectMapper();
 
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)));
@@ -162,18 +184,8 @@ public class CustomJsonJacksonCodec extends JsonJacksonCodec {
 
         objectMapper.registerModule(javaTimeModule);
         objectMapper.registerModule(new SimpleModule());
-        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        objectMapper.registerModule(new CoreJackson2Module());
-        objectMapper.registerModule(new WebJackson2Module());
-        objectMapper.registerModule(new WebServletJackson2Module());
-        objectMapper.registerModule(new WebServerJackson2Module());
-//        objectMapper.registerModule(new CasJackson2Module());
-//        objectMapper.registerModule(new OAuth2ClientJackson2Module());
-
-    }
-
-    private static ObjectMapper createObjectMapperWithSecurity() {
-        ObjectMapper objectMapper = JsonUtil.defaultObjectMapper().copy();
+//        objectMapper.addMixIn(SecurityContextImpl.class, SecurityContextImplMixin.class);
+        objectMapper.registerModules(SecurityJackson2Modules.getModules(getClassLoader()));
         return objectMapper;
     }
 }

@@ -33,11 +33,6 @@ public class Account implements Serializable {
     private Long organId;
 
     /**
-     * 角色所属平台：1：医院管理端；5：医院 PC
-     */
-    private Integer platform;
-
-    /**
      * 账户名
      */
     @Column(name = "account_name")

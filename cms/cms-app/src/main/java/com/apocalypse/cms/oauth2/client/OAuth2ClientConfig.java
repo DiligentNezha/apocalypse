@@ -71,7 +71,6 @@ public class OAuth2ClientConfig extends WebSecurityConfigurerAdapter {
                 public URI apply(UriBuilder uriBuilder) {
                     URI uri = uriBuilder.build();
                     if (uri.getHost().contains("dingtalk")) {
-                        String rawPath = uri.getRawPath();
                         String replace = uri.toString().replace("client_id", "appid");
                         try {
                             uri = new URI(replace);

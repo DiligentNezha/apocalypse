@@ -1,7 +1,7 @@
 package com.apocalypse.cms.oauth2.client;
 
 import com.apocalypse.cms.oauth2.client.registrations.dingtalk.DingTalkAuth2UserService;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import com.apocalypse.cms.oauth2.client.registrations.idaas.IdaasAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -25,6 +25,7 @@ public class CompositeOAuth2UserService<R extends OAuth2UserRequest, U extends O
     public CompositeOAuth2UserService() {
         defaultUserService = new DefaultOAuth2UserService();
         customUserServices.put(OAuth2RegistrationIds.DING_TALK, new DingTalkAuth2UserService());
+        customUserServices.put(OAuth2RegistrationIds.IDAAS, new IdaasAuth2UserService());
     }
 
     @Override

@@ -11,4 +11,9 @@ public class OAuth2RegistrationIds {
      * 钉钉 OAuth2
      */
     public static final String DING_TALK = "dingtalk";
+
+    /**
+     * IDaaS OAuth2
+     */
+    public static final String IDAAS = "idaas";
 }

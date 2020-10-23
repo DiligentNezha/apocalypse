@@ -7,6 +7,7 @@ import com.apocalypse.common.core.enums.error.AuthenticationErrorCodeEnum;
 import com.apocalypse.idaas.config.security.authentication.CustomAuthenticationEntryPoint;
 import com.apocalypse.idaas.config.security.authorization.CustomAccessDeniedHandler;
 import com.apocalypse.idaas.constants.SecurityConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -37,10 +39,11 @@ import java.util.Arrays;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
- * @description 认证服务器配置
+ * @description 认证相关配置
  * @date 2020/10/16
  */
-@Configuration
+@Slf4j
+@EnableWebSecurity(debug = true)
 public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -71,22 +74,24 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        log.info("AuthorizationServerConfig 配置");
         http
                 .csrf()
                 .disable()
-                .cors();
-//                .configurationSource(corsConfigurationSource());
+                .cors()
+                .configurationSource(corsConfigurationSource());
         http
                 .exceptionHandling()
                 .accessDeniedHandler(new CustomAccessDeniedHandler());
+                // 资源服务器不能指定，指定后将不生成页面，也就没有办法跳转了
 //                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
         http
                 .formLogin()
                     .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                     .usernameParameter("loginName")
-                    .successHandler(successHandler)
-                    .failureHandler(failureHandler)
+//                    .successHandler(successHandler)
+//                    .failureHandler(failureHandler)
                     .authenticationDetailsSource(authenticationDetailsSource)
                 .permitAll();
         http
@@ -97,30 +102,30 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http
                 .authorizeRequests()
-                .antMatchers(SecurityConstants.AUTH_CAPTCHA)
+                .antMatchers("/", SecurityConstants.AUTH_CAPTCHA)
                 .permitAll()
                 .anyRequest()
-                .authenticated();
-//                .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
+                .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
 
         http
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> {
                     httpSecuritySessionManagementConfigurer.sessionConcurrency(concurrencyControlConfigurer -> {
                         // 触发创建 ConcurrentSessionFilter
                         concurrencyControlConfigurer.maximumSessions(1);
-                        concurrencyControlConfigurer.expiredSessionStrategy(event -> {
-                            HttpServletResponse response = event.getResponse();
-                            SessionInformation sessionInformation = event.getSessionInformation();
-                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                            Rest<BaseResponse> rest = Rest.error(AuthenticationErrorCodeEnum.LOGIN_ON_ANOTHER_DEVICE, "本次登录失效");
-                            HttpContextUtil.write(response, rest);
-                        });
+                        // TODO session 失效在 OAuth2 环境下需要前端配合做页面跳转
+//                        concurrencyControlConfigurer.expiredSessionStrategy(event -> {
+//                            HttpServletResponse response = event.getResponse();
+//                            SessionInformation sessionInformation = event.getSessionInformation();
+//                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//                            Rest<BaseResponse> rest = Rest.error(AuthenticationErrorCodeEnum.LOGIN_ON_ANOTHER_DEVICE, "本次登录失效");
+//                            HttpContextUtil.write(response, rest);
+//                        });
                     });
 
-                    httpSecuritySessionManagementConfigurer.invalidSessionStrategy((request, response) -> {
-                        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                        HttpContextUtil.write(response, Rest.error(AuthenticationErrorCodeEnum.CREDENTIALS_EXPIRED));
-                    });
+//                    httpSecuritySessionManagementConfigurer.invalidSessionStrategy((request, response) -> {
+//                        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//                        HttpContextUtil.write(response, Rest.error(AuthenticationErrorCodeEnum.CREDENTIALS_EXPIRED));
+//                    });
                 });
     }
 
@@ -142,7 +147,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.authenticationProvider(authenticationProvider());
+//        builder.authenticationProvider(authenticationProvider());
+        builder.inMemoryAuthentication().withUser("root").password(passwordEncoder.encode("root")).roles("USER");
     }
 
     @Bean

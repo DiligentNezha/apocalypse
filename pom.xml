@@ -73,7 +73,7 @@
 
         <!-- 分布式服务部分 -->
         <!-- 分布式锁工具 https://github.com/redisson/redisson#quick-start -->
-        <redisson-spring-boot-starter.version>3.11.0</redisson-spring-boot-starter.version>
+        <redisson-spring-boot-starter.version>3.13.6</redisson-spring-boot-starter.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
 
         <!-- swagger ui增强 -->
@@ -215,6 +215,12 @@
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson-spring-boot-starter.version}</version>
             </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>org.redisson</groupId>-->
+<!--                <artifactId>redisson-spring-data-23</artifactId>-->
+<!--                <version>${redisson-spring-data.version}</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.auth0</groupId>

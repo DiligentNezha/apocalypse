@@ -36,11 +36,6 @@ public class RoleLabel implements Serializable {
     private String name;
 
     /**
-     * 角色所属平台：1：医院管理端；5：医院 PC
-     */
-    private Integer platform;
-
-    /**
      * 备注
      */
     private String remark;

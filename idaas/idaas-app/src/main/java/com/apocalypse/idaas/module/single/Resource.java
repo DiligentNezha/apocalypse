@@ -45,11 +45,6 @@ public class Resource implements Serializable {
     private String path;
 
     /**
-     * 角色所属平台：1：医生管理端；5：医生端
-     */
-    private Integer platform;
-
-    /**
      * 资源类型：1：application/json；5：application/octet-stream；
      */
     private Integer type;
@@ -63,6 +58,7 @@ public class Resource implements Serializable {
     /**
      * 属性
      */
+    @Transient
     @ColumnType(typeHandler = JSONObjectTypeHandler.class)
     private ObjectNode props;
 

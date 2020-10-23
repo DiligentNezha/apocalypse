@@ -95,16 +95,16 @@ public class CustomUserDetailsService implements UserDetailsService {
             String identityInsertSQL = "INSERT INTO `identity`(`id`, `organ_id`, `staff_id`, `login_name`, `mobile`, `email`, `password`, `enabled`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, {}, '{}', '12345678988', '', '{}', 1, 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
             jdbcTemplate.execute(StrUtil.format(identityInsertSQL, identityId, organId, staffId, "root", passwordEncoder.encode("superman")));
 
-            String accountInsertSQl = "INSERT INTO `account`(`id`, `organ_id`, `platform`, `account_name`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, 1, 'superman_account_001', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
+            String accountInsertSQl = "INSERT INTO `account`(`id`, `organ_id`, `account_name`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, 'superman_account_001', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
             jdbcTemplate.execute(StrUtil.format(accountInsertSQl, accountId, organId));
 
             String identityAccountInsertSQL = "INSERT INTO `identity_account_union`(`id`, `identity_id`, `account_id`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, {}, 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
             jdbcTemplate.execute(StrUtil.format(identityAccountInsertSQL, snowflake.nextId(), identityId, accountId));
 
-            String roleLabelInsertSQL = "INSERT INTO `role_label`(`id`, `organ_id`, `name`, `platform`, `remark`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, '默认', 1, '', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
+            String roleLabelInsertSQL = "INSERT INTO `role_label`(`id`, `organ_id`, `name`, `remark`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, '默认', '', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
             jdbcTemplate.execute(StrUtil.format(roleLabelInsertSQL, roleLabelId, organId));
 
-            String roleInsertSQL = "INSERT INTO `role`(`id`, `organ_id`, `role_label_id`, `name`, `platform`, `remark`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, {}, '数据同步管理员', 1, '', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
+            String roleInsertSQL = "INSERT INTO `role`(`id`, `organ_id`, `role_label_id`, `name`, `remark`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, {}, '数据同步管理员'`, '', 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";
             jdbcTemplate.execute(StrUtil.format(roleInsertSQL, roleId, organId, roleLabelId));
 
             String accountRoleInsertSQL = "INSERT INTO `account_role_union`(`id`, `account_id`, `role_id`, `is_deleted`, `create_identity_id`, `update_identity_id`, `create_account_id`, `update_account_id`) VALUES ({}, {}, {}, 0, 1271007558261411841, 1271007558261411841, 1271007558261411840, 1271007558261411840)";

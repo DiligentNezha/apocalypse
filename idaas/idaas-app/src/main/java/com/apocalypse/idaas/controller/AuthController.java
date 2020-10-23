@@ -14,9 +14,13 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Validated
 @RestController
@@ -50,8 +54,8 @@ public class AuthController {
 
     @GetMapping("/me")
     @ApiOperation(value = "个人信息", notes = "个人信息", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<BaseResponse> me(@AuthenticationPrincipal AuthenticatedPrincipal principal) {
-        return Rest.vector("principal", principal, principal.getClass());
+    public Rest<BaseResponse> me(Authentication authentication, @AuthenticationPrincipal AuthenticatedPrincipal authenticatedPrincipal) {
+        return Rest.vector("principal", authentication, authentication.getClass());
     }
 
 }

@@ -11,12 +11,21 @@ spring:
           dingtalk:
             client-id: dingoav6meuvwoo0hep7mm
             client-secret: g47vFUz9AwpiAXWhnpJN3faY2XF7CXq4UVXHP1KySjwOx1D2LTn-nsRvQkm7uASw
-            provider: dingtalk
             client-name: 钉钉登录
+            provider: dingtalk
             authorization-grant-type: authorization_code
-            redirect-uri: "http://goradical.vicp.io/call/{action}/oauth2/code/{registrationId}"
+            redirect-uri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
             scope:
               - snsapi_login
+          idaas:
+            clientId: idaas
+            clientSecret: secret
+            clientName: IDaaS
+            provider: idaas
+            authorizationGrantType: authorization_code
+            redirectUri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
+            scope:
+              - me
         provider:
           dingtalk:
             # https://oapi.dingtalk.com/connect/qrconnect?appid=APPID&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=REDIRECT_URI
@@ -25,6 +34,12 @@ spring:
             tokenUri: https://oapi.dingtalk.com/gettoken
             userInfoUri: https://oapi.dingtalk.com/sns/getuserinfo_bycode
             userNameAttribute: nick
+          idaas:
+            authorizationUri: http://localhost:31001/oauth/authorize
+            tokenUri: http://localhost:31001/oauth/token
+            userInfoUri: http://localhost:31001/open/me
+            userNameAttribute: username
+
 
   #        client-id: SimpleClientId
 #        client-secret: secret
@@ -47,7 +62,7 @@ spring:
     port: 6379
     timeout: 10000ms
     redisson:
-      config: "classpath:/redisson/redisson-dev.yaml"
+      file: "classpath:/redisson/redisson-dev.yaml"
   cloud:
     inetutils:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
