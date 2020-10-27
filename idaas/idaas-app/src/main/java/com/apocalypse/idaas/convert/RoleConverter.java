@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
  * @date 2019/6/12
  */
 @Mapper(componentModel = "spring")
-public interface RoleConvert {
+public interface RoleConverter {
 
     RoleDO convert(RoleCreateDTO roleCreateDTO);
 }

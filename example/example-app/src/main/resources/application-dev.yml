@@ -14,7 +14,7 @@ spring:
     port: 6379
     timeout: 10000ms
     redisson:
-      config: "classpath:/redisson/redisson-dev.yaml"
+      file: "classpath:/redisson/redisson-dev.yaml"
   cloud:
     inetutils:
       ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡

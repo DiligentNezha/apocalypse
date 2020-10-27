@@ -20,7 +20,7 @@
         </jdbcConnection>
 
         <!-- DO对象生成配置 -->
-        <javaModelGenerator targetPackage="com.apocalypse.cms.model" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="com.apocalypse.cms.module.single" targetProject="src/main/java"/>
 
         <!-- mapper.xml生成配置 -->
         <sqlMapGenerator targetPackage="mapper/single" targetProject="src/main/resources"/>

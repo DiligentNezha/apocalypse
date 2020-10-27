@@ -44,7 +44,7 @@ import java.util.Arrays;
  */
 @Slf4j
 @EnableWebSecurity(debug = true)
-public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
+public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -90,6 +90,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                     .usernameParameter("loginName")
+                    .defaultSuccessUrl("/doc.html")
 //                    .successHandler(successHandler)
 //                    .failureHandler(failureHandler)
                     .authenticationDetailsSource(authenticationDetailsSource)
@@ -102,8 +103,12 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         http
                 .authorizeRequests()
-                .antMatchers("/", SecurityConstants.AUTH_CAPTCHA)
-                .permitAll()
+                    .antMatchers(SecurityConstants.AUTH_CAPTCHA)
+                    .permitAll()
+                .and()
+                .authorizeRequests()
+                    .antMatchers("/h2-console/**")
+                    .permitAll()
                 .anyRequest()
                 .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
 

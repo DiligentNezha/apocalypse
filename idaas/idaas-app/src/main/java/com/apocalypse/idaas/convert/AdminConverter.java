@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
  * @date 2019/6/14
  */
 @Mapper(componentModel = "spring")
-public interface AdminConvert {
+public interface AdminConverter {
 
     LoginVO convert(AdminDO adminDO);
 }
