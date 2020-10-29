@@ -1,8 +1,8 @@
 package com.apocalypse.cms.oauth2.client;
 
 import com.apocalypse.cms.oauth2.client.registrations.dingtalk.DingTalkAuth2AccessTokenResponseClient;
-import com.apocalypse.cms.oauth2.client.registrations.dingtalk.DingTalkAuth2UserService;
 import com.apocalypse.cms.oauth2.client.registrations.dingtalk.DingTalkOAuth2User;
+import com.apocalypse.cms.oauth2.client.registrations.idaas.IdaasOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,7 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.userinfo.*;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -19,12 +20,11 @@ import tk.mybatis.mapper.weekend.Fn;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI;
+
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -45,21 +45,25 @@ public class OAuth2ClientConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
-        http.oauth2Login()
+        http.oauth2Login(oauth2 -> oauth2
                 .defaultSuccessUrl("/me")
-                .tokenEndpoint()
-                .accessTokenResponseClient(accessTokenResponseClient())
-                .and()
-                .userInfoEndpoint()
-                .customUserType(DingTalkOAuth2User.class, OAuth2RegistrationIds.DING_TALK)
-                .userService(oAuth2UserService())
-                .and()
-                .redirectionEndpoint()
-                .baseUri("/call/**")
-                .and()
-                .authorizationEndpoint()
-                .authorizationRequestResolver(auth2AuthorizationRequestResolver());
-
+                .authorizationEndpoint(authorization -> {
+                    authorization
+//                            .baseUri("/idaas/oauth2/authroization")
+                            .authorizationRequestResolver(auth2AuthorizationRequestResolver());
+                })
+                .redirectionEndpoint(redirection -> {
+                    redirection
+                            .baseUri("/call/**");
+                })
+                .userInfoEndpoint(userInfo -> {
+                    userInfo.userService(oAuth2UserService())
+                            .customUserType(DingTalkOAuth2User.class, OAuth2RegistrationIds.DING_TALK)
+                            .customUserType(IdaasOAuth2User.class, OAuth2RegistrationIds.IDAAS);
+                })
+                .tokenEndpoint(token -> {
+                    token.accessTokenResponseClient(accessTokenResponseClient());
+                }));
     }
 
     @Bean
@@ -85,10 +89,10 @@ public class OAuth2ClientConfig extends WebSecurityConfigurerAdapter {
         return defaultOAuth2AuthorizationRequestResolver;
     }
 
-
     private OAuth2AccessTokenResponseClient accessTokenResponseClient() {
-        CompositeOAuth2AccessTokenResponseClient accessTokenResponseClient = new CompositeOAuth2AccessTokenResponseClient();
-        accessTokenResponseClient.getCustomClients().put(OAuth2RegistrationIds.DING_TALK, new DingTalkAuth2AccessTokenResponseClient());
+        Map<String, OAuth2AccessTokenResponseClient> customClients = new HashMap<>();
+        customClients.put(OAuth2RegistrationIds.DING_TALK, new DingTalkAuth2AccessTokenResponseClient());
+        CompositeOAuth2AccessTokenResponseClient accessTokenResponseClient = new CompositeOAuth2AccessTokenResponseClient(customClients);
         return accessTokenResponseClient;
     }
 

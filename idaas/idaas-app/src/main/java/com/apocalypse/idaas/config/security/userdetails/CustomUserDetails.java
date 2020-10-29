@@ -127,6 +127,38 @@ public class CustomUserDetails implements UserDetails, IdentityAware, AccountAwa
         return accounts;
     }
 
+    public Organ getOrgan() {
+        return organ;
+    }
+
+    public Identity getIdentity() {
+        return identity;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public List<Role> getCurrentRoles() {
+        return currentRoles;
+    }
+
+    public List<Element> getCurrentElements() {
+        return currentElements;
+    }
+
+    public List<CustomGrantedAuthority> getCurrentAuthorities() {
+        return currentAuthorities;
+    }
+
     @Override
     public List<Long> currentTeamIds() {
         return teams.stream().mapToLong(Team::getId).boxed().collect(Collectors.toList());

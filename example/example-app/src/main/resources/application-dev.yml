@@ -1,4 +1,9 @@
 debug: true
+security:
+  oauth2:
+    resource:
+#      token-info-uri: http://localhost:31001/oauth/check_token
+      user-info-uri: http://localhost:31001/open/me
 spring:
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
@@ -7,7 +12,6 @@ spring:
 #    type: com.alibaba.druid.pool.DruidDataSource
 #    url: jdbc:mysql://127.0.0.1:3306/apocalypse_example?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
 #    username: root
-
   redis:
     database: 7
     host: localhost

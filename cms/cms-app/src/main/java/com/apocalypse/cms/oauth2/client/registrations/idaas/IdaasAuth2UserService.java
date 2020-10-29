@@ -2,6 +2,8 @@ package com.apocalypse.cms.oauth2.client.registrations.idaas;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.apocalypse.cms.oauth2.client.registrations.dingtalk.DingTalkOAuth2User;
 import com.apocalypse.common.boot.util.HttpContextUtil;
 import com.apocalypse.common.util.json.JsonUtil;
@@ -12,7 +14,10 @@ import com.dingtalk.api.request.OapiUserGetUseridByUnionidRequest;
 import com.dingtalk.api.response.OapiSnsGetuserinfoBycodeResponse;
 import com.dingtalk.api.response.OapiUserGetResponse;
 import com.dingtalk.api.response.OapiUserGetUseridByUnionidResponse;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.taobao.api.ApiException;
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
@@ -36,9 +41,7 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -53,83 +56,44 @@ public class IdaasAuth2UserService implements OAuth2UserService<OAuth2UserReques
 
     private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
 
-    private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE =
-            new ParameterizedTypeReference<Map<String, Object>>() {};
-
-    private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
-
-    private RestOperations restOperations;
-
-    public IdaasAuth2UserService() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
-        this.restOperations = restTemplate;
-    }
-
     @Override
     public IdaasOAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        Assert.notNull(userRequest, "userRequest cannot be null");
 
-        if (!StringUtils.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
-            OAuth2Error oauth2Error = new OAuth2Error(
-                    MISSING_USER_INFO_URI_ERROR_CODE,
-                    "Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: " +
-                            userRequest.getClientRegistration().getRegistrationId(),
-                    null
-            );
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-        }
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-                .getUserInfoEndpoint().getUserNameAttributeName();
-        if (!StringUtils.hasText(userNameAttributeName)) {
-            OAuth2Error oauth2Error = new OAuth2Error(
-                    MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE,
-                    "Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: " +
-                            userRequest.getClientRegistration().getRegistrationId(),
-                    null
-            );
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-        }
+        String uri = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
 
-        RequestEntity<?> request = this.requestEntityConverter.convert(userRequest);
+        String body = HttpUtil.createGet(uri).header("Authorization", "Bearer " + userRequest.getAccessToken().getTokenValue()).execute().body();
+        ObjectNode response = JsonUtil.toObj(body, ObjectNode.class);
 
-        ResponseEntity<Map<String, Object>> response;
-        try {
-            response = this.restOperations.exchange(request, PARAMETERIZED_RESPONSE_TYPE);
-        } catch (OAuth2AuthorizationException ex) {
-            OAuth2Error oauth2Error = ex.getError();
-            StringBuilder errorDetails = new StringBuilder();
-            errorDetails.append("Error details: [");
-            errorDetails.append("UserInfo Uri: ").append(
-                    userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri());
-            errorDetails.append(", Error Code: ").append(oauth2Error.getErrorCode());
-            if (oauth2Error.getDescription() != null) {
-                errorDetails.append(", Error Description: ").append(oauth2Error.getDescription());
-            }
-            errorDetails.append("]");
-            oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE,
-                    "An error occurred while attempting to retrieve the UserInfo Resource: " + errorDetails.toString(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
-        } catch (RestClientException ex) {
-            OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE,
-                    "An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
-        }
-        Map principal = (Map) ((Map) response.getBody().get("data")).get("principal");
-        Set<GrantedAuthority> authorities = new LinkedHashSet<>();
-        authorities.add(new OAuth2UserAuthority(principal));
-        OAuth2AccessToken token = userRequest.getAccessToken();
-        for (String authority : token.getScopes()) {
-            authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
-        }
+        JsonNode principal = response.get("data").get("principal");
 
         IdaasOAuth2User idaasOAuth2User = new IdaasOAuth2User();
-        idaasOAuth2User.setAttributes(principal);
-        idaasOAuth2User.setEnabled((Boolean) principal.get("enabled"));
-        idaasOAuth2User.setUsername((String) principal.get("username"));
-        if (CollUtil.isNotEmpty(authorities)) {
-            idaasOAuth2User.setAuthorities(authorities);
-        }
+        idaasOAuth2User.setUsername(principal.get("identity").get("loginName").asText());
+        idaasOAuth2User.setEnabled(principal.get("enabled").asBoolean());
+        idaasOAuth2User.setAccountNonExpired(principal.get("accountNonExpired").asBoolean());
+        idaasOAuth2User.setAccountNonLocked(principal.get("accountNonLocked").asBoolean());
+        idaasOAuth2User.setCredentialsNonExpired(principal.get("credentialsNonExpired").asBoolean());
+        idaasOAuth2User.setAttributes(toMap(principal));
         return idaasOAuth2User;
+    }
+
+    private LinkedHashMap<String, Object> toMap(JsonNode jsonNode) {
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        jsonNode.fieldNames().forEachRemaining(fieldName -> {
+            JsonNode nodeValue = jsonNode.get(fieldName);
+            if (nodeValue.isObject()) {
+                LinkedHashMap<String, Object> nodeValueToMap = toMap(nodeValue);
+                map.put(fieldName, nodeValueToMap);
+            } else if (nodeValue.isArray()) {
+                ArrayList list = new ArrayList();
+                nodeValue.elements().forEachRemaining(element -> {
+                    LinkedHashMap<String, Object> elementMap = toMap(element);
+                    list.add(elementMap);
+                });
+                map.put(fieldName, list);
+            } else {
+                map.put(fieldName, jsonNode.get(fieldName));
+            }
+        });
+        return map;
     }
 }

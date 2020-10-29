@@ -152,8 +152,7 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-//        builder.authenticationProvider(authenticationProvider());
-        builder.inMemoryAuthentication().withUser("root").password(passwordEncoder.encode("root")).roles("USER");
+        builder.authenticationProvider(authenticationProvider());
     }
 
     @Bean

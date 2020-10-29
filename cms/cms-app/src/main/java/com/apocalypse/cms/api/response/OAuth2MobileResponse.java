@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -18,16 +17,10 @@ import java.util.Map;
 @Data
 @ApiModel
 @Accessors(chain = true)
-public class OAuth2MeResponse extends BaseResponse {
+public class OAuth2MobileResponse extends BaseResponse {
     @ApiModelProperty(value = "授权服务商", example = "钉钉")
     private String clientName;
 
-    @ApiModelProperty(value = "登录名", example = "root")
-    private String loginName;
-
-    @ApiModelProperty(value = "属性")
-    private Map<String, Object> attributes;
-
-    @ApiModelProperty(value = "权限")
-    private Collection<GrantedAuthority> authorities;
+    @ApiModelProperty(value = "手机号", example = "17774238421")
+    private String mobile;
 }

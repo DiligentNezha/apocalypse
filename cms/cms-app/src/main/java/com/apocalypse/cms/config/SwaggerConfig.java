@@ -1,4 +1,4 @@
-package com.apocalypse.example.config;
+package com.apocalypse.cms.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +34,8 @@ import java.util.List;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig {
 
-    @Bean(value = "exampleApi")
-    public Docket exampleApi() {
+    @Bean(value = "cmsApi")
+    public Docket cmsApi() {
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 // jdk 8 的入参已按照 String 类型来接收参数
@@ -43,9 +43,9 @@ public class SwaggerConfig {
                 .directModelSubstitute(LocalTime.class, String.class)
                 .directModelSubstitute(LocalDateTime.class, String.class)
                 .apiInfo(apiInfo())
-                .groupName("example")
+                .groupName("cms")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.example.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.apocalypse.cms.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securityContexts(Arrays.asList(securityContext()))

@@ -34,6 +34,9 @@ public class IdaasOAuth2User implements OAuth2User {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+    public IdaasOAuth2User() {
+    }
+
     @Override
     public Map<String, Object> getAttributes() {
         if (ObjectUtil.isNull(attributes)) {

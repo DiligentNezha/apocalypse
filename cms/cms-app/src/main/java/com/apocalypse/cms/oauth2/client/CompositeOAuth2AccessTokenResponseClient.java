@@ -19,7 +19,9 @@ public class CompositeOAuth2AccessTokenResponseClient implements OAuth2AccessTok
 
     private Map<AuthorizationGrantType, OAuth2AccessTokenResponseClient> defaultClients;
 
-    public CompositeOAuth2AccessTokenResponseClient() {
+    public CompositeOAuth2AccessTokenResponseClient(Map<String, OAuth2AccessTokenResponseClient> customClients) {
+        this.customClients = customClients;
+
         this.defaultClients = new HashMap<>();
         this.defaultClients.put(AuthorizationGrantType.AUTHORIZATION_CODE, new DefaultAuthorizationCodeTokenResponseClient());
         this.defaultClients.put(AuthorizationGrantType.CLIENT_CREDENTIALS, new DefaultClientCredentialsTokenResponseClient());

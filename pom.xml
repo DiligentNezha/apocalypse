@@ -50,8 +50,8 @@
         <!-- 分页插件 -->
         <pagehelper-spring-boot-starter.version>1.2.11</pagehelper-spring-boot-starter.version>
         <!-- 数据库连接池 -->
-        <druid-spring-boot-starter.version>1.1.23</druid-spring-boot-starter.version>
-        <sharding-sphere.version>4.0.0-RC1</sharding-sphere.version>
+        <druid-spring-boot-starter.version>1.2.1</druid-spring-boot-starter.version>
+        <sharding-sphere.version>4.1.1</sharding-sphere.version>
 
         <!-- 工具部分 -->
         <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
@@ -77,7 +77,7 @@
         <spring-cloud-starter-alibaba-sentinel.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
 
         <!-- swagger ui增强 -->
-        <knife4j-spring-boot-starter.version>2.0.4</knife4j-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>2.0.6</knife4j-spring-boot-starter.version>
         <!-- 测试部分 -->
         <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
         <javafaker.version>0.18</javafaker.version>
@@ -202,6 +202,12 @@
                         <groupId>com.google.guava</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-namespace</artifactId>
+                <version>${sharding-sphere.version}</version>
             </dependency>
 
             <dependency>
