@@ -82,10 +82,12 @@ public interface OAuth2ClientDetailsConverter {
     }
 
     @Named("registeredRedirectUrisMap")
-    default Set<String> registeredRedirectUrisMap(String webServerRedirectUri) {
-        Set<String> redirectUri = new HashSet<>();
-        redirectUri.add(webServerRedirectUri);
-        return redirectUri;
+    default Set<String> registeredRedirectUrisMap(ArrayNode webServerRedirectUriArrayNode) {
+        Set<String> webServerRedirectUris = new HashSet<>();
+        webServerRedirectUriArrayNode.iterator().forEachRemaining(webServerRedirectUri -> {
+            webServerRedirectUris.add(webServerRedirectUri.textValue());
+        });
+        return webServerRedirectUris;
     }
 
     @Named("additionalInformationMap")

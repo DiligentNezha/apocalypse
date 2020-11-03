@@ -53,7 +53,8 @@ public class OAuthClientDetails implements Serializable {
      * 服务跳转路径
      */
     @Column(name = "web_server_redirect_uri")
-    private String webServerRedirectUri;
+    @ColumnType(typeHandler = JSONArrayTypeHandler.class)
+    private ArrayNode webServerRedirectUri;
 
     /**
      * access_token 有效期，默认为一天

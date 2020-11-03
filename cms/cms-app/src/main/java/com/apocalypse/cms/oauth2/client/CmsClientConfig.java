@@ -32,7 +32,7 @@ import static org.springframework.security.oauth2.client.web.OAuth2Authorization
  * @date 2020/10/20
  */
 @EnableWebSecurity(debug = true)
-public class OAuth2ClientConfig extends WebSecurityConfigurerAdapter {
+public class CmsClientConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
@@ -41,6 +41,8 @@ public class OAuth2ClientConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/login/oauth2")
+                .permitAll()
+                .antMatchers("/to/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

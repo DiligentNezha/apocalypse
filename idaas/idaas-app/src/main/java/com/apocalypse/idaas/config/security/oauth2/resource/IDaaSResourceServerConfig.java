@@ -1,15 +1,12 @@
-package com.apocalypse.example.config;
+package com.apocalypse.idaas.config.security.oauth2.resource;
 
+import com.apocalypse.idaas.config.security.ResourceIds;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -19,17 +16,17 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Slf4j
 @Configuration
 @EnableResourceServer
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class IDaaSResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         super.configure(resources);
-        resources.resourceId("Example");
+        resources.resourceId(ResourceIds.IDAAS);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        log.info("Example ResourceServerConfig 配置");
+        log.info("IDaaS ResourceServerConfig 配置");
         http.requestMatchers()
                 // 资源服务器将 /open/** 端点作为资源服务器的资源
                 .antMatchers("/open/**")
@@ -37,6 +34,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated();
-
     }
 }

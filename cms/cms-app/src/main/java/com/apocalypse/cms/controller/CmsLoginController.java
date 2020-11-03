@@ -32,16 +32,11 @@ import java.util.Map;
 @RestController
 @RequestMapping
 @Api(value = "认证", tags = {"认证相关"}, consumes = MediaType.APPLICATION_JSON_VALUE)
-public class AuthController {
+public class CmsLoginController {
 
 
     public static final String MOBILE_GET_URL = "http://localhost:31001/open/mobile";
     public static final String MOBILE_ALONE_GET_URL = "http://localhost:32001/open/mobile";
-
-    @ApiOperation(value = "登录", notes = "员工登录", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Rest<LoginResponse> fakeLogin(@Validated AdminLoginRequest request) {
-        throw new IllegalArgumentException("Add Spring Security to handle authentication");
-    }
 
     @Autowired
     private OAuth2AuthorizedClientService oAuth2AuthorizedClientService;
