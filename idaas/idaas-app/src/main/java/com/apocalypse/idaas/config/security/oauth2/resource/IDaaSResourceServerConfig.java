@@ -2,11 +2,15 @@ package com.apocalypse.idaas.config.security.oauth2.resource;
 
 import com.apocalypse.idaas.config.security.ResourceIds;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -17,6 +21,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @Configuration
 @EnableResourceServer
 public class IDaaSResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+    @Autowired
+    private OAuth2WebSecurityExpressionHandler expressionHandler;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -33,6 +40,13 @@ public class IDaaSResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .anyRequest()
-                .authenticated();
+                .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
+    }
+
+    @Bean
+    public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
+        OAuth2WebSecurityExpressionHandler expressionHandler = new OAuth2WebSecurityExpressionHandler();
+        expressionHandler.setApplicationContext(applicationContext);
+        return expressionHandler;
     }
 }

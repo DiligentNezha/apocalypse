@@ -90,8 +90,8 @@ public class IDaaSAuthenticationServerConfig extends WebSecurityConfigurerAdapte
                 .formLogin()
                     .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                     .usernameParameter("loginName")
-                    .defaultSuccessUrl("/doc.html")
-//                    .successHandler(successHandler)
+//                    .defaultSuccessUrl("/doc.html")
+                    .successHandler(successHandler)
 //                    .failureHandler(failureHandler)
                     .authenticationDetailsSource(authenticationDetailsSource)
                 .permitAll();
@@ -107,7 +107,7 @@ public class IDaaSAuthenticationServerConfig extends WebSecurityConfigurerAdapte
                     .permitAll()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/h2-console/**")
+                    .antMatchers("/demo/**")
                     .permitAll()
                 .anyRequest()
                 .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
