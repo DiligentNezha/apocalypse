@@ -17,7 +17,27 @@
 
         <dependency>
             <groupId>com.apocalypse</groupId>
+            <artifactId>apocalypse-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>apocalypse-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>apocalypse-data-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
             <artifactId>apocalypse-boot</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.apocalypse</groupId>
+            <artifactId>apocalypse-util</artifactId>
         </dependency>
 
         <dependency>
@@ -29,6 +49,11 @@
             <groupId>com.apocalypse</groupId>
             <artifactId>idaas-api</artifactId>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security.oauth.boot</groupId>-->
+<!--            <artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -66,11 +91,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -102,9 +122,15 @@
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
+            <artifactId>druid</artifactId>
+            <version>1.2.1</version>
         </dependency>
 
         <dependency>
@@ -120,6 +146,18 @@
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>[4.4.9,5.0.0)</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.11.1</version>
         </dependency>
 
         <dependency>
@@ -200,7 +238,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.8.RELEASE</version>
+                <version>${spring-boot.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>

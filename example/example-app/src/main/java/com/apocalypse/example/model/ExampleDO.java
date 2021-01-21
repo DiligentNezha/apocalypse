@@ -1,10 +1,10 @@
 package com.apocalypse.example.model;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.data.mybatis.SnowflakeIdGenId;
 import com.apocalypse.common.data.mybatis.type.JSONArrayTypeHandler;
 import com.apocalypse.common.data.mybatis.type.JSONObjectTypeHandler;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -78,13 +78,13 @@ public class ExampleDO implements Serializable {
      * 爱好
      */
     @ColumnType(typeHandler = JSONArrayTypeHandler.class)
-    @ApiModelProperty(value = "爱好", dataType = "com.alibaba.fastjson.JSONArray")
-    private JSONArray hobby;
+    @ApiModelProperty(value = "爱好")
+    private ArrayNode hobby;
 
     /**
      * 扩展
      */
     @ColumnType(typeHandler = JSONObjectTypeHandler.class)
-    @ApiModelProperty(value = "扩展数据", dataType = "com.alibaba.fastjson.JSONObject")
-    private JSONObject extend;
+    @ApiModelProperty(value = "扩展数据")
+    private ObjectNode extend;
 }

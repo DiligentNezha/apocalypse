@@ -9,12 +9,7 @@ mapper:
   seq-format: true
   style: camelhumpAndLowercase
   wrap-keyword: '`{0}`'
-swagger:
-  enable: true
-  title: System模块
-  description: System相关接口
-  version: 1.0.0
-  base-package: com.apocalypse.system.controller
+
 pagehelper:
   helperDialect: mysql
   reasonable: true
@@ -27,12 +22,10 @@ mybatis:
   mapper-locations:
     - classpath:mapper/single/*.xml
     - classpath:mapper/complex/*.xml
-  type-aliases-package: com.apocalypse.system.model
+  type-aliases-package: com.apocalypse.idaas.model
 
 server:
-  port: 33001
-  servlet:
-    context-path: /system-api
+  port: 31001
 
 spring:
   profiles:
@@ -50,7 +43,21 @@ spring:
       testOnReturn: false
       validationQuery: SELECT 1 FROM dual
   application:
-    name: apocalypse-system
-  messages:
-    basename: i18n/messages
-    encoding: UTF-8
+    name: apocalypse-idaas
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  session:
+    store-type: redis
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}

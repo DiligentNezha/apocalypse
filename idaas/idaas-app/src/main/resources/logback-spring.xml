@@ -123,4 +123,5 @@
     <logger name="java.sql.PreparedStatement" level="INFO"/>
     <logger name="org.apache.http" level="INFO"/>
     <logger name="org.apache.catalina" level="INFO"/>
+    <logger name="com.alibaba.nacos" level="INFO"/>
 </configuration>

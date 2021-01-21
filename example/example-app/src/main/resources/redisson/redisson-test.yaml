@@ -1,3 +1,0 @@
-singleServerConfig:
-  address: "redis://redis:6379"
-codec: !<com.gkjx.common.data.redis.redisson.codec.CustomJsonJacksonCodec> {}

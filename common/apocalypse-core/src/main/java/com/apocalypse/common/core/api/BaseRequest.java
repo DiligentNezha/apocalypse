@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/4/22
  */

@@ -1,8 +1,8 @@
 package com.apocalypse.common.boot.util;
 
 import cn.hutool.extra.servlet.ServletUtil;
+import com.apocalypse.common.util.json.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.apocalypse.common.data.mybatis.util.json.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;

@@ -1,60 +1,123 @@
 package com.apocalypse.idaas.config;
 
 import cn.hutool.core.date.DatePattern;
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.Formatter;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Configuration
-public class WebConfig extends WebMvcConfigurationSupport {
+public class WebConfig implements WebMvcConfigurer {
 
     @Override
-    protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowCredentials(true)
-                .allowedHeaders("*")
-                .allowedMethods("*")
-                .allowedOrigins("*");
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new Formatter<LocalDate>() {
+            @Override
+            public String print(LocalDate localDate, Locale locale) {
+                return localDate.format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN, locale));
+            }
+
+            @Override
+            public LocalDate parse(String localDate, Locale locale) throws ParseException {
+                return LocalDate.parse(localDate, DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN, locale));
+            }
+        });
+        registry.addFormatter(new Formatter<LocalTime>() {
+            @Override
+            public LocalTime parse(String localTime, Locale locale) throws ParseException {
+                return LocalTime.parse(localTime, DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN,
+                        locale));
+            }
+
+            @Override
+            public String print(LocalTime localTime, Locale locale) {
+                return localTime.format(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN, locale));
+            }
+        });
+        registry.addFormatter(new Formatter<LocalDateTime>() {
+            @Override
+            public LocalDateTime parse(String localDateTime, Locale locale) throws ParseException {
+                return LocalDateTime.parse(localDateTime, DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN,
+                        locale));
+            }
+
+            @Override
+            public String print(LocalDateTime localDateTime, Locale locale) {
+                return localDateTime.format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN, locale));
+            }
+        });
     }
+
+
 
     @Bean
     public RequestContextListener requestContextListener() {
         return new RequestContextListener();
     }
 
-    @Override
-    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        //1.需要定义一个convert转换消息的对象;
-        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
-        //2.序列化配置
-        SerializeConfig serializeConfig = new SerializeConfig();
-        serializeConfig.put(Date.class, new SimpleDateFormatSerializer(DatePattern.NORM_DATETIME_PATTERN));
-        serializeConfig.put(Long.class, new ToStringSerializer());
-        //3.添加fastJson的配置信息;
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializeConfig(serializeConfig);
-        //3处理中文乱码问题
-        List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-        //4.在convert中添加配置信息.
-        fastJsonHttpMessageConverter.setSupportedMediaTypes(fastMediaTypes);
-        fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
-        //将FastJsonHttpMessageConverter放在MappingJackson2HttpMessageConverter前边
-        converters.add(converters.size() - 1, fastJsonHttpMessageConverter);
+    @Bean
+    public Converter<String, LocalDate> localDateConverter() {
+        return new Converter<String, LocalDate>() {
+            @Override
+            public LocalDate convert(String source) {
+                return LocalDate.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN));
+            }
+        };
+    }
+
+    @Bean
+    public Converter<String, LocalTime> localTimeConverter() {
+        return new Converter<String, LocalTime>() {
+            @Override
+            public LocalTime convert(String source) {
+                return LocalTime.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN));
+            }
+        };
+    }
+
+    @Bean
+    public Converter<String, LocalDateTime> localDateTimeConverter() {
+        return new Converter<String, LocalDateTime>() {
+            @Override
+            public LocalDateTime convert(String source) {
+                return LocalDateTime.parse(source, DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN));
+            }
+        };
+    }
+
+    @Bean
+    @Primary
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> builder
+                .featuresToDisable()
+                .serializerByType(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)))
+                .deserializerByType(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATE_PATTERN)))
+
+                .serializerByType(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)))
+                .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_TIME_PATTERN)))
+
+                .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)))
+                .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)));
+
     }
 
     @Override

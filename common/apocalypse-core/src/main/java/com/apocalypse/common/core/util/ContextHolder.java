@@ -3,7 +3,7 @@ package com.apocalypse.common.core.util;
 import cn.hutool.core.util.ObjectUtil;
 import com.apocalypse.common.core.module.AccountAware;
 import com.apocalypse.common.core.module.OrganAware;
-import com.apocalypse.common.core.module.StaffAware;
+import com.apocalypse.common.core.module.IdentityAware;
 import com.apocalypse.common.core.module.TeamAware;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -19,16 +19,16 @@ public class ContextHolder {
 
     public static Long currentStaffId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (ObjectUtil.isNotNull(principal) && principal instanceof StaffAware) {
-            return ((StaffAware) principal).currentStaffId();
+        if (ObjectUtil.isNotNull(principal) && principal instanceof IdentityAware) {
+            return ((IdentityAware) principal).currentStaffId();
         }
         return 0L;
     }
 
     public static Long currentIdentityId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (ObjectUtil.isNotNull(principal) && principal instanceof StaffAware) {
-            return ((StaffAware) principal).currentIdentityId();
+        if (ObjectUtil.isNotNull(principal) && principal instanceof IdentityAware) {
+            return ((IdentityAware) principal).currentIdentityId();
         }
         return 0L;
     }

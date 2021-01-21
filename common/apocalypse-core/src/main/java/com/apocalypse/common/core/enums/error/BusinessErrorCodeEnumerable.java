@@ -1,7 +1,7 @@
 package com.apocalypse.common.core.enums.error;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/7/16
  */

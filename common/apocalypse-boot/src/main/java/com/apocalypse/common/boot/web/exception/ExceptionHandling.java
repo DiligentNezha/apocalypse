@@ -1,6 +1,7 @@
 package com.apocalypse.common.boot.web.exception;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.apocalypse.common.util.json.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -10,7 +11,6 @@ import com.apocalypse.common.core.enums.error.ParameterErrorCodeEnum;
 import com.apocalypse.common.core.enums.error.SystemErrorCodeEnum;
 import com.apocalypse.common.core.exception.ServiceException;
 import com.apocalypse.common.core.util.ServiceExceptionUtil;
-import com.apocalypse.common.data.mybatis.util.json.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

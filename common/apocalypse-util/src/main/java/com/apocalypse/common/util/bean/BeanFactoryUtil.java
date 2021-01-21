@@ -1,4 +1,4 @@
-package com.apocalypse.common.data.mybatis.util.bean;
+package com.apocalypse.common.util.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description 获取springboot中的bean工具
  * @date 2020/6/2
  */

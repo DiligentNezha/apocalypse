@@ -13,6 +13,7 @@
         <module>example</module>
         <module>gateway</module>
         <module>idaas</module>
+        <module>cms</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -34,14 +35,10 @@
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-        <spring-boot.version>2.2.8.RELEASE</spring-boot.version>
+        <spring-boot.version>2.4.0</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <spring-cloud.version>Hoxton.SR2</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
-
-        <!-- api 构建工具 https://github.com/swagger-api/swagger-core/wiki/ -->
-        <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
-        <swagger-models.version>1.5.21</swagger-models.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 
         <!-- 数据库部分 -->
         <mysql.version>8.0.18</mysql.version>
@@ -53,12 +50,10 @@
         <!-- 分页插件 -->
         <pagehelper-spring-boot-starter.version>1.2.11</pagehelper-spring-boot-starter.version>
         <!-- 数据库连接池 -->
-        <druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
-        <sharding-sphere.version>4.0.0-RC1</sharding-sphere.version>
+        <druid-spring-boot-starter.version>1.2.1</druid-spring-boot-starter.version>
+        <sharding-sphere.version>4.1.1</sharding-sphere.version>
 
         <!-- 工具部分 -->
-        <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
-        <fastjson.version>1.2.58</fastjson.version>
         <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
         <hutool-all.version>5.0.0</hutool-all.version>
         <!-- bean 映射转换工具 http://mapstruct.org/ -->
@@ -78,14 +73,16 @@
 
         <!-- 分布式服务部分 -->
         <!-- 分布式锁工具 https://github.com/redisson/redisson#quick-start -->
-        <redisson-spring-boot-starter.version>3.11.0</redisson-spring-boot-starter.version>
+        <redisson-spring-boot-starter.version>3.13.6</redisson-spring-boot-starter.version>
         <spring-cloud-starter-alibaba-sentinel.version>2.1.0.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
 
         <!-- swagger ui增强 -->
-        <knife4j-spring-boot-starter.version>2.0.5</knife4j-spring-boot-starter.version>
+        <knife4j-spring-boot-starter.version>2.0.7</knife4j-spring-boot-starter.version>
         <!-- 测试部分 -->
         <!-- 数据模拟工具 https://github.com/DiUS/java-faker/ -->
         <javafaker.version>0.18</javafaker.version>
+
+        <javassist.version>3.18.1-GA</javassist.version>
 
         <!-- 插件部分 -->
         <lombok.version>1.18.10</lombok.version>
@@ -98,13 +95,27 @@
         <dependencies>
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-all</artifactId>
+                <artifactId>apocalypse-boot</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.apocalypse</groupId>
-                <artifactId>apocalypse-boot</artifactId>
+                <artifactId>apocalypse-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-data-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-data-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.apocalypse</groupId>
+                <artifactId>apocalypse-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -152,25 +163,6 @@
             </dependency>
 
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox-swagger2.version}</version>
-                <!-- 解决Springfox-Swagger 2.9.2版本NumberFormatException异常,先排除，再导入，导入的版本有所升级 -->
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>io.swagger</groupId>
-                <artifactId>swagger-models</artifactId>
-                <version>${swagger-models.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
@@ -213,6 +205,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-namespace</artifactId>
+                <version>${sharding-sphere.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>20.0</version>
@@ -223,6 +221,12 @@
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson-spring-boot-starter.version}</version>
             </dependency>
+
+<!--            <dependency>-->
+<!--                <groupId>org.redisson</groupId>-->
+<!--                <artifactId>redisson-spring-data-23</artifactId>-->
+<!--                <version>${redisson-spring-data.version}</version>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.auth0</groupId>
@@ -289,20 +293,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
         </dependency>
 
         <!-- 工具 lombok https://projectlombok.org/features/all -->

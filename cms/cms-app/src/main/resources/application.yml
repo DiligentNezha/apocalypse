@@ -1,0 +1,54 @@
+mapper:
+  check-example-entity-class: true
+  identity: MYSQL
+  mappers:
+    - com.apocalypse.common.data.mybatis.MyMapper
+  not-empty: true
+  safe-delete: true
+  safe-update: true
+  seq-format: true
+  style: camelhumpAndLowercase
+  wrap-keyword: '`{0}`'
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  row-bounds-with-count: true
+  offset-as-page-num: true
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/single/*.xml
+    - classpath:mapper/ComplexMapper/*.xml
+  type-aliases-package: com.apocalypse.cms.model
+server:
+  port: 33001
+
+spring:
+  profiles:
+    active: @profileActive@
+  datasource:
+    druid:
+      connectionProperties:
+        - druid.stat.mergeSql=true
+        - druid.stat.slowSqlMillis=5000
+      filters:
+        - stat
+        - wall
+        - slf4j
+      maxActive: 20
+      testOnReturn: false
+      validationQuery: SELECT 1 FROM dual
+  application:
+    name: apocalypse-cms
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  main:
+    # ShardingSphere 需要自己创建数据源，和 Druid 数据源冲突，设置允许 bean 定义覆盖来避免报错
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      location: upload

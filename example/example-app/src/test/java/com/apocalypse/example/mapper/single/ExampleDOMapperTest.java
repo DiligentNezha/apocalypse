@@ -1,7 +1,6 @@
 package com.apocalypse.example.mapper.single;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.apocalypse.common.util.json.JsonUtil;
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.ExampleDO;
 import com.apocalypse.example.model.ExampleExtendDO;
@@ -40,12 +39,10 @@ public class ExampleDOMapperTest {
                 .setExampleExtendId(exampleExtendDO.getId())
                 .setName("江阿生")
                 .setBirthday(LocalDate.now())
-                .setHobby(new JSONArray()
-                        .fluentAdd("唱歌")
-                        .fluentAdd("舞剑"))
-                .setExtend(new JSONObject()
-                        .fluentPut("job", "programmer")
-                        .fluentPut("tag", "talk is cheap! show me the code!"))
+                .setHobby(JsonUtil.emptyArrayNode().add("唱歌").add("跳舞"))
+                .setExtend(JsonUtil.emptyObjectNode()
+                        .put("job", "programmer")
+                        .put("tag", "talk is cheap! show me the code!"))
                 .setRemark("低调！低调！低调！重要的事情说三遍！");
 
         exampleDOMapper.insertSelective(exampleDO);

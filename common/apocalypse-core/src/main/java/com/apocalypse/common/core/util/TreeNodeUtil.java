@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.apocalypse.common.core.convert.TreeNodeConverter;
 import com.apocalypse.common.core.module.TreeNode;
 import com.apocalypse.common.core.vo.TreeNodeVO;
-import com.apocalypse.common.data.mybatis.util.bean.BeanFactoryUtil;
+import com.apocalypse.common.util.bean.BeanFactoryUtil;
 
 import java.util.Collections;
 import java.util.Comparator;

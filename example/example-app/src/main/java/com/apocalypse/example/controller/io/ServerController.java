@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.apocalypse.common.core.api.BaseResponse;
 import com.apocalypse.common.core.api.Rest;
-import com.apocalypse.common.data.mybatis.util.json.JsonUtil;
+import com.apocalypse.common.util.json.JsonUtil;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -20,12 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.apocalypse</groupId>
-            <artifactId>apocalypse-all</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <artifactId>apocalypse-core</artifactId>
         </dependency>
     </dependencies>
 </project>

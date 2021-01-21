@@ -1,0 +1,87 @@
+debug: true
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: c9f23d759a7f3d0eeef8
+            client-secret: 94633d7132df519c80511a688100bc512ce76435
+            redirectUri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
+          dingtalk:
+            client-id: dingoav6meuvwoo0hep7mm
+            client-secret: g47vFUz9AwpiAXWhnpJN3faY2XF7CXq4UVXHP1KySjwOx1D2LTn-nsRvQkm7uASw
+            client-name: 钉钉登录
+            provider: dingtalk
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
+            scope:
+              - snsapi_login
+          idaas:
+            clientId: idaas
+            clientSecret: secret
+            clientName: IDaaS
+            provider: idaas
+            authorizationGrantType: authorization_code
+            redirectUri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
+            scope:
+              - me
+              - mobile
+        provider:
+          dingtalk:
+            # https://oapi.dingtalk.com/connect/qrconnect?appid=APPID&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=REDIRECT_URI
+            # https://oapi.dingtalk.com/connect/qrconnect?response_type=code&client_id=dingoav6meuvwoo0hep7mm&state=fpXRUISj9jIbuw15XoKaktJmQFnJAs8cdhCsFlHa57k%3D&redirect_uri=http://localhost:33001/login/oauth2/code/dingtalk
+            authorization-uri: https://oapi.dingtalk.com/connect/qrconnect
+            tokenUri: https://oapi.dingtalk.com/gettoken
+            userInfoUri: https://oapi.dingtalk.com/sns/getuserinfo_bycode
+            userNameAttribute: nick
+          idaas:
+            authorizationUri: http://localhost:31001/oauth/authorize
+            tokenUri: http://localhost:31001/oauth/token
+            userInfoUri: http://localhost:31001/open/me
+            userNameAttribute: username
+
+
+  #        client-id: SimpleClientId
+#        client-secret: secret
+#        access-token-uri: http://localhost:31001/oauth/token
+#        user-authorization-uri: http://localhost:31001/oauth/authorize
+#      resource:
+#        user-info-uri: http://localhost:31001/me
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: druid
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/apocalypse_cms?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+
+  redis:
+    database: 8
+    host: localhost
+    port: 6379
+    timeout: 10000ms
+    redisson:
+      file: "classpath:/redisson/redisson-dev.yaml"
+  cloud:
+    inetutils:
+      ignored-interfaces: #忽略docker0网卡以及 veth开头的网卡
+        - docker0
+        - veth.*
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      log:
+        switch-pid: true
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000ms
+  thymeleaf:
+    cache: false

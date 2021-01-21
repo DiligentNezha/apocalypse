@@ -1,4 +1,4 @@
-package com.apocalypse.common.data.mybatis.util.json;
+package com.apocalypse.common.util.json;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,7 +22,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author <a href="kaihuijing@guokejianxin.com">jingkaihui</a>
+ * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
  * @description
  * @date 2020/6/2
  */

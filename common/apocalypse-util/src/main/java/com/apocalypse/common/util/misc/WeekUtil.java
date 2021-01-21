@@ -1,4 +1,4 @@
-package com.apocalypse.common.data.mybatis.util.misc;
+package com.apocalypse.common.util.misc;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateRange;

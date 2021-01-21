@@ -15,7 +15,6 @@
         <dependency>
             <groupId>com.apocalypse</groupId>
             <artifactId>apocalypse-core</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
