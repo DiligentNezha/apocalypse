@@ -44,7 +44,7 @@ import java.util.Arrays;
  */
 @Slf4j
 @EnableWebSecurity(debug = true)
-public class IDaaSAuthenticationServerConfig extends WebSecurityConfigurerAdapter {
+public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;

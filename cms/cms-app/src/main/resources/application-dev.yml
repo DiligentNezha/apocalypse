@@ -1,5 +1,4 @@
 debug: true
-
 spring:
   security:
     oauth2:
@@ -27,7 +26,6 @@ spring:
             redirectUri: "{baseUrl}/call/{action}/oauth2/code/{registrationId}"
             scope:
               - me
-              - mobile
         provider:
           dingtalk:
             # https://oapi.dingtalk.com/connect/qrconnect?appid=APPID&response_type=code&scope=snsapi_login&state=STATE&redirect_uri=REDIRECT_URI
@@ -83,5 +81,3 @@ spring:
     type: redis
     redis:
       time-to-live: 300000ms
-  thymeleaf:
-    cache: false
