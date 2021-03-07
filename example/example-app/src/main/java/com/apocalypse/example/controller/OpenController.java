@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/open")
 @Api(value = "认证", tags = {"认证相关"}, consumes = MediaType.APPLICATION_JSON_VALUE)
-public class ExampleOpenController {
+public class OpenController {
 
     @Autowired
     private RedissonClient redissonClient;
