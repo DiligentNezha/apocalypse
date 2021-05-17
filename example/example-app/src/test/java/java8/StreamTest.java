@@ -1,6 +1,6 @@
 package java8;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 import java.util.IntSummaryStatistics;
 import java.util.List;
@@ -18,7 +18,7 @@ public class StreamTest {
     /**
      * forEach 用来迭代流中的每个数据
      */
-    @Test
+//    @Test
     public void forEachTest() {
         //使用 forEach 输出 10 个随机数
         ThreadLocalRandom.current()
@@ -30,7 +30,7 @@ public class StreamTest {
     /**
      * map 用于映射每个元素到对应的结果
      */
-    @Test
+//    @Test
     public void mapTest() {
         Stream<Integer> integerStream = Stream.of(0, 1, 2, 3, 4, 5);
         List<Integer> collect = integerStream
@@ -44,7 +44,7 @@ public class StreamTest {
     /**
      * 过滤元素
      */
-    @Test
+//    @Test
     public void filterTest() {
         Stream<Integer> integerStream = Stream.of(0, 1, 2, 3, 4, 5);
         List<Integer> collect = integerStream
@@ -57,7 +57,7 @@ public class StreamTest {
     /**
      * 获取指定数量
      */
-    @Test
+//    @Test
     public void limitTest() {
         ThreadLocalRandom
                 .current()
@@ -70,7 +70,7 @@ public class StreamTest {
     /**
      * 排序
      */
-    @Test
+//    @Test
     public void sortedTest() {
         ThreadLocalRandom
                 .current()
@@ -81,7 +81,7 @@ public class StreamTest {
                 .forEach(System.out::println);
     }
 
-    @Test
+//    @Test
     public void summaryTest() {
         Stream<Integer> integerStream = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 

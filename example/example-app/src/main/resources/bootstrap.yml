@@ -1,6 +1,7 @@
 logging:
   config: classpath:logback-spring.xml
-  path: ./logs/
+  file:
+    path: ./logs/
 spring:
   cloud:
     nacos:

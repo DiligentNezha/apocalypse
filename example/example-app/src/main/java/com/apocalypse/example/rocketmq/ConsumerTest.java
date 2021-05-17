@@ -1,4 +1,4 @@
-package com.apocalypse.example.mq;
+package com.apocalypse.example.rocketmq;
 
 import com.aliyun.mq.http.MQClient;
 import com.aliyun.mq.http.MQConsumer;

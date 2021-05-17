@@ -1,5 +1,6 @@
 package com.apocalypse.idaas.config.security.authentication;
 
+import cn.hutool.core.util.StrUtil;
 import com.apocalypse.common.boot.util.HttpContextUtil;
 import com.apocalypse.idaas.config.security.userdetails.CustomUserDetails;
 import com.fasterxml.jackson.databind.node.ObjectNode;

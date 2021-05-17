@@ -114,10 +114,6 @@ public class BaseServiceImpl<T, PK> implements BaseService<T, PK> {
         return myMapper.insertList(recordList);
     }
 
-    @Override
-    public int insertUseGeneratedKeys(T record) {
-        return myMapper.insertUseGeneratedKeys(record);
-    }
 
     @Override
     public T selectOneByProperty(Fn<T, ?> fn, Object value) {

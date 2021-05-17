@@ -70,10 +70,42 @@
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.session</groupId>-->
+<!--            <artifactId>spring-session-data-redis</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.aliyun</groupId>-->
+<!--            <artifactId>alibaba-dingtalk-service-sdk</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.dingtalk.api</groupId>-->
+<!--            <artifactId>top-api-sdk-dev</artifactId>-->
+<!--            <version>20210322</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>alibaba-dingtalk-service-sdk</artifactId>
-            <version>1.0.1</version>
+            <groupId>com.taobao.top</groupId>
+            <artifactId>top-auto-sdk</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/taobao-sdk-java-auto_1479188381469-20210427.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bitbucket.b_c</groupId>
+            <artifactId>jose4j</artifactId>
+            <version>0.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.idsmanager</groupId>
+            <artifactId>idaas</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/JWT-SDK-1.1.1_1.8.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -84,6 +116,24 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.14.0</version>
         </dependency>
 
     </dependencies>
@@ -106,8 +156,8 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>application-${profileActive}.yml</include>
-                    <include>application-pre.yml</include>
-                    <include>application-test.yml</include>
+<!--                    <include>application-pre.yml</include>-->
+<!--                    <include>application-test.yml</include>-->
                     <include>application.yml</include>
                 </includes>
             </resource>

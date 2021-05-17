@@ -1,4 +1,9 @@
 debug: true
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: ./logs/
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

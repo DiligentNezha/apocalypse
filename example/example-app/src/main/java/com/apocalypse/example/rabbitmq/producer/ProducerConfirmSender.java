@@ -1,4 +1,4 @@
-package com.apocalypse.example.sender;
+package com.apocalypse.example.rabbitmq.producer;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;

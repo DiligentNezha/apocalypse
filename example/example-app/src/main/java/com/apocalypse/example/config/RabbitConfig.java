@@ -1,11 +1,7 @@
 package com.apocalypse.example.config;
 
 import com.apocalypse.example.constant.RabbitConstant;
-import com.apocalypse.example.receiver.ProcessReceiver;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

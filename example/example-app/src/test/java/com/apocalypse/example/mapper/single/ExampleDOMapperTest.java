@@ -4,8 +4,8 @@ import com.apocalypse.common.util.json.JsonUtil;
 import com.apocalypse.example.ExampleApplication;
 import com.apocalypse.example.model.ExampleDO;
 import com.apocalypse.example.model.ExampleExtendDO;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
  * @Description
  * @date 2019/5/31
  */
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExampleApplication.class)
 public class ExampleDOMapperTest {
 
@@ -27,7 +27,7 @@ public class ExampleDOMapperTest {
     @Autowired
     private ExampleExtendDOMapper exampleExtendDOMapper;
 
-    @Test
+//    @Test
     public void save() {
         ExampleExtendDO exampleExtendDO = new ExampleExtendDO()
                 .setAlias("张人风")

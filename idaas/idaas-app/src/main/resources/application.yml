@@ -25,7 +25,7 @@ mybatis:
   type-aliases-package: com.apocalypse.idaas.model
 
 server:
-  port: 31001
+  port: 35210
 
 spring:
   profiles:

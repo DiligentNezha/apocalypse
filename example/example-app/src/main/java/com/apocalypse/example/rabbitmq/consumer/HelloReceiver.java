@@ -1,4 +1,4 @@
-package com.apocalypse.example.receiver;
+package com.apocalypse.example.rabbitmq.consumer;
 
 import com.apocalypse.example.constant.RabbitConstant;
 import com.rabbitmq.client.Channel;
@@ -31,7 +31,7 @@ public class HelloReceiver {
 
     /**
      * RabbitMQ 会把消息均匀的分发给 processOneToMany1, processOneToMany2, processOneToMany3 处理
-     * 详见 com.gndc.demo.sender.HelloSenderTest#oneToMany()
+     * 详见 com.gndc.demo.producer.HelloSenderTest#oneToMany()
      * @param i
      * @param message
      * @param channel

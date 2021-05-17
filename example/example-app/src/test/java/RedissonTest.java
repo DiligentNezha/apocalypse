@@ -3,8 +3,8 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.apocalypse.example.ExampleApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
 import org.redisson.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,14 +17,14 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
 @Slf4j
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = ExampleApplication.class)
 public class RedissonTest {
 
     @Autowired
     private RedissonClient redissonClient;
 
-    @Test
+//    @Test
     public void longAdderTest() throws Exception {
         String keyLongAdder = "longAdderTest";
         RLongAdder longAdder = redissonClient.getLongAdder(keyLongAdder);
@@ -48,7 +48,7 @@ public class RedissonTest {
         log.info("expectValue【{}】;finalValue 【{}】", 1000, longAdder.sumAsync().get());
     }
 
-    @Test
+//    @Test
     public void atomicLongCompareAndSetTest() throws InterruptedException {
         String keyAtomicLongCompareAndSet = "atomicLongCompareAndSetTest";
         RAtomicLong atomicLong = redissonClient.getAtomicLong(keyAtomicLongCompareAndSet);
@@ -72,7 +72,7 @@ public class RedissonTest {
         log.info("finalValue 【{}】", atomicLong.get());
     }
 
-    @Test
+//    @Test
     public void atomicLongAsyncTest() throws InterruptedException {
         String keyAtomicLongAsync = "atomicLongAsyncTest";
         RAtomicLong atomicLong = redissonClient.getAtomicLong(keyAtomicLongAsync);
@@ -102,7 +102,7 @@ public class RedissonTest {
         log.info("finalValue 【{}】", atomicLong.get());
     }
 
-    @Test
+//    @Test
     public void atomicLongTest() throws InterruptedException {
         String keyAtomicLong = "atomicLongTest";
         RAtomicLong atomicLong = redissonClient.getAtomicLong(keyAtomicLong);
@@ -125,7 +125,7 @@ public class RedissonTest {
         log.info("finalValue 【{}】", atomicLong.get());
     }
 
-    @Test
+//    @Test
     public void fairLockTest() {
         String keyFairLock = "fairLockTest";
         String keyAtomicLong = "atomicLongTest";

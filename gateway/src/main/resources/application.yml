@@ -1,5 +1,5 @@
 server:
-  port: 31001
+  port: 35110
 swagger:
   enable: true
   title: gateway模块

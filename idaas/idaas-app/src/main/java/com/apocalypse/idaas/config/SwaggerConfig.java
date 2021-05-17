@@ -4,6 +4,7 @@ import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.Authentication;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -38,6 +39,7 @@ public class SwaggerConfig {
     public Docket exampleApi() {
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)
+                .ignoredParameterTypes(Authentication.class)
                 // jdk 8 的入参已按照 String 类型来接收参数
                 .directModelSubstitute(LocalDate.class, String.class)
                 .directModelSubstitute(LocalTime.class, String.class)

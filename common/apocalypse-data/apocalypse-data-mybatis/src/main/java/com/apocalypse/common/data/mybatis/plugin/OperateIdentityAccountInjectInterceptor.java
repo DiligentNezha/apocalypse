@@ -23,36 +23,36 @@ public class OperateIdentityAccountInjectInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        Object[] args = invocation.getArgs();
-        MappedStatement ms = (MappedStatement) args[0];
-        SqlCommandType sqlCommandType = ms.getSqlCommandType();
-        Object parameter = args[1];
-
-        Class<?> clazz = parameter.getClass();
-
-        Long identityId = ContextHolder.currentIdentityId();
-        Long accountId = ContextHolder.currentAccountId();
-
-        if (!clazz.getSuperclass().isInstance(Object.class)) {
-            if (parameter instanceof HashMap) {
-                HashMap<?, ?> parameterMap = (HashMap<?, ?>) parameter;
-                if (parameterMap.containsKey("list")) {
-                    List list = (List) parameterMap.get("list");
-                    Field[] realDeclaredFields = null;
-                    for (Object o : list) {
-                        if (realDeclaredFields == null) {
-                            realDeclaredFields = o.getClass().getDeclaredFields();
-                        }
-                        updateField(realDeclaredFields, o, sqlCommandType, identityId, accountId);
-                    }
-                } else if (parameterMap.containsKey("record")) {
-                    Object record = ((HashMap<?, ?>) parameter).get("record");
-                    updateField(record.getClass().getDeclaredFields(), record, sqlCommandType, identityId, accountId);
-                }
-            }
-        } else {
-            updateField(parameter.getClass().getDeclaredFields(), parameter, sqlCommandType, identityId, accountId);
-        }
+//        Object[] args = invocation.getArgs();
+//        MappedStatement ms = (MappedStatement) args[0];
+//        SqlCommandType sqlCommandType = ms.getSqlCommandType();
+//        Object parameter = args[1];
+//
+//        Class<?> clazz = parameter.getClass();
+//
+//        Long identityId = ContextHolder.currentIdentityId();
+//        Long accountId = ContextHolder.currentAccountId();
+//
+//        if (!clazz.getSuperclass().isInstance(Object.class)) {
+//            if (parameter instanceof HashMap) {
+//                HashMap<?, ?> parameterMap = (HashMap<?, ?>) parameter;
+//                if (parameterMap.containsKey("list")) {
+//                    List list = (List) parameterMap.get("list");
+//                    Field[] realDeclaredFields = null;
+//                    for (Object o : list) {
+//                        if (realDeclaredFields == null) {
+//                            realDeclaredFields = o.getClass().getDeclaredFields();
+//                        }
+//                        updateField(realDeclaredFields, o, sqlCommandType, identityId, accountId);
+//                    }
+//                } else if (parameterMap.containsKey("record")) {
+//                    Object record = ((HashMap<?, ?>) parameter).get("record");
+//                    updateField(record.getClass().getDeclaredFields(), record, sqlCommandType, identityId, accountId);
+//                }
+//            }
+//        } else {
+//            updateField(parameter.getClass().getDeclaredFields(), parameter, sqlCommandType, identityId, accountId);
+//        }
         return invocation.proceed();
     }
 

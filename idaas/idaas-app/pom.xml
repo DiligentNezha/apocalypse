@@ -114,13 +114,18 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>application-${profileActive}.yml</include>
-                    <include>application-pre.yml</include>
-                    <include>application-test.yml</include>
+<!--                    <include>application-pre.yml</include>-->
+<!--                    <include>application-test.yml</include>-->
                     <include>application.yml</include>
                 </includes>
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

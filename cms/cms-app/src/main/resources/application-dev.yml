@@ -1,4 +1,8 @@
 debug: true
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: logs
 spring:
   security:
     oauth2:
@@ -35,9 +39,9 @@ spring:
             userInfoUri: https://oapi.dingtalk.com/sns/getuserinfo_bycode
             userNameAttribute: nick
           idaas:
-            authorizationUri: http://localhost:31001/oauth/authorize
-            tokenUri: http://localhost:31001/oauth/token
-            userInfoUri: http://localhost:31001/open/me
+            authorizationUri: http://idaas.web.apocalypse.com/authorize/authorize.html
+            tokenUri: http://idaas.api.apocalypse.com/oauth/token
+            userInfoUri: http://idaas.api.apocalypse.com/open/me
             userNameAttribute: username
 
 
@@ -81,3 +85,7 @@ spring:
     type: redis
     redis:
       time-to-live: 300000ms
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: my-group

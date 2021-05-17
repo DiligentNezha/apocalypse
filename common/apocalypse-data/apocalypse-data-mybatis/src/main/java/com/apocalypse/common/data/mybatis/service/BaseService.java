@@ -169,14 +169,6 @@ public interface BaseService<T, PK> {
     int insertList(List<T> recordList);
 
     /**
-     * 插入数据，限制为实体包含`id`属性并且必须为自增列，实体配置的主键策略无效
-     *
-     * @param record
-     * @return
-     */
-    int insertUseGeneratedKeys(T record);
-
-    /**
      * 根据属性及对应值进行查询，只能有一个返回值，有多个结果是抛出异常，查询条件使用等号
      *
      * @param fn 查询属性

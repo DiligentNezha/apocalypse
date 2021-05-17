@@ -9,7 +9,7 @@ public class SecurityConstants {
     public static final String AUTH_CAPTCHA = "/idaas/login/captcha/{uuid}";
 
 //    public static final String LOGIN_PROCESSING_URL = "/login/json";
-    public static final String LOGIN_PROCESSING_URL = "/idaas/auth/oauth/authorize";
+    public static final String LOGIN_PROCESSING_URL = "/idaas/login";
 
     public static final String AUTH_LOGOUT = "/idaas/logout";
 

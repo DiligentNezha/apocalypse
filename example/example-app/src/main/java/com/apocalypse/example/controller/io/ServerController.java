@@ -196,7 +196,7 @@ class NIOServer {
         }
         if (StrUtil.isNotEmpty(sb)) {
             InetSocketAddress remoteAddress = (InetSocketAddress) sc.getRemoteAddress();
-            String formatMsg = StrUtil.format("sender ip: {}, port: {}, time: {}, msg: {}", remoteAddress.getAddress(),
+            String formatMsg = StrUtil.format("producer ip: {}, port: {}, time: {}, msg: {}", remoteAddress.getAddress(),
                     remoteAddress.getPort(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)), sb);
             System.out.println("read:" + sb);
@@ -223,7 +223,7 @@ class NIOServer {
         }
         if (StrUtil.isNotEmpty(sb)) {
             InetSocketAddress remoteAddress = (InetSocketAddress) sc.getRemoteAddress();
-            String formatMsg = StrUtil.format("sender ip: {}, port: {}, time: {}, msg: {}", remoteAddress.getAddress(),
+            String formatMsg = StrUtil.format("producer ip: {}, port: {}, time: {}, msg: {}", remoteAddress.getAddress(),
                     remoteAddress.getPort(),
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)), sb);
             System.out.println("write:" + formatMsg);
@@ -246,7 +246,7 @@ class BIOServer {
                 InetSocketAddress isa = ((InetSocketAddress) socket.getRemoteSocketAddress());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String msg = reader.readLine();
-                String formatMsg = StrUtil.format("sender ip: {}, port: {}, time: {}, msg: {}", isa.getAddress(),
+                String formatMsg = StrUtil.format("producer ip: {}, port: {}, time: {}, msg: {}", isa.getAddress(),
                         isa.getPort(),
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN)), msg);
                 messages.add(formatMsg);

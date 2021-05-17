@@ -1,6 +1,6 @@
 package java8;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 import java.util.Optional;
 
@@ -11,13 +11,13 @@ import java.util.Optional;
  */
 public class OptionalTest {
 
-    @Test
+//    @Test
     public void emptyTest() {
         Optional<String> empty = Optional.empty();
         System.out.println(empty.isPresent());
     }
 
-    @Test
+//    @Test
     public void ofTest() {
         Optional<Integer> integerOptional = Optional.of(1);
         integerOptional.ifPresent(value -> System.out.println(value));

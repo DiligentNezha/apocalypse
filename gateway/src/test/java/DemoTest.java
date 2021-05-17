@@ -1,6 +1,6 @@
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.http.HttpUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DemoTest {
     @Test

@@ -24,7 +24,7 @@ mybatis:
     - classpath:mapper/ComplexMapper/*.xml
   type-aliases-package: com.apocalypse.cms.model
 server:
-  port: 33001
+  port: 35410
 
 spring:
   profiles:

@@ -125,5 +125,6 @@ public class WebConfig implements WebMvcConfigurer {
         //把swagger文档地址交由资源处理器处理
         registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/public/**").addResourceLocations("classpath:/templates/public/");
     }
 }

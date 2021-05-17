@@ -1,4 +1,4 @@
-package com.apocalypse.example.mq;
+package com.apocalypse.example.rocketmq;
 
 import com.aliyun.mq.http.MQClient;
 import com.aliyun.mq.http.MQProducer;
@@ -34,7 +34,7 @@ public class ProducerTest {
             TopicMessage pubMsg;
             pubMsg = new TopicMessage(
                     // 消息内容
-                    "hello mq!".getBytes(),
+                    "hello rocketmq!".getBytes(),
                     // 消息标签
                     "good"
             );
@@ -47,11 +47,11 @@ public class ProducerTest {
             TopicMessage pubResultMsg = producer.publishMessage(pubMsg);
 
             // 同步发送消息，只要不抛异常就是成功
-            System.out.println(new Date() + " Send mq message success. Topic is:" + topic + ", msgId is: " + pubResultMsg.getMessageId()
+            System.out.println(new Date() + " Send rocketmq message success. Topic is:" + topic + ", msgId is: " + pubResultMsg.getMessageId()
                     + ", bodyMD5 is: " + pubResultMsg.getMessageBodyMD5());
         } catch (Throwable e) {
             // 消息发送失败，需要进行重试处理，可重新发送这条消息或持久化这条数据进行补偿处理
-            System.out.println(new Date() + " Send mq message failed. Topic is:" + topic);
+            System.out.println(new Date() + " Send rocketmq message failed. Topic is:" + topic);
             e.printStackTrace();
         }
 

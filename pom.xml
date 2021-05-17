@@ -19,12 +19,12 @@
     <packaging>pom</packaging>
     <name>apocalypse-parent</name>
 
-   <!-- <parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
+        <version>2.4.5</version>
         <relativePath/>
-    </parent>-->
+    </parent>
 
     <properties>
         <!-- 编译属性 -->
@@ -35,10 +35,10 @@
         <!-- 基础框架 -->
         <!-- Spring Boot -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-        <spring-boot.version>2.4.0</spring-boot.version>
+        <spring-boot.version>2.4.5</spring-boot.version>
         <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
         <!-- 数据库部分 -->
         <mysql.version>8.0.18</mysql.version>

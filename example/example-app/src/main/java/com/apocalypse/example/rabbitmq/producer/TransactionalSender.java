@@ -1,4 +1,4 @@
-package com.apocalypse.example.sender;
+package com.apocalypse.example.rabbitmq.producer;
 
 import com.apocalypse.example.constant.RabbitConstant;
 import com.rabbitmq.client.Channel;

@@ -82,17 +82,18 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                 .configurationSource(corsConfigurationSource());
         http
                 .exceptionHandling()
-                .accessDeniedHandler(new CustomAccessDeniedHandler());
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
                 // 资源服务器不能指定，指定后将不生成页面，也就没有办法跳转了
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 
         http
                 .formLogin()
                     .loginProcessingUrl(SecurityConstants.LOGIN_PROCESSING_URL)
                     .usernameParameter("loginName")
+                    .loginPage("/login")
 //                    .defaultSuccessUrl("/doc.html")
                     .successHandler(successHandler)
-//                    .failureHandler(failureHandler)
+                    .failureHandler(failureHandler)
                     .authenticationDetailsSource(authenticationDetailsSource)
                 .permitAll();
         http
@@ -109,6 +110,8 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/demo/**")
                     .permitAll()
+                    .antMatchers("/login", "/oauth/authorize/transfer", "/oauth/authorize/finish")
+                    .permitAll()
                 .anyRequest()
                 .access("@customSecurityExpressionRoot.hasPermission(request, authentication)");
 
@@ -118,19 +121,19 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                         // 触发创建 ConcurrentSessionFilter
                         concurrencyControlConfigurer.maximumSessions(1);
                         // TODO session 失效在 OAuth2 环境下需要前端配合做页面跳转
-//                        concurrencyControlConfigurer.expiredSessionStrategy(event -> {
-//                            HttpServletResponse response = event.getResponse();
-//                            SessionInformation sessionInformation = event.getSessionInformation();
-//                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//                            Rest<BaseResponse> rest = Rest.error(AuthenticationErrorCodeEnum.LOGIN_ON_ANOTHER_DEVICE, "本次登录失效");
-//                            HttpContextUtil.write(response, rest);
-//                        });
+                        concurrencyControlConfigurer.expiredSessionStrategy(event -> {
+                            HttpServletResponse response = event.getResponse();
+                            SessionInformation sessionInformation = event.getSessionInformation();
+                            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                            Rest<BaseResponse> rest = Rest.error(AuthenticationErrorCodeEnum.LOGIN_ON_ANOTHER_DEVICE, "本次登录失效");
+                            HttpContextUtil.write(response, rest);
+                        });
                     });
 
-//                    httpSecuritySessionManagementConfigurer.invalidSessionStrategy((request, response) -> {
-//                        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//                        HttpContextUtil.write(response, Rest.error(AuthenticationErrorCodeEnum.CREDENTIALS_EXPIRED));
-//                    });
+                    httpSecuritySessionManagementConfigurer.invalidSessionStrategy((request, response) -> {
+                        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                        HttpContextUtil.write(response, Rest.error(AuthenticationErrorCodeEnum.CREDENTIALS_EXPIRED));
+                    });
                 });
     }
 
@@ -143,7 +146,7 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                 "/manifest.json", "/robots.txt", "/service-worker.js", "/v2/api-docs-ext", "/v2/api-docs",
                 "/favicon.ico", "/index.html", "/webjars/css/chunk-*.css", "/ui",
                 "/webjars/css/app.*.css", "/webjars/js/app.*.js", "/webjars/js/chunk-*.js",
-                "/precache-manifest.*.js"};
+                "/precache-manifest.*.js", "/public/**"};
         web.ignoring()
                 .antMatchers(swaggerExportPaths)
                 .antMatchers("/actuator/health")
@@ -168,12 +171,13 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         //同源配置，*表示任何请求都视为同源，若需指定ip和端口可以改为如“localhost：8080”，多个以“，”分隔；
-        corsConfiguration.addAllowedOrigin("*");
+//        corsConfiguration.addAllowedOrigin("*.apocalypse.com");
+        corsConfiguration.addAllowedOriginPattern("*.apocalypse.com");
         //header，允许哪些header，本案中使用的是token，此处可将*替换为token；
         corsConfiguration.addAllowedHeader("*");
         //允许的请求方法，PSOT、GET等
         corsConfiguration.addAllowedMethod("*");
-//        corsConfiguration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("X-Auth-Token"));
         corsConfiguration.setAllowCredentials(true);
         //配置允许跨域访问的url
         source.registerCorsConfiguration("/**", corsConfiguration);

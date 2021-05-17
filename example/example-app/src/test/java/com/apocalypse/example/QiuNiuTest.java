@@ -9,7 +9,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-import org.junit.Test;
+//import org.junit.Test;
 
 /**
  * @author <a href="kaihuijing@gmail.com">jingkaihui</a>
@@ -18,7 +18,7 @@ import org.junit.Test;
  */
 public class QiuNiuTest {
 
-    @Test
+//    @Test
     public void upload() {
         //构造一个带指定Zone对象的配置类
         Configuration cfg = new Configuration(Zone.zone2());

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <!-- 定义log文件的目录 -->
-    <springProperty scope="context" name="LOG_HOME" source="logging.path" defaultValue=""/>
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.path" defaultValue=""/>
     <!--<property name="LOG_HOME" value="${logging.path}"/>-->
     <!-- 定义服务的名字 -->
     <property name="SERVER_NAME" value="apocalypse-system"/>

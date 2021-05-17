@@ -1,11 +1,11 @@
-package com.apocalypse.example.sender;
+package com.apocalypse.example.rabbitmq.producer;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.apocalypse.example.constant.RabbitConstant;
-import com.apocalypse.example.receiver.ProcessReceiver;
+import com.apocalypse.example.rabbitmq.consumer.ProcessReceiver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
