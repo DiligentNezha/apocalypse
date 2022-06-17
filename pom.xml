@@ -59,7 +59,7 @@
 
         <!-- 工具部分 -->
         <!-- JSON工具 fastjson https://github.com/alibaba/fastjson/wiki -->
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <!-- 工具包 hutool https://hutool.cn/docs/#/ -->
         <hutool-all.version>5.0.0</hutool-all.version>
         <!-- bean 映射转换工具 http://mapstruct.org/ -->
