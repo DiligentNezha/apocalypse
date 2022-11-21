@@ -67,7 +67,7 @@
         <!-- jwt 工具 https://github.com/auth0/java-jwt -->
         <java-jwt.version>3.8.1</java-jwt.version>
         <!-- 分布式任务调度平台 http://www.xuxueli.com/xxl-job/#/ -->
-        <xxl-job.version>2.0.2</xxl-job.version>
+        <xxl-job.version>2.3.1</xxl-job.version>
         <!-- 七牛云SDK -->
         <qiniu-java-sdk.version>7.2.2</qiniu-java-sdk.version>
         <!-- 支付宝SDK -->
