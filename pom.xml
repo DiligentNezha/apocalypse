@@ -73,7 +73,7 @@
         <!-- 支付宝SDK -->
         <alipay-sdk-java.version>3.7.73.ALL</alipay-sdk-java.version>
         <!-- WebSocket 客户端 -->
-        <Java-WebSocket.version>1.4.0</Java-WebSocket.version>
+        <Java-WebSocket.version>1.5.0</Java-WebSocket.version>
         <!-- nacos 服务发现 -->
         <nacos-discovery.version>0.2.2.RELEASE</nacos-discovery.version>
 
