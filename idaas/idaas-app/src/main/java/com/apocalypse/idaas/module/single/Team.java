@@ -37,30 +37,13 @@ public class Team implements Serializable {
      *
      * 科室代码
      */
-    @Column(name = "serial_number")
-    private String serialNumber;
+    @Column(name = "team_code")
+    private String teamCode;
 
     /**
      * 组名
      */
     private String name;
-
-    /**
-     * 联系人
-     */
-    private String contact;
-
-    /**
-     * 联系人方式
-     */
-    @Column(name = "contact_mobile")
-    private String contactMobile;
-
-    /**
-     * 联系人地址
-     */
-    @Column(name = "contact_address")
-    private String contactAddress;
 
     /**
      * 备注

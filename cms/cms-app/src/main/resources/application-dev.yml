@@ -35,9 +35,9 @@ spring:
             userInfoUri: https://oapi.dingtalk.com/sns/getuserinfo_bycode
             userNameAttribute: nick
           idaas:
-            authorizationUri: http://localhost:31001/oauth/authorize
-            tokenUri: http://localhost:31001/oauth/token
-            userInfoUri: http://localhost:31001/open/me
+            authorizationUri: http://idaas.api.apocalypse.com/oauth/authorize
+            tokenUri: http://idaas.api.apocalypse.com/oauth/token
+            userInfoUri: http://idaas.api.apocalypse.com/open/me
             userNameAttribute: username
 
 
