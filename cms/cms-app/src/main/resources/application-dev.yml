@@ -39,7 +39,7 @@ spring:
             userInfoUri: https://oapi.dingtalk.com/sns/getuserinfo_bycode
             userNameAttribute: nick
           idaas:
-            authorizationUri: http://idaas.web.apocalypse.com/authorize/authorize.html
+            authorizationUri: http://idaas.api.apocalypse.com/oauth/authorize
             tokenUri: http://idaas.api.apocalypse.com/oauth/token
             userInfoUri: http://idaas.api.apocalypse.com/open/me
             userNameAttribute: username
